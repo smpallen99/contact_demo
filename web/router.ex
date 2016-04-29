@@ -18,6 +18,7 @@ defmodule Nested.Router do
 
     get "/", PageController, :index
     resources "/categories", CategoryController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
