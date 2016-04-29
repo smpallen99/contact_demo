@@ -1,15 +1,13 @@
-defmodule Nested.Category do
+defmodule Nested.ContactGroup do
   use Nested.Web, :model
 
-  schema "categories" do
-    field :name, :string
-    field :position, :integer
-
-    timestamps
+  schema "contacts_groups" do
+    belongs_to :contact, Nested.Contact
+    belongs_to :group, Nested.Group
   end
 
-  @required_fields ~w(name)
-  @optional_fields ~w(position)
+  @required_fields ~w(contact_id group_id)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.

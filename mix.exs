@@ -37,6 +37,7 @@ defmodule Nested.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
+     {:faker, "~> 0.6.0"},
      {:cowboy, "~> 1.0"}]
   end
 

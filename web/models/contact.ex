@@ -6,6 +6,8 @@ defmodule Nested.Contact do
     field :last_name, :string
     field :email, :string
     belongs_to :category, Nested.Category
+    has_many :contacts_groups, Nested.ContactGroup
+    has_many :groups, through: [:contacts_groups, :groups]
 
     timestamps
   end

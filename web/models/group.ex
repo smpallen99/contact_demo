@@ -4,6 +4,8 @@ defmodule Nested.Group do
   schema "groups" do
     field :name, :string
 
+    has_many :contacts_groups, Nested.ContactGroup
+    has_many :contacts, through: [:contacts_groups, :contacts]
     timestamps
   end
 
