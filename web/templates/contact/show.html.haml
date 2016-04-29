@@ -1,0 +1,23 @@
+%h2 Show contact
+
+%ul
+
+  %li
+    %strong First name:
+    = @contact.first_name
+
+  %li
+    %strong Last name:
+    = @contact.last_name
+
+  %li
+    %strong Email:
+    = @contact.email
+
+  %li
+    %strong Category:
+    = @contact.category_id
+
+
+= link "Edit", to: contact_path(@conn, :edit, @contact)
+= link "Back", to: contact_path(@conn, :index)

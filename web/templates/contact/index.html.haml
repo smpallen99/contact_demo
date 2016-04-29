@@ -1,0 +1,25 @@
+%h2 Listing contacts
+
+%table.table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th Email
+      %th Category
+
+      %th
+  %tbody
+    - for contact <- @contacts do
+      %tr
+      %td= contact.first_name
+      %td= contact.last_name
+      %td= contact.email
+      %td= contact.category_id
+
+      %td.text-right
+        = link "Show", to: contact_path(@conn, :show, contact), class: "btn btn-default btn-xs"
+        = link "Edit", to: contact_path(@conn, :edit, contact), class: "btn btn-default btn-xs"
+        = link "Delete", to: contact_path(@conn, :delete, contact), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+= link "New contact", to: contact_path(@conn, :new)
