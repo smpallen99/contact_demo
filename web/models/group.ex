@@ -5,7 +5,7 @@ defmodule Nested.Group do
     field :name, :string
 
     has_many :contacts_groups, Nested.ContactGroup
-    has_many :contacts, through: [:contacts_groups, :contacts]
+    has_many :contacts, through: [:contacts_groups, :contact]
     timestamps
   end
 

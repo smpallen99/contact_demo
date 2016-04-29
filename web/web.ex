@@ -23,6 +23,8 @@ defmodule Nested.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
+
+      def all, do: Nested.Repo.all(__MODULE__)
     end
   end
 

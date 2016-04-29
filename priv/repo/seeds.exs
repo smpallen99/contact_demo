@@ -39,7 +39,14 @@ categories = Repo.all Category
 
 for _i <- 1..100 do
   category = Enum.random categories
-  group = Enum.random groups
+  num_groups = 1..:rand.uniform(4)
+  group_list = Enum.reduce(
+    num_groups,
+    MapSet.new,
+      fn(_, acc) ->
+        MapSet.put(acc, Enum.random(groups))
+      end)
+
   contact = Contact.changeset(%Contact{}, %{
     first_name: Faker.Name.En.first_name,
     last_name: Faker.Name.En.last_name,
@@ -48,11 +55,13 @@ for _i <- 1..100 do
     })
   |> Repo.insert!
 
-  ContactGroup.changeset(%ContactGroup{}, %{
-    contact_id: contact.id,
-    group_id: group.id
-    })
-  |> Repo.insert!
+  Enum.each(group_list, fn(group) ->
+    ContactGroup.changeset(%ContactGroup{}, %{
+      contact_id: contact.id,
+      group_id: group.id
+      })
+    |> Repo.insert!
+  end)
 end
 
 

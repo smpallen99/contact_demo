@@ -4,6 +4,7 @@ defmodule Nested.Category do
   schema "categories" do
     field :name, :string
     field :position, :integer
+    has_many :contacts, Nested.Contact
 
     timestamps
   end

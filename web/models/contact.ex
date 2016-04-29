@@ -7,12 +7,12 @@ defmodule Nested.Contact do
     field :email, :string
     belongs_to :category, Nested.Category
     has_many :contacts_groups, Nested.ContactGroup
-    has_many :groups, through: [:contacts_groups, :groups]
+    has_many :groups, through: [:contacts_groups, :group]
 
     timestamps
   end
 
-  @required_fields ~w(first_name last_name email)
+  @required_fields ~w(first_name last_name email category_id)
   @optional_fields ~w()
 
   @doc """

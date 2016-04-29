@@ -7,7 +7,7 @@ defmodule Nested.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -20,6 +20,7 @@ defmodule Nested.Router do
   scope "/admin", ExAdmin do
     pipe_through :browser
     admin_routes
+    post "/:resource/sort", AdminController, :sort
   end
 
   scope "/", Nested do
