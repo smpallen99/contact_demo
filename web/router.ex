@@ -1,5 +1,7 @@
 defmodule Nested.Router do
   use Nested.Web, :router
+  use ExAdmin.Router
+
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +13,13 @@ defmodule Nested.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  # your app's routes
+
+  scope "/admin", ExAdmin do
+    pipe_through :browser
+    admin_routes
   end
 
   scope "/", Nested do

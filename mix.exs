@@ -38,6 +38,7 @@ defmodule Nested.Mixfile do
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
+     {:ex_admin, "~> 0.7.2"},
      {:cowboy, "~> 1.0"}]
   end
 
