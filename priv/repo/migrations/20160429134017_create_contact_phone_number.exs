@@ -3,8 +3,8 @@ defmodule Nested.Repo.Migrations.CreateContactPhoneNumber do
 
   def change do
     create table(:contacts_phone_numbers) do
-      add :contact_id, references(:contacts, on_delete: :nothing)
-      add :phone_number_id, references(:phone_numbers, on_delete: :nothing)
+      add :contact_id, references(:contacts, on_delete: :delete_all)
+      add :phone_number_id, references(:phone_numbers, on_delete: :delete_all)
 
       timestamps
     end
