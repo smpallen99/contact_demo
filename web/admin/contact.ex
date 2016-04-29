@@ -11,12 +11,12 @@ defmodule Nested.ExAdmin.Contact do
         input contact, :category, collection: Nested.Category.all
       end
 
-      # inputs "Phone Numbers" do
-      #   has_many contact, :phone_numbers, fn(p) ->
-      #     input p, :label, collection: UcxNotifier.PhoneNumber.labels
-      #     input p, :number
-      #   end
-      # end
+      inputs "Phone Numbers" do
+        has_many contact, :phone_numbers, fn(p) ->
+          input p, :label, collection: Nested.PhoneNumber.labels
+          input p, :number
+        end
+      end
 
       inputs "Groups" do
         inputs :groups, as: :check_boxes, collection: Nested.Group.all
@@ -30,9 +30,9 @@ defmodule Nested.ExAdmin.Contact do
       column :last_name
       column :email
       column :category
-      # column :phone_numbers, fn(contact) ->
-      #   Nested.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
-      # end
+      column :phone_numbers, fn(contact) ->
+        text Nested.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+      end
       actions
     end
 
@@ -44,12 +44,12 @@ defmodule Nested.ExAdmin.Contact do
         row :category
       end
 
-      # panel "Phone Numbers" do
-      #   table_for contact.phone_numbers do
-      #     column :label
-      #     column :number
-      #   end
-      # end
+      panel "Phone Numbers" do
+        table_for contact.phone_numbers do
+          column :label
+          column :number
+        end
+      end
 
       panel "Groups" do
         table_for contact.groups do
@@ -60,8 +60,7 @@ defmodule Nested.ExAdmin.Contact do
     end
     query do
       %{
-        # all: [preload: [:category, :phone_numbers, :groups]],
-        all: [preload: [:category, :groups]],
+        all: [preload: [:category, :phone_numbers, :groups]],
       }
     end
   end

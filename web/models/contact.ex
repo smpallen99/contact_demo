@@ -8,6 +8,8 @@ defmodule Nested.Contact do
     belongs_to :category, Nested.Category
     has_many :contacts_groups, Nested.ContactGroup
     has_many :groups, through: [:contacts_groups, :group]
+    has_many :contacts_phone_numbers, Nested.ContactPhoneNumber
+    has_many :phone_numbers, through: [:contacts_phone_numbers, :phone_number]
 
     timestamps
   end

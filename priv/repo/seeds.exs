@@ -16,10 +16,29 @@ alias Nested.Category
 alias Nested.User
 alias Nested.ContactGroup
 alias Nested.Repo
+alias Nested.PhoneNumber
+alias Nested.ContactPhoneNumber
+
+defmodule Faker.Phone do
+  def phone_number do
+    area_code <> nxx <> ext
+  end
+  defp area_code do
+    last = :rand.uniform(99)
+    |> Integer.to_string
+    |> String.rjust(2, ?0)
+    Integer.to_string(:rand.uniform(8) + 1) <> last
+  end
+  defp nxx,
+    do: :rand.uniform(999) |> Integer.to_string |> String.rjust(3, ?0)
+  defp ext,
+    do: :rand.uniform(9999) |> Integer.to_string |> String.rjust(4, ?0)
+
+end
 
 Faker.start
 
-[ContactGroup, Contact, Group, User, Category]
+[ContactPhoneNumber, ContactGroup, Contact, Group, User, Category, PhoneNumber]
 |> Enum.each(&Repo.delete_all/1)
 
 ~w(Employees Maintenance Marketing Sales Management)
@@ -55,6 +74,7 @@ for _i <- 1..100 do
     })
   |> Repo.insert!
 
+  # add groups
   Enum.each(group_list, fn(group) ->
     ContactGroup.changeset(%ContactGroup{}, %{
       contact_id: contact.id,
@@ -62,6 +82,23 @@ for _i <- 1..100 do
       })
     |> Repo.insert!
   end)
+
+  # add phone_numbers
+  labels = Enum.reduce(1..:rand.uniform(2), MapSet.new, fn(_, acc) ->
+    MapSet.put acc, Enum.random PhoneNumber.labels
+  end)
+  for label <- labels do
+    pn = PhoneNumber.changeset(%PhoneNumber{}, %{
+      number: Faker.Phone.phone_number,
+      label: label
+    })
+    |> Repo.insert!
+    ContactPhoneNumber.changeset(%ContactPhoneNumber{}, %{
+      contact_id: contact.id,
+      phone_number_id: pn.id
+    })
+    |> Repo.insert!
+  end
 end
 
 
