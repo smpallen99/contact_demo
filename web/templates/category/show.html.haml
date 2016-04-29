@@ -1,0 +1,15 @@
+%h2 Show category
+
+%ul
+
+  %li
+    %strong Name:
+    = @category.name
+
+  %li
+    %strong Position:
+    = @category.position
+
+
+= link "Edit", to: category_path(@conn, :edit, @category)
+= link "Back", to: category_path(@conn, :index)
