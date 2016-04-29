@@ -1,0 +1,11 @@
+%h2 Show group
+
+%ul
+
+  %li
+    %strong Name:
+    = @group.name
+
+
+= link "Edit", to: group_path(@conn, :edit, @group)
+= link "Back", to: group_path(@conn, :index)

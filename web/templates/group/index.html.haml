@@ -1,0 +1,19 @@
+%h2 Listing groups
+
+%table.table
+  %thead
+    %tr
+      %th Name
+
+      %th
+  %tbody
+    - for group <- @groups do
+      %tr
+      %td= group.name
+
+      %td.text-right
+        = link "Show", to: group_path(@conn, :show, group), class: "btn btn-default btn-xs"
+        = link "Edit", to: group_path(@conn, :edit, group), class: "btn btn-default btn-xs"
+        = link "Delete", to: group_path(@conn, :delete, group), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+= link "New group", to: group_path(@conn, :new)
