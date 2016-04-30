@@ -22,7 +22,8 @@ defmodule Nested.ExAdmin.Group do
 
       panel "Contacts" do
         table_for group.contacts do
-          column :name, fn(contact) ->
+          column :id, link: true
+          column :name, [link: true], fn(contact) ->
             text "#{contact.first_name} #{contact.last_name}"
           end
           # column :phone_numbers, fn(contact) ->

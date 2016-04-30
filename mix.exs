@@ -38,7 +38,8 @@ defmodule Nested.Mixfile do
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
-     {:ex_admin, path: "../../../ex_admin"},
+     #{:ex_admin, path: "../../../ex_admin"},
+     {:ex_admin, path: "../../bootstrap/ex_admin"},
      # {:ex_admin, "~> 0.7.2"},
      {:cowboy, "~> 1.0"}]
   end

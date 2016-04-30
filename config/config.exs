@@ -30,6 +30,11 @@ config :phoenix, :template_engines,
 config :ex_admin,
   repo: Nested.Repo,
   module: Nested,
+  # theme: ExAdmin.Theme.AdminLte2,
+  theme_selector: [
+    {"AdminLte",  ExAdmin.Theme.AdminLte2},
+    {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
+  ],
   modules: [
     Nested.ExAdmin.Dashboard,
     Nested.ExAdmin.Contact,
