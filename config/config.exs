@@ -39,7 +39,9 @@ config :ex_admin,
     Nested.ExAdmin.Dashboard,
     Nested.ExAdmin.Contact,
     Nested.ExAdmin.Group,
-    Nested.ExAdmin.Category
+    Nested.ExAdmin.Category,
+    Nested.ExAdmin.User,
+    Nested.ExAdmin.Role
   ]
 
 config :xain, :quote, "'"

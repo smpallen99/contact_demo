@@ -1,0 +1,26 @@
+<h2>Listing roles</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for role <- @roles do %>
+    <tr>
+      <td><%= role.name %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: role_path(@conn, :show, role), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: role_path(@conn, :edit, role), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: role_path(@conn, :delete, role), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New role", to: role_path(@conn, :new) %>

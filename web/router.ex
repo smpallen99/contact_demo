@@ -31,6 +31,7 @@ defmodule Nested.Router do
     resources "/users", UserController
     resources "/contacts", ContactController
     resources "/groups", GroupController
+    resources "/roles", RoleController
   end
 
   # Other scopes may use custom stacks.

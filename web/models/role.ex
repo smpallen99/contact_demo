@@ -1,18 +1,17 @@
-defmodule Nested.User do
+defmodule Nested.Role do
   use Nested.Web, :model
 
-  schema "users" do
+  schema "roles" do
     field :name, :string
-    field :email, :string
-    field :encrypted_password, :string
 
     has_many :uses_roles, Nested.UserRole
-    has_many :roles, through: [:uses_roles, :user]
+    has_many :roles, through: [:uses_roles, :role]
+
     timestamps
   end
 
-  @required_fields ~w(name email)
-  @optional_fields ~w(encrypted_password)
+  @required_fields ~w(name)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
