@@ -7,6 +7,7 @@ defmodule Nested.ExAdmin.User do
 
       column :name
       column :email
+      actions
     end
 
     show user do
