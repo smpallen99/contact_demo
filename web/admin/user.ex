@@ -20,7 +20,7 @@ defmodule Nested.ExAdmin.User do
         # end
       end
       panel "Roles" do
-        table_for(user.roles) do
+        table_for user.roles do
           column :name
         end
       end

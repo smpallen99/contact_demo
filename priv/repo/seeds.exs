@@ -18,6 +18,8 @@ alias Nested.ContactGroup
 alias Nested.Repo
 alias Nested.PhoneNumber
 alias Nested.ContactPhoneNumber
+alias Nested.UserRole
+alias Nested.Role
 
 defmodule Faker.Phone do
   def phone_number do
@@ -38,8 +40,10 @@ end
 
 Faker.start
 
-[ContactPhoneNumber, ContactGroup, Contact, Group, User, Category, PhoneNumber]
-|> Enum.each(&Repo.delete_all/1)
+[
+  ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, User, Category,
+  PhoneNumber, Role
+] |> Enum.each(&Repo.delete_all/1)
 
 ~w(Employees Maintenance Marketing Sales Management)
 |> Enum.each(fn(name) ->
@@ -53,8 +57,30 @@ end)
   |> Repo.insert!
 end)
 
+~w(admin manager use)
+|> Enum.each(fn(name) ->
+  Role.changeset(%Role{}, %{name: name})
+  |> Repo.insert!
+end)
+
 groups = Repo.all Group
 categories = Repo.all Category
+roles = Repo.all Role
+
+for _i <- 1..25 do
+  user = User.changeset(%User{}, %{
+    name: Faker.Name.En.name,
+    email: Faker.Internet.En.free_email_service
+    })
+  |> Repo.insert!
+
+  r = Enum.random roles
+  UserRole.changeset(%UserRole{}, %{
+    user_id: user.id,
+    role_id: r.id
+    })
+  |> Repo.insert!
+end
 
 for _i <- 1..100 do
   category = Enum.random categories

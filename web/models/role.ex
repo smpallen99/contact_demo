@@ -4,8 +4,8 @@ defmodule Nested.Role do
   schema "roles" do
     field :name, :string
 
-    has_many :uses_roles, Nested.UserRole
-    has_many :roles, through: [:uses_roles, :role]
+    has_many :users_roles, Nested.UserRole
+    has_many :users, through: [:users_roles, :user]
 
     timestamps
   end

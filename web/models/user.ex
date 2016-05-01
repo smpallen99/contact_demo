@@ -6,8 +6,8 @@ defmodule Nested.User do
     field :email, :string
     field :encrypted_password, :string
 
-    has_many :uses_roles, Nested.UserRole
-    has_many :roles, through: [:uses_roles, :user]
+    has_many :users_roles, Nested.UserRole
+    has_many :roles, through: [:users_roles, :role]
     timestamps
   end
 
