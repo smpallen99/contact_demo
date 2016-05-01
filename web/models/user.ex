@@ -5,14 +5,16 @@ defmodule Nested.User do
     field :name, :string
     field :email, :string
     field :encrypted_password, :string
+    field :active, :boolean, default: true
+    field :expire_on, Ecto.Date
 
     has_many :users_roles, Nested.UserRole
     has_many :roles, through: [:users_roles, :role]
     timestamps
   end
 
-  @required_fields ~w(name email)
-  @optional_fields ~w(encrypted_password)
+  @required_fields ~w(name email active)
+  @optional_fields ~w(encrypted_password expire_on)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

@@ -57,7 +57,7 @@ end)
   |> Repo.insert!
 end)
 
-~w(admin manager use)
+~w(admin manager user)
 |> Enum.each(fn(name) ->
   Role.changeset(%Role{}, %{name: name})
   |> Repo.insert!
@@ -70,7 +70,8 @@ roles = Repo.all Role
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
     name: Faker.Name.En.name,
-    email: Faker.Internet.En.free_email_service
+    email: Faker.Internet.En.free_email_service,
+    active: true,
     })
   |> Repo.insert!
 

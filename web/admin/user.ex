@@ -7,6 +7,8 @@ defmodule Nested.ExAdmin.User do
 
       column :name
       column :email
+      column :active
+
       actions
     end
 
@@ -14,6 +16,8 @@ defmodule Nested.ExAdmin.User do
       attributes_table do
         row :name
         row :email
+        row :active
+        row :expire_on
         # row "Admin", fn(u) -> "#{has_role?(u, :admin)}" end
         # row "Authentication Token", fn(u) ->
         #   unless u.authentication_token,  do: "No Token", else: u.authentication_token
@@ -30,6 +34,9 @@ defmodule Nested.ExAdmin.User do
       inputs "User Details" do
         input user, :name
         input user, :email
+        input user, :active
+        input user, :expire_on
+        input user, :updated_at
         # input user, :password, type: :password
         # input user, :password_confirmation, type: :password
       end
