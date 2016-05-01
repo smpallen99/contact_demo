@@ -28,9 +28,10 @@ config :phoenix, :template_engines,
   haml: PhoenixHaml.Engine
 
 config :ex_admin,
+  # theme: ExAdmin.Theme.ActiveAdmin,
   repo: Nested.Repo,
   module: Nested,
-  # theme: ExAdmin.Theme.AdminLte2,
+  skin_color: :purple,
   theme_selector: [
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}

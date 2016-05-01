@@ -2,6 +2,9 @@ defmodule Nested.ExAdmin.User do
   use ExAdmin.Register
 
   register_resource Nested.User do
+    filter except: [:encrypted_password]
+    # filter only: [:name, :email]
+
     index do
       selectable_column
 
@@ -36,7 +39,7 @@ defmodule Nested.ExAdmin.User do
         input user, :email
         input user, :active
         input user, :expire_on
-        input user, :updated_at
+        # input user, :updated_at
         # input user, :password, type: :password
         # input user, :password_confirmation, type: :password
       end
