@@ -28,7 +28,7 @@ config :phoenix, :template_engines,
   haml: PhoenixHaml.Engine
 
 config :ex_admin,
-  theme: ExAdmin.Theme.ActiveAdmin,
+  # theme: ExAdmin.Theme.ActiveAdmin,
   repo: ContactDemo.Repo,
   module: ContactDemo,
   skin_color: :purple,
