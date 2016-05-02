@@ -1,7 +1,7 @@
-defmodule Nested.CategoryTest do
-  use Nested.ModelCase
+defmodule ContactDemo.CategoryTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.Category
+  alias ContactDemo.Category
 
   @valid_attrs %{name: "some content", position: 42}
   @invalid_attrs %{}

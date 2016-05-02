@@ -1,10 +1,10 @@
-defmodule Nested.Role do
-  use Nested.Web, :model
+defmodule ContactDemo.Role do
+  use ContactDemo.Web, :model
 
   schema "roles" do
     field :name, :string
 
-    has_many :users_roles, Nested.UserRole
+    has_many :users_roles, ContactDemo.UserRole
     has_many :users, through: [:users_roles, :user]
 
     timestamps

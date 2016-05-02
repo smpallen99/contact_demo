@@ -1,4 +1,4 @@
-defmodule Nested.Repo.Migrations.CreateRole do
+defmodule ContactDemo.Repo.Migrations.CreateRole do
   use Ecto.Migration
 
   def change do

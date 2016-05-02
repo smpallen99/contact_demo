@@ -1,4 +1,4 @@
-defmodule Nested.Repo.Migrations.CreateGroup do
+defmodule ContactDemo.Repo.Migrations.CreateGroup do
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,4 @@
-# Nested
+# ContactDemo
 
 To start your Phoenix app:
 

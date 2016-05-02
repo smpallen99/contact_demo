@@ -1,7 +1,7 @@
-defmodule Nested.ContactControllerTest do
-  use Nested.ConnCase
+defmodule ContactDemo.ContactControllerTest do
+  use ContactDemo.ConnCase
 
-  alias Nested.Contact
+  alias ContactDemo.Contact
   @valid_attrs %{email: "some content", first_name: "some content", last_name: "some content"}
   @invalid_attrs %{}
 

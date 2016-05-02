@@ -1,4 +1,4 @@
-defmodule Nested.ErrorHelpers do
+defmodule ContactDemo.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -26,10 +26,10 @@ defmodule Nested.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Nested.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(ContactDemo.Gettext, "errors", msg, msg, opts[:count], opts)
   end
 
   def translate_error(msg) do
-    Gettext.dgettext(Nested.Gettext, "errors", msg)
+    Gettext.dgettext(ContactDemo.Gettext, "errors", msg)
   end
 end

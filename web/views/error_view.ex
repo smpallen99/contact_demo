@@ -1,5 +1,5 @@
-defmodule Nested.ErrorView do
-  use Nested.Web, :view
+defmodule ContactDemo.ErrorView do
+  use ContactDemo.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

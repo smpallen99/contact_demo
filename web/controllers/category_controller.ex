@@ -1,7 +1,7 @@
-defmodule Nested.CategoryController do
-  use Nested.Web, :controller
+defmodule ContactDemo.CategoryController do
+  use ContactDemo.Web, :controller
 
-  alias Nested.Category
+  alias ContactDemo.Category
 
   plug :scrub_params, "category" when action in [:create, :update]
 

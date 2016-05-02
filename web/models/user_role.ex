@@ -1,9 +1,9 @@
-defmodule Nested.UserRole do
-  use Nested.Web, :model
+defmodule ContactDemo.UserRole do
+  use ContactDemo.Web, :model
 
   schema "users_roles" do
-    belongs_to :user, Nested.User
-    belongs_to :role, Nested.Role
+    belongs_to :user, ContactDemo.User
+    belongs_to :role, ContactDemo.Role
 
     timestamps
   end

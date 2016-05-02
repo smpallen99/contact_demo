@@ -5,21 +5,21 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Nested.Repo.insert!(%Nested.SomeModel{})
+#     ContactDemo.Repo.insert!(%ContactDemo.SomeModel{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Nested.Contact
-alias Nested.Group
-alias Nested.Category
-alias Nested.User
-alias Nested.ContactGroup
-alias Nested.Repo
-alias Nested.PhoneNumber
-alias Nested.ContactPhoneNumber
-alias Nested.UserRole
-alias Nested.Role
+alias ContactDemo.Contact
+alias ContactDemo.Group
+alias ContactDemo.Category
+alias ContactDemo.User
+alias ContactDemo.ContactGroup
+alias ContactDemo.Repo
+alias ContactDemo.PhoneNumber
+alias ContactDemo.ContactPhoneNumber
+alias ContactDemo.UserRole
+alias ContactDemo.Role
 
 defmodule Faker.Phone do
   def phone_number do

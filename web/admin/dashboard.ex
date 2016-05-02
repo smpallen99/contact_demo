@@ -1,4 +1,4 @@
-defmodule Nested.ExAdmin.Dashboard do
+defmodule ContactDemo.ExAdmin.Dashboard do
   use ExAdmin.Register
 
   register_page "Dashboard" do

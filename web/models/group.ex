@@ -1,10 +1,10 @@
-defmodule Nested.Group do
-  use Nested.Web, :model
+defmodule ContactDemo.Group do
+  use ContactDemo.Web, :model
 
   schema "groups" do
     field :name, :string
 
-    has_many :contacts_groups, Nested.ContactGroup
+    has_many :contacts_groups, ContactDemo.ContactGroup
     has_many :contacts, through: [:contacts_groups, :contact]
     timestamps
   end

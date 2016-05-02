@@ -1,25 +1,25 @@
-defmodule Nested.ExAdmin.Contact do
+defmodule ContactDemo.ExAdmin.Contact do
   use ExAdmin.Register
 
-  register_resource Nested.Contact do
+  register_resource ContactDemo.Contact do
 
     form contact do
       inputs do
         input contact, :first_name
         input contact, :last_name
         input contact, :email
-        input contact, :category, collection: Nested.Category.all
+        input contact, :category, collection: ContactDemo.Category.all
       end
 
       inputs "Phone Numbers" do
         has_many contact, :phone_numbers, fn(p) ->
-          input p, :label, collection: Nested.PhoneNumber.labels
+          input p, :label, collection: ContactDemo.PhoneNumber.labels
           input p, :number
         end
       end
 
       inputs "Groups" do
-        inputs :groups, as: :check_boxes, collection: Nested.Group.all
+        inputs :groups, as: :check_boxes, collection: ContactDemo.Group.all
       end
     end
 
@@ -31,7 +31,7 @@ defmodule Nested.ExAdmin.Contact do
       column :email
       column :category
       column :phone_numbers, fn(contact) ->
-        text Nested.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+        text ContactDemo.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
       end
       actions
     end

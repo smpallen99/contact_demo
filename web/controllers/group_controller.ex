@@ -1,7 +1,7 @@
-defmodule Nested.GroupController do
-  use Nested.Web, :controller
+defmodule ContactDemo.GroupController do
+  use ContactDemo.Web, :controller
 
-  alias Nested.Group
+  alias ContactDemo.Group
 
   plug :scrub_params, "group" when action in [:create, :update]
 

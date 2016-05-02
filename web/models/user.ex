@@ -1,5 +1,5 @@
-defmodule Nested.User do
-  use Nested.Web, :model
+defmodule ContactDemo.User do
+  use ContactDemo.Web, :model
 
   schema "users" do
     field :name, :string
@@ -12,7 +12,7 @@ defmodule Nested.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
-    has_many :users_roles, Nested.UserRole
+    has_many :users_roles, ContactDemo.UserRole
     has_many :roles, through: [:users_roles, :role]
     timestamps
   end

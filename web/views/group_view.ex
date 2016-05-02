@@ -1,3 +1,3 @@
-defmodule Nested.GroupView do
-  use Nested.Web, :view
+defmodule ContactDemo.GroupView do
+  use ContactDemo.Web, :view
 end

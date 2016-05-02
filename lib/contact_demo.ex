@@ -1,4 +1,4 @@
-defmodule Nested do
+defmodule ContactDemo do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -8,23 +8,23 @@ defmodule Nested do
 
     children = [
       # Start the endpoint when the application starts
-      supervisor(Nested.Endpoint, []),
+      supervisor(ContactDemo.Endpoint, []),
       # Start the Ecto repository
-      supervisor(Nested.Repo, []),
+      supervisor(ContactDemo.Repo, []),
       # Here you could define other workers and supervisors as children
-      # worker(Nested.Worker, [arg1, arg2, arg3]),
+      # worker(ContactDemo.Worker, [arg1, arg2, arg3]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Nested.Supervisor]
+    opts = [strategy: :one_for_one, name: ContactDemo.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Nested.Endpoint.config_change(changed, removed)
+    ContactDemo.Endpoint.config_change(changed, removed)
     :ok
   end
 end

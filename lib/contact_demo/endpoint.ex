@@ -1,14 +1,14 @@
-defmodule Nested.Endpoint do
-  use Phoenix.Endpoint, otp_app: :nested
+defmodule ContactDemo.Endpoint do
+  use Phoenix.Endpoint, otp_app: :contact_demo
 
-  socket "/socket", Nested.UserSocket
+  socket "/socket", ContactDemo.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :nested, gzip: false,
+    at: "/", from: :contact_demo, gzip: false,
     only: ~w(css fonts images js themes favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,5 +35,5 @@ defmodule Nested.Endpoint do
     key: "_nested_key",
     signing_salt: "6O5KOjjj"
 
-  plug Nested.Router
+  plug ContactDemo.Router
 end

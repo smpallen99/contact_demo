@@ -1,7 +1,7 @@
-defmodule Nested.GroupControllerTest do
-  use Nested.ConnCase
+defmodule ContactDemo.GroupControllerTest do
+  use ContactDemo.ConnCase
 
-  alias Nested.Group
+  alias ContactDemo.Group
   @valid_attrs %{name: "some content"}
   @invalid_attrs %{}
 

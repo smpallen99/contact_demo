@@ -1,3 +1,3 @@
-defmodule Nested.PageViewTest do
-  use Nested.ConnCase, async: true
+defmodule ContactDemo.PageViewTest do
+  use ContactDemo.ConnCase, async: true
 end

@@ -1,7 +1,7 @@
-defmodule Nested.ExAdmin.User do
+defmodule ContactDemo.ExAdmin.User do
   use ExAdmin.Register
 
-  register_resource Nested.User do
+  register_resource ContactDemo.User do
     filter except: [:encrypted_password]
     # filter only: [:name, :email]
 
@@ -48,7 +48,7 @@ defmodule Nested.ExAdmin.User do
       end
 
       inputs "Roles" do
-        inputs :roles, as: :check_boxes, collection: Nested.Role.all
+        inputs :roles, as: :check_boxes, collection: ContactDemo.Role.all
       end
 
     end

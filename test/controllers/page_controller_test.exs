@@ -1,5 +1,5 @@
-defmodule Nested.PageControllerTest do
-  use Nested.ConnCase
+defmodule ContactDemo.PageControllerTest do
+  use ContactDemo.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

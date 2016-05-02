@@ -1,4 +1,4 @@
-defmodule Nested.Repo.Migrations.CreateUser do
+defmodule ContactDemo.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do

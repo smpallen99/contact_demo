@@ -1,10 +1,10 @@
-defmodule Nested.Category do
-  use Nested.Web, :model
+defmodule ContactDemo.Category do
+  use ContactDemo.Web, :model
 
   schema "categories" do
     field :name, :string
     field :position, :integer
-    has_many :contacts, Nested.Contact
+    has_many :contacts, ContactDemo.Contact
 
     timestamps
   end

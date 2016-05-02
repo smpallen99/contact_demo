@@ -1,7 +1,7 @@
-defmodule Nested.ContactPhoneNumberTest do
-  use Nested.ModelCase
+defmodule ContactDemo.ContactPhoneNumberTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.ContactPhoneNumber
+  alias ContactDemo.ContactPhoneNumber
 
   @valid_attrs %{}
   @invalid_attrs %{}

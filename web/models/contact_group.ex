@@ -1,9 +1,9 @@
-defmodule Nested.ContactGroup do
-  use Nested.Web, :model
+defmodule ContactDemo.ContactGroup do
+  use ContactDemo.Web, :model
 
   schema "contacts_groups" do
-    belongs_to :contact, Nested.Contact
-    belongs_to :group, Nested.Group
+    belongs_to :contact, ContactDemo.Contact
+    belongs_to :group, ContactDemo.Group
   end
 
   @required_fields ~w(contact_id group_id)

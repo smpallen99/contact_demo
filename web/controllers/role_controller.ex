@@ -1,7 +1,7 @@
-defmodule Nested.RoleController do
-  use Nested.Web, :controller
+defmodule ContactDemo.RoleController do
+  use ContactDemo.Web, :controller
 
-  alias Nested.Role
+  alias ContactDemo.Role
 
   plug :scrub_params, "role" when action in [:create, :update]
 

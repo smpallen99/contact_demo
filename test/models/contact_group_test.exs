@@ -1,7 +1,7 @@
-defmodule Nested.ContactGroupTest do
-  use Nested.ModelCase
+defmodule ContactDemo.ContactGroupTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.ContactGroup
+  alias ContactDemo.ContactGroup
 
   @valid_attrs %{}
   @invalid_attrs %{}

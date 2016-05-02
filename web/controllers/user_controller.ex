@@ -1,7 +1,7 @@
-defmodule Nested.UserController do
-  use Nested.Web, :controller
+defmodule ContactDemo.UserController do
+  use ContactDemo.Web, :controller
 
-  alias Nested.User
+  alias ContactDemo.User
 
   plug :scrub_params, "user" when action in [:create, :update]
 

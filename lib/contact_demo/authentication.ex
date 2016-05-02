@@ -1,6 +1,6 @@
 defimpl ExAdmin.Authentication, for: Plug.Conn do
-  alias Nested.Router.Helpers
-  alias Nested.Authentication, as: Auth
+  alias ContactDemo.Router.Helpers
+  alias ContactDemo.Authentication, as: Auth
 
   def use_authentication?(_), do: true
   def current_user(conn), do: Auth.current_user(conn)
@@ -8,7 +8,7 @@ defimpl ExAdmin.Authentication, for: Plug.Conn do
   def session_path(conn, action), do: Helpers.session_path(conn, action)
 end
 
-defmodule Nested.Authentication do
+defmodule ContactDemo.Authentication do
   def current_user(conn) do
     PlugAuth.Authentication.Utils.get_authenticated_user(conn)
   end

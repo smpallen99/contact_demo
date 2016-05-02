@@ -1,12 +1,12 @@
-defmodule Nested.Web do
+defmodule ContactDemo.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Nested.Web, :controller
-      use Nested.Web, :view
+      use ContactDemo.Web, :controller
+      use ContactDemo.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -24,7 +24,7 @@ defmodule Nested.Web do
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
-      def all, do: Nested.Repo.all(__MODULE__)
+      def all, do: ContactDemo.Repo.all(__MODULE__)
     end
   end
 
@@ -32,12 +32,12 @@ defmodule Nested.Web do
     quote do
       use Phoenix.Controller
 
-      alias Nested.Repo
+      alias ContactDemo.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
-      import Nested.Router.Helpers
-      import Nested.Gettext
+      import ContactDemo.Router.Helpers
+      import ContactDemo.Gettext
     end
   end
 
@@ -51,9 +51,9 @@ defmodule Nested.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Nested.Router.Helpers
-      import Nested.ErrorHelpers
-      import Nested.Gettext
+      import ContactDemo.Router.Helpers
+      import ContactDemo.ErrorHelpers
+      import ContactDemo.Gettext
     end
   end
 
@@ -67,10 +67,10 @@ defmodule Nested.Web do
     quote do
       use Phoenix.Channel
 
-      alias Nested.Repo
+      alias ContactDemo.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
-      import Nested.Gettext
+      import ContactDemo.Gettext
     end
   end
 

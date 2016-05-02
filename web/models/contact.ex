@@ -1,14 +1,14 @@
-defmodule Nested.Contact do
-  use Nested.Web, :model
+defmodule ContactDemo.Contact do
+  use ContactDemo.Web, :model
 
   schema "contacts" do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
-    belongs_to :category, Nested.Category
-    has_many :contacts_groups, Nested.ContactGroup
+    belongs_to :category, ContactDemo.Category
+    has_many :contacts_groups, ContactDemo.ContactGroup
     has_many :groups, through: [:contacts_groups, :group]
-    has_many :contacts_phone_numbers, Nested.ContactPhoneNumber
+    has_many :contacts_phone_numbers, ContactDemo.ContactPhoneNumber
     has_many :phone_numbers, through: [:contacts_phone_numbers, :phone_number]
 
     timestamps

@@ -1,4 +1,4 @@
-defmodule Nested.Repo.Migrations.CreatePhoneNumber do
+defmodule ContactDemo.Repo.Migrations.CreatePhoneNumber do
   use Ecto.Migration
 
   def change do

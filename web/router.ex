@@ -1,5 +1,5 @@
-defmodule Nested.Router do
-  use Nested.Web, :router
+defmodule ContactDemo.Router do
+  use ContactDemo.Web, :router
   use ExAdmin.Router
 
 
@@ -9,7 +9,7 @@ defmodule Nested.Router do
     plug :fetch_flash
     # plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug PlugAuth.Authentication.Database, db_model: Nested.User, login: &Nested.SessionController.login_callback/1
+    plug PlugAuth.Authentication.Database, db_model: ContactDemo.User, login: &ContactDemo.SessionController.login_callback/1
   end
 
   pipeline :api do
@@ -30,7 +30,7 @@ defmodule Nested.Router do
     post "/:resource/sort", AdminController, :sort
   end
 
-  scope "/", Nested do
+  scope "/", ContactDemo do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
@@ -41,7 +41,7 @@ defmodule Nested.Router do
     resources "/roles", RoleController
   end
 
-  scope "/", Nested do
+  scope "/", ContactDemo do
     pipe_through :public
 
     get "/sign_in", SessionController, :new
@@ -51,7 +51,7 @@ defmodule Nested.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Nested do
+  # scope "/api", ContactDemo do
   #   pipe_through :api
   # end
 end

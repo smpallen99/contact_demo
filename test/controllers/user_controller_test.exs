@@ -1,7 +1,7 @@
-defmodule Nested.UserControllerTest do
-  use Nested.ConnCase
+defmodule ContactDemo.UserControllerTest do
+  use ContactDemo.ConnCase
 
-  alias Nested.User
+  alias ContactDemo.User
   @valid_attrs %{email: "some content", encrypted_password: "some content", name: "some content"}
   @invalid_attrs %{}
 

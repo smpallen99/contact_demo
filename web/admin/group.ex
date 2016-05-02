@@ -1,7 +1,7 @@
-defmodule Nested.ExAdmin.Group do
+defmodule ContactDemo.ExAdmin.Group do
   use ExAdmin.Register
 
-  register_resource Nested.Group do
+  register_resource ContactDemo.Group do
 
     index do
       selectable_column

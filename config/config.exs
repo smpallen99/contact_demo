@@ -6,12 +6,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :nested, Nested.Endpoint,
+config :contact_demo, ContactDemo.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "m3g6ltbv+hunhzFPWAfLWNaGIxoUn7KirHwPyYl6NSP44qOQfaMAj+RgR/Fr1JJS",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: Nested.PubSub,
+  pubsub: [name: ContactDemo.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -29,20 +29,20 @@ config :phoenix, :template_engines,
 
 config :ex_admin,
   theme: ExAdmin.Theme.ActiveAdmin,
-  repo: Nested.Repo,
-  module: Nested,
+  repo: ContactDemo.Repo,
+  module: ContactDemo,
   skin_color: :purple,
   theme_selector: [
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
   ],
   modules: [
-    Nested.ExAdmin.Dashboard,
-    Nested.ExAdmin.Contact,
-    Nested.ExAdmin.Group,
-    Nested.ExAdmin.Category,
-    Nested.ExAdmin.User,
-    Nested.ExAdmin.Role
+    ContactDemo.ExAdmin.Dashboard,
+    ContactDemo.ExAdmin.Contact,
+    ContactDemo.ExAdmin.Group,
+    ContactDemo.ExAdmin.Category,
+    ContactDemo.ExAdmin.User,
+    ContactDemo.ExAdmin.Role
   ]
 
 # Import environment specific config. This must remain at the bottom

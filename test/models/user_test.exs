@@ -1,7 +1,7 @@
-defmodule Nested.UserTest do
-  use Nested.ModelCase
+defmodule ContactDemo.UserTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.User
+  alias ContactDemo.User
 
   @valid_attrs %{email: "some@content", encrypted_password: "some content",
     name: "some content", active: true, username: "testuser"}

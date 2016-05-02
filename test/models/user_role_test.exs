@@ -1,7 +1,7 @@
-defmodule Nested.UserRoleTest do
-  use Nested.ModelCase
+defmodule ContactDemo.UserRoleTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.UserRole
+  alias ContactDemo.UserRole
 
   @valid_attrs %{}
   @invalid_attrs %{}

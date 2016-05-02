@@ -1,9 +1,9 @@
-defmodule Nested.ExAdmin.Category do
+defmodule ContactDemo.ExAdmin.Category do
   use ExAdmin.Register
-  alias Nested.Category
-  alias Nested.Repo
+  alias ContactDemo.Category
+  alias ContactDemo.Repo
 
-  register_resource Nested.Category do
+  register_resource ContactDemo.Category do
 
     index do
       selectable_column

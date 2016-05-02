@@ -1,3 +1,3 @@
-defmodule Nested.LayoutViewTest do
-  use Nested.ConnCase, async: true
+defmodule ContactDemo.LayoutViewTest do
+  use ContactDemo.ConnCase, async: true
 end

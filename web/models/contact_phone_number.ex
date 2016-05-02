@@ -1,9 +1,9 @@
-defmodule Nested.ContactPhoneNumber do
-  use Nested.Web, :model
+defmodule ContactDemo.ContactPhoneNumber do
+  use ContactDemo.Web, :model
 
   schema "contacts_phone_numbers" do
-    belongs_to :contact, Nested.Contact
-    belongs_to :phone_number, Nested.PhoneNumber
+    belongs_to :contact, ContactDemo.Contact
+    belongs_to :phone_number, ContactDemo.PhoneNumber
 
     timestamps
   end

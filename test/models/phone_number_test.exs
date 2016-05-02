@@ -1,7 +1,7 @@
-defmodule Nested.PhoneNumberTest do
-  use Nested.ModelCase
+defmodule ContactDemo.PhoneNumberTest do
+  use ContactDemo.ModelCase
 
-  alias Nested.PhoneNumber
+  alias ContactDemo.PhoneNumber
 
   @valid_attrs %{kind: "some content", label: "some content", number: "some content"}
   @invalid_attrs %{}

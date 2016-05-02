@@ -1,3 +1,3 @@
-defmodule Nested.SessionView do
-  use Nested.Web, :view
+defmodule ContactDemo.SessionView do
+  use ContactDemo.Web, :view
 end

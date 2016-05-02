@@ -1,6 +1,6 @@
-defmodule Nested.SessionController do
-  use Nested.Web, :controller
-  alias Nested.User
+defmodule ContactDemo.SessionController do
+  use ContactDemo.Web, :controller
+  alias ContactDemo.User
   require Logger
 
   def new(conn, _params) do
@@ -35,8 +35,8 @@ defmodule Nested.SessionController do
 
   def login_callback(conn) do
     conn
-    |> put_layout({Nested.LayoutView, "app.html"})
-    |> put_view(Nested.SessionView)
+    |> put_layout({ContactDemo.LayoutView, "app.html"})
+    |> put_view(ContactDemo.SessionView)
     |> render("new.html", username: "")
     |> halt
   end
