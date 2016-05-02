@@ -37,5 +37,9 @@ defmodule ContactDemo.ExAdmin.Group do
       # %{show: [preload: [:recordings, contacts: [:phone_numbers]]] }
       %{show: [preload: [:contacts]] }
     end
+
+    sidebar "ExAdmin Demo", only: [:index, :show] do
+      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "group"]
+    end
   end
 end

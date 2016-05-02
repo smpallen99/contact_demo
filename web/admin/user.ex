@@ -57,5 +57,8 @@ defmodule ContactDemo.ExAdmin.User do
       %{all: [preload: [:roles]]}
     end
 
+    sidebar "ExAdmin Demo", only: [:index, :show] do
+      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "user"]
+    end
   end
 end

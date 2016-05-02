@@ -63,5 +63,9 @@ defmodule ContactDemo.ExAdmin.Contact do
         all: [preload: [:category, :phone_numbers, :groups]],
       }
     end
+
+    sidebar "ExAdmin Demo", only: [:index, :show] do
+      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "contact"]
+    end
   end
 end

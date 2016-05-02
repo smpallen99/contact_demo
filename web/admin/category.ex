@@ -44,6 +44,10 @@ defmodule ContactDemo.ExAdmin.Category do
         }
     end
     collection_action :sort, &__MODULE__.sort_action/2
+
+    sidebar "ExAdmin Demo", only: [:index, :show] do
+      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "category"]
+    end
   end
 
   def sort_action(conn, params) do
