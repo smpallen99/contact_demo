@@ -8,7 +8,7 @@
   "db_connection": {:hex, :db_connection, "0.2.5"},
   "decimal": {:hex, :decimal, "1.1.2"},
   "ecto": {:hex, :ecto, "1.1.5"},
-  "ex_admin": {:git, "https://github.com/smpallen99/ex_admin.git", "38045601991085ba5ae397d659a63aca3ca1e439", [branch: "themes"]},
+  "ex_admin": {:git, "https://github.com/smpallen99/ex_admin.git", "51066b8705d56bfac08b59883e1124701a14ba44", [branch: "themes"]},
   "ex_form": {:git, "https://github.com/smpallen99/ex_form.git", "6d08d449b112f89e48279daeca74b2b42a16fdda", []},
   "ex_queb": {:hex, :ex_queb, "0.1.2"},
   "exactor": {:hex, :exactor, "2.2.0"},

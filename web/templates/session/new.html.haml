@@ -1,4 +1,7 @@
 -# form_for session_path(@conn, :create, []), [as: :session], fn f  ->
+%p.bg-primary(style="padding: 15px; color: #fff; border-radius: 7px")
+  Login with username: <strong>demouser</strong> and password: <strong>secret</strong>
+%br
 - form_for @conn, "/sign_in", [as: :session], fn f  ->
   -# if @conn.get_flash.action do
   -# .alert.alert-danger
