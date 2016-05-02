@@ -1,0 +1,35 @@
+<%= form_for @conn, session_path(@conn, :create, []), [name: :session, class: "form-vertical"], fn(f) -> %>
+  <div id="login-box" class="orange ui-draggable" style="left: 606px; top: 135px;">
+    <div id="login-logo">
+      <div class="logo-text"> </div>
+      <img src="/images/logo_mini.png" width="200" height="62" alt="Ucx Logo" />
+    </div>
+      <div class="login-line">
+        <div class="login-label">Username:</div>
+        <div class="login-inputbox">
+          <div class="login-input"> <%= text_input f, :username, autofocus: true, value: @username, class: "login-input" %></div>
+        </div>
+      </div>
+    <div class="login-line">
+      <div class="login-label">Password:</div>
+      <div class="login-inputbox">
+        <div class="login-input"><%= text_input f, :password, type: "password", value: "", class: "login-input" %></div>
+      </div>
+    </div>
+    <div class="login-line">
+      <div class="login-label"></div>
+      <div class="login-inputbox">
+        <%= submit "Sign in", class: "login-submit" %>
+      </div>
+    </div>
+    <div class="footernote">
+      <br />
+      UC<sup>x</sup> Administration?
+      <a href="https://<%= @conn.host %>">Login Here</a></p>
+      UC<sup>x</sup> is licensed by
+      <a href="http://emetrotel.com" target="_blank">E-MetroTel</a>
+      &copy 2010-2016.
+    </div>
+  </div>
+<% end %>
+

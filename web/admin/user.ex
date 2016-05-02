@@ -8,6 +8,7 @@ defmodule Nested.ExAdmin.User do
     index do
       selectable_column
 
+      column :username
       column :name
       column :email
       column :active
@@ -18,6 +19,7 @@ defmodule Nested.ExAdmin.User do
     show user do
       attributes_table do
         row :name
+        row :username
         row :email
         row :active
         row :expire_on
@@ -35,6 +37,7 @@ defmodule Nested.ExAdmin.User do
 
     form user do
       inputs "User Details" do
+        input user, :username
         input user, :name
         input user, :email
         input user, :active

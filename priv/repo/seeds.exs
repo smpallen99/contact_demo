@@ -67,10 +67,35 @@ groups = Repo.all Group
 categories = Repo.all Category
 roles = Repo.all Role
 
+for [fname, lname, role] <- [~w(Demo User admin)] do
+
+  user = User.changeset(%User{}, %{
+    name: "#{fname} #{lname}",
+    email: "#{fname}#{lname}@example.com" |> String.downcase,
+    username: "#{fname}#{lname}" |> String.downcase,
+    password: "secret",
+    password_confirmation: "secret",
+    active: true,
+    })
+  |> Repo.insert!
+
+  r =  Enum.find(roles, &(&1.name == role))
+  UserRole.changeset(%UserRole{}, %{
+    user_id: user.id,
+    role_id: r.id
+    })
+  |> Repo.insert!
+
+end
+
+
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
     name: Faker.Name.En.name,
-    email: Faker.Internet.En.free_email_service,
+    email: Faker.Internet.email,
+    username: Faker.Internet.user_name,
+    password: "secret",
+    password_confirmation: "secret",
     active: true,
     })
   |> Repo.insert!
@@ -96,7 +121,7 @@ for _i <- 1..100 do
   contact = Contact.changeset(%Contact{}, %{
     first_name: Faker.Name.En.first_name,
     last_name: Faker.Name.En.last_name,
-    email: Faker.Internet.En.free_email_service,
+    email: Faker.Internet.email,
     category_id: category.id
     })
   |> Repo.insert!

@@ -9,10 +9,17 @@ defmodule Nested.Router do
     plug :fetch_flash
     # plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PlugAuth.Authentication.Database, db_model: Nested.User, login: &Nested.SessionController.login_callback/1
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :public do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
   end
 
   # your app's routes
@@ -32,6 +39,15 @@ defmodule Nested.Router do
     resources "/contacts", ContactController
     resources "/groups", GroupController
     resources "/roles", RoleController
+  end
+
+  scope "/", Nested do
+    pipe_through :public
+
+    get "/sign_in", SessionController, :new
+    post "/sign_in", SessionController, :create
+    patch "/sign_out", SessionController, :destroy
+    delete "/sign_out", SessionController, :destroy
   end
 
   # Other scopes may use custom stacks.

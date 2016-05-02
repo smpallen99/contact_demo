@@ -1,0 +1,19 @@
+-# form_for session_path(@conn, :create, []), [as: :session], fn f  ->
+- form_for @conn, "/sign_in", [as: :session], fn f  ->
+  -# if @conn.get_flash.action do
+  -# .alert.alert-danger
+  -#   %p
+  -#     Oops, something went wrong! Please check the errors below.
+
+  .form-group
+    = label f, :username, class: "control-label"
+    = text_input f, :username, class: "form-control"
+    = error_tag f, :username
+
+  .form-group
+    = label f, :password, class: "control-label"
+    = password_input f, :password, class: "form-control"
+    = error_tag f, :password
+
+  .form-group
+    = submit "Sign In", class: "btn btn-primary"

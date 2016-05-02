@@ -19,7 +19,7 @@ defmodule Nested.Mixfile do
   def application do
     [mod: {Nested, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :plug_auth, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,6 +38,10 @@ defmodule Nested.Mixfile do
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
+     # {:ex_admin, github: "smpallen99/ex_admin", branch: "themes"},
+     {:plug_auth, github: "smpallen99/plug_auth"},
+     {:comeonin, "~> 2.1.0"},
+     # {:guardian, "~> 0.10.1"},
      #{:ex_admin, path: "../../../ex_admin"},
      {:ex_admin, path: "../../bootstrap/ex_admin"},
      # {:ex_admin, "~> 0.7.2"},

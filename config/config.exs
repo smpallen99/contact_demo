@@ -28,7 +28,7 @@ config :phoenix, :template_engines,
   haml: PhoenixHaml.Engine
 
 config :ex_admin,
-  # theme: ExAdmin.Theme.ActiveAdmin,
+  theme: ExAdmin.Theme.ActiveAdmin,
   repo: Nested.Repo,
   module: Nested,
   skin_color: :purple,
@@ -45,10 +45,11 @@ config :ex_admin,
     Nested.ExAdmin.Role
   ]
 
-config :xain, :quote, "'"
-config :xain, :after_callback, {Phoenix.HTML, :raw}
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+
+config :xain, :quote, "'"
+config :xain, :after_callback, {Phoenix.HTML, :raw}
 
