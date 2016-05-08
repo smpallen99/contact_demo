@@ -31,19 +31,15 @@ defmodule ContactDemo.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:phoenix, "~> 1.1.2"},
-     {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
-     {:ex_admin, github: "smpallen99/ex_admin", branch: "themes"},
+     {:ex_admin, github: "smpallen99/ex_admin", branch: "ecto-1.1"},
      {:plug_auth, github: "smpallen99/plug_auth"},
      {:comeonin, "~> 2.1.0"},
-     #{:ex_admin, path: "../../../ex_admin"},
-     # {:ex_admin, path: "../../bootstrap/ex_admin"},
-     # {:ex_admin, "~> 0.7.2"},
      {:cowboy, "~> 1.0"}]
   end
 
