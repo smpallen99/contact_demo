@@ -11,7 +11,7 @@ defmodule ContactDemo.ExAdmin.User do
       column :username
       column :name
       column :email
-      column :active
+      column :active, toggle: true
 
       actions
     end
@@ -21,7 +21,7 @@ defmodule ContactDemo.ExAdmin.User do
         row :name
         row :username
         row :email
-        row :active
+        row :active, toggle: true
         row :expire_on
         # row "Admin", fn(u) -> "#{has_role?(u, :admin)}" end
         # row "Authentication Token", fn(u) ->

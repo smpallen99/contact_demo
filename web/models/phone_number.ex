@@ -31,7 +31,7 @@ defmodule ContactDemo.PhoneNumber do
 
   def all_labels do
     (from p in PhoneNumber, group_by: p.label, select: p.label)
-    |> Repo.all
+    |> ContactDemo.Repo.all
   end
 
   def find_by_label(phone_numbers, label) do
