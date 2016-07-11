@@ -19,7 +19,7 @@ defmodule ContactDemo.Mixfile do
   def application do
     [mod: {ContactDemo, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :plug_auth, :comeonin]]
+                    :phoenix_ecto, :postgrex, :coherence]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,8 +41,8 @@ defmodule ContactDemo.Mixfile do
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
-     {:plug_auth, github: "smpallen99/plug_auth"},
-     {:coherence, "~> 0.1"},
+     {:coherence, path: "../coherence"},
+     # {:coherence, "~> 0.1"},
      {:cowboy, "~> 1.0"}]
   end
 

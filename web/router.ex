@@ -1,15 +1,16 @@
 defmodule ContactDemo.Router do
   use ContactDemo.Web, :router
   use ExAdmin.Router
+  use Coherence.Router
 
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    # plug :protect_from_forgery
+    plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug PlugAuth.Authentication.Database, db_model: ContactDemo.User, login: &ContactDemo.SessionController.login_callback/1
+    plug Coherence.Authentication.Session, login: true
   end
 
   pipeline :api do
@@ -20,9 +21,22 @@ defmodule ContactDemo.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug Coherence.Authentication.Session
+  end
+  # your app's routes
+
+  # Add this block
+  scope "/" do
+    pipe_through :public
+    coherence_routes :public
   end
 
-  # your app's routes
+  scope "/" do
+    pipe_through :browser
+    coherence_routes :private
+  end
 
   scope "/admin", ExAdmin do
     pipe_through :browser
@@ -33,7 +47,6 @@ defmodule ContactDemo.Router do
   scope "/", ContactDemo do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     resources "/categories", CategoryController
     resources "/users", UserController
     resources "/contacts", ContactController
@@ -43,11 +56,7 @@ defmodule ContactDemo.Router do
 
   scope "/", ContactDemo do
     pipe_through :public
-
-    get "/sign_in", SessionController, :new
-    post "/sign_in", SessionController, :create
-    patch "/sign_out", SessionController, :destroy
-    delete "/sign_out", SessionController, :destroy
+    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
