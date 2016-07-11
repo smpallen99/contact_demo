@@ -32,19 +32,17 @@ defmodule ContactDemo.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.1", override: true},
      {:phoenix_ecto, "~> 3.0.0"},
-     {:ecto, "~> 2.0", override: true},
      {:postgrex, ">= 0.0.0"},
      # {:phoenix_ecto, "~> 2.0.0", override: true}, # the override is necessary
-     # {:ecto, "~> 1.1", override: true},           # the override is necessary
+     {:ecto, "~> 2.0", override: true},           # the override is necessary
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
-     # {:ex_admin, github: "smpallen99/ex_admin", branch: "ecto-1.1"},
-     {:ex_admin, path: "../ex_admin"},
+     {:ex_admin, github: "smpallen99/ex_admin"},
      {:plug_auth, github: "smpallen99/plug_auth"},
-     {:comeonin, "~> 2.1.0"},
+     {:coherence, "~> 0.1"},
      {:cowboy, "~> 1.0"}]
   end
 

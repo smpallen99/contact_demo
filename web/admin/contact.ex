@@ -3,6 +3,19 @@ defmodule ContactDemo.ExAdmin.Contact do
 
   register_resource ContactDemo.Contact do
 
+    index do
+      selectable_column
+
+      column :first_name
+      column :last_name
+      column :email
+      column :category
+      column :phone_numbers, fn(contact) ->
+        text ContactDemo.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+      end
+      actions
+    end
+
     form contact do
       inputs do
         input contact, :first_name
@@ -21,19 +34,6 @@ defmodule ContactDemo.ExAdmin.Contact do
       inputs "Groups" do
         inputs :groups, as: :check_boxes, collection: ContactDemo.Group.all
       end
-    end
-
-    index do
-      selectable_column
-
-      column :first_name
-      column :last_name
-      column :email
-      column :category
-      column :phone_numbers, fn(contact) ->
-        text ContactDemo.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
-      end
-      actions
     end
 
     show contact do
