@@ -54,18 +54,16 @@ config :contact_demo, ecto_repos: [ContactDemo.Repo]
 config :xain, :after_callback, {Phoenix.HTML, :raw}
 
 
-
-
 # %% Coherence Configuration %%   Don't remove this line
 config :coherence,
   user_schema: ContactDemo.User,
   repo: ContactDemo.Repo,
   module: ContactDemo,
-  password_hash_field: :encrypted_password,
-  login_field: :username,
   logged_out_url: "/",
+  login_field: :username,
+  password_hash_field: :encrypted_password,
   email_from: {"", ""},
-  opts: [:rememberable, :invitable, :authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token, :confirmable, :registerable]
+  opts: [:registerable, :confirmable, :unlockable_with_token, :trackable, :lockable, :recoverable, :authenticatable, :invitable, :rememberable]
 
 config :coherence, ContactDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,

@@ -1,8 +1,4 @@
 <br \>
-<p class="bg-primary" style="padding: 15px; color: #fff; border-radius: 7px">
-  Login with username: <strong>demouser</strong> and password: <strong>secret</strong>
-</p>
-<br \>
 
 <%= form_for @conn, session_path(@conn, :create), [as: :session], fn f  -> %>
 
@@ -33,8 +29,6 @@
 
   <div class="form-group">
     <%= coherence_links(@conn, :new_session) %>
-    |
-    <%= link "Need an Account?", to: registration_path(@conn, :new) %>
   </div>
 
 <% end %>
