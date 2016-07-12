@@ -5,11 +5,12 @@ defmodule ContactDemo.User do
   schema "users" do
     field :name, :string
     field :username, :string
-    # field :email, :string
-    # field :encrypted_password, :string
+    field :email, :string
     field :active, :boolean, default: true
     field :expire_on, Ecto.Date
 
+    # handled by coherence
+    # field :encrypted_password, :string
     # field :password, :string, virtual: true
     # field :password_confirmation, :string, virtual: true
 
@@ -19,9 +20,6 @@ defmodule ContactDemo.User do
     timestamps
   end
 
-  @required_fields ~w(name email active username)
-  @optional_fields ~w(encrypted_password expire_on password password_confirmation)
-
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -30,7 +28,8 @@ defmodule ContactDemo.User do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, ~w(username active expire_on) ++ coherence_fields)
+    |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
+    |> validate_required([:name, :email, :username])
     |> unique_constraint(:username)
     |> validate_format(:email, ~r/@/)
     |> validate_coherence(params)

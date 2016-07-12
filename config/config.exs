@@ -56,7 +56,6 @@ config :xain, :after_callback, {Phoenix.HTML, :raw}
 
 
 
-
 # %% Coherence Configuration %%   Don't remove this line
 config :coherence,
   user_schema: ContactDemo.User,
@@ -65,10 +64,10 @@ config :coherence,
   password_hash_field: :encrypted_password,
   login_field: :username,
   logged_out_url: "/",
-  email_from: {"Your Name", "yourname@example.com"},
+  email_from: {"", ""},
   opts: [:rememberable, :invitable, :authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token, :confirmable, :registerable]
 
 config :coherence, ContactDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
-  api_key: "your api key here"
+  api_key: ""
 # %% End Coherence Configuration %%

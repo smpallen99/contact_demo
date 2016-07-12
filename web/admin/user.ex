@@ -53,6 +53,10 @@ defmodule ContactDemo.ExAdmin.User do
 
     end
 
+    action_item :index, fn ->
+      action_item_link "Invite Someone", href: "/invitations/new"
+    end
+
     query do
       %{all: [preload: [:roles]]}
     end

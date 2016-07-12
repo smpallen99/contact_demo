@@ -26,7 +26,7 @@ defmodule ContactDemo.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(ContactDemo.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(ContactDemo.Gettext, "errors", msg, msg, opts[:count] || 1, opts)
   end
 
   def translate_error(msg) do
