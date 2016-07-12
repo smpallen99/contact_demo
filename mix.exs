@@ -41,7 +41,8 @@ defmodule ContactDemo.Mixfile do
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
-     {:coherence, path: "../coherence"},
+     {:coherence, github: "smpallen99/coherence"},
+     # {:coherence, path: "../coherence"},
      # {:coherence, "~> 0.1"},
      {:cowboy, "~> 1.0"}]
   end
