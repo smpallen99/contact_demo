@@ -1,4 +1,4 @@
-<br \>
+<h3>Register Account</h3>
 
 <%= form_for @changeset, registration_path(@conn, :create), [as: :registration], fn f  -> %>
 
@@ -14,7 +14,6 @@
     <%= error_tag f, :name %>
   </div>
 
-  <% login_field = Coherence.Config.login_field %>
   <%= unless (login_field = Coherence.Config.login_field) == :email do %>
     <div class="form-group">
       <%= required_label f, login_field, class: "control-label" %>

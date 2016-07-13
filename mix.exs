@@ -33,7 +33,6 @@ defmodule ContactDemo.Mixfile do
     [{:phoenix, "~> 1.1", override: true},
      {:phoenix_ecto, "~> 3.0.0"},
      {:postgrex, ">= 0.0.0"},
-     # {:phoenix_ecto, "~> 2.0.0", override: true}, # the override is necessary
      {:ecto, "~> 2.0", override: true},           # the override is necessary
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
@@ -41,9 +40,7 @@ defmodule ContactDemo.Mixfile do
      {:phoenix_haml, "~> 0.2"},
      {:faker, "~> 0.6.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
-     {:coherence, github: "smpallen99/coherence"},
-     # {:coherence, path: "../coherence"},
-     # {:coherence, "~> 0.1"},
+     {:coherence, "~> 0.1"},
      {:cowboy, "~> 1.0"}]
   end
 

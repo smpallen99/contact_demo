@@ -79,6 +79,8 @@ for [fname, lname, role] <- [~w(Demo User admin)] do
     })
   |> Repo.insert!
 
+  User.confirm! user
+
   r =  Enum.find(roles, &(&1.name == role))
   UserRole.changeset(%UserRole{}, %{
     user_id: user.id,

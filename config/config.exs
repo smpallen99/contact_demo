@@ -53,19 +53,18 @@ config :contact_demo, ecto_repos: [ContactDemo.Repo]
 
 config :xain, :after_callback, {Phoenix.HTML, :raw}
 
-
 # %% Coherence Configuration %%   Don't remove this line
 config :coherence,
   user_schema: ContactDemo.User,
   repo: ContactDemo.Repo,
   module: ContactDemo,
   logged_out_url: "/",
-  login_field: :username,
   password_hash_field: :encrypted_password,
-  email_from: {"", ""},
-  opts: [:registerable, :confirmable, :unlockable_with_token, :trackable, :lockable, :recoverable, :authenticatable, :invitable, :rememberable]
+  login_field: :username,
+  email_from: {System.get_env("NAME"), System.get_env("EMAIL")},
+  opts: [:rememberable, :invitable, :authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token, :confirmable, :registerable]
 
 config :coherence, ContactDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
-  api_key: ""
+  api_key: System.get_env("API_KEY")
 # %% End Coherence Configuration %%
