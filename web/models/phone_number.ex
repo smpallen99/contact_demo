@@ -25,6 +25,8 @@ defmodule ContactDemo.PhoneNumber do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    # TODO: validate_required
+    # TODO: Validate phone number (across countries?)
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",

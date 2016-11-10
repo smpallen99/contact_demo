@@ -21,5 +21,6 @@ defmodule ContactDemo.Group do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    # TODO: validate_required
   end
 end

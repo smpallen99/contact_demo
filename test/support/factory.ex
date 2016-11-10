@@ -1,7 +1,7 @@
 defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
-  alias ContactDemo.{User}
+  alias ContactDemo.{User, Category}
 
   def user_factory do
     %User{
@@ -14,13 +14,13 @@ defmodule ContactDemo.Factory do
     }
   end
 
-  # def board_factory do
-  #   %Board{
-  #     name: sequence(:name, &"Name #{&1}"),
-  #     user: build(:user)
-  #   }
-  # end
-  #
+  def category_factory do
+    %Category{
+      name: sequence(:name, &"Name #{&1}"),
+      position: 42
+    }
+  end
+
   # def board_with_lists_factory do
   #   %Board{
   #     name: sequence(:name, &"Name #{&1}"),
