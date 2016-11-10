@@ -5,6 +5,8 @@ defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
     alter table(:users) do
       # rememberable
       add :remember_created_at, :datetime
+      # authenticatable
+      # add :encrypted_password, :string
       # recoverable
       add :reset_password_token, :string
       add :reset_password_sent_at, :datetime

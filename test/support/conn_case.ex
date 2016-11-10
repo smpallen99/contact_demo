@@ -27,16 +27,20 @@ defmodule ContactDemo.ConnCase do
 
       import ContactDemo.Router.Helpers
 
+      import ContactDemo.Factory
+
       # The default endpoint for testing
       @endpoint ContactDemo.Endpoint
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(ContactDemo.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

@@ -20,11 +20,12 @@ defmodule ContactDemo.Web do
     quote do
       use Ecto.Schema
 
+      alias ContactDemo.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
-      def all, do: ContactDemo.Repo.all(__MODULE__)
+      def all, do: Repo.all(__MODULE__)
     end
   end
 

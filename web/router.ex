@@ -3,14 +3,16 @@ defmodule ContactDemo.Router do
   use ExAdmin.Router
   use Coherence.Router
 
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session, login: true
+    # TODO: Not sure if this is the correct way to bypass authentication during testing
+    unless Mix.env == :test do
+      plug Coherence.Authentication.Session, login: true
+    end
   end
 
   pipeline :api do
@@ -23,7 +25,10 @@ defmodule ContactDemo.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session
+    # TODO: Not sure if this is the correct way to bypass authentication during testing
+    unless Mix.env == :test do
+      plug Coherence.Authentication.Session
+    end
   end
   # your app's routes
 

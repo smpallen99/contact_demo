@@ -41,7 +41,7 @@ defmodule ContactDemo.Coherence.ViewHelpers do
     unlock?   = Keyword.get opts, :unlock, @unlock_link
     register? = Keyword.get opts, :register, @register_link
 
-    user_schema = Coherence.Config.user_schema
+    user_schema = Config.user_schema
     [
       recover_link(conn, user_schema, recover?),
       unlock_link(conn, user_schema, unlock?),
@@ -122,5 +122,4 @@ defmodule ContactDemo.Coherence.ViewHelpers do
       ]
     end
   end
-
 end
