@@ -8,6 +8,5 @@ defmodule ContactDemo.Repo.Migrations.CreateCategory do
 
       timestamps
     end
-
   end
 end

@@ -9,6 +9,5 @@ defmodule ContactDemo.Repo.Migrations.CreatePhoneNumber do
 
       timestamps
     end
-
   end
 end

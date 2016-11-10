@@ -7,6 +7,5 @@ defmodule ContactDemo.Repo.Migrations.CreateRole do
 
       timestamps
     end
-
   end
 end

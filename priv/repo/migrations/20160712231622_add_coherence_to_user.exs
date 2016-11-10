@@ -1,5 +1,6 @@
 defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
   use Ecto.Migration
+
   def change do
     alter table(:users) do
       # rememberable
@@ -23,7 +24,5 @@ defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
       add :confirmed_at, :datetime
       add :confirmation_send_at, :datetime
     end
-
-
   end
 end

@@ -7,6 +7,5 @@ defmodule ContactDemo.Repo.Migrations.CreateGroup do
 
       timestamps
     end
-
   end
 end
