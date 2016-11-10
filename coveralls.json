@@ -17,6 +17,7 @@
   "skip_files": [
     "lib/himachal/endpoint.ex",
     "test/*",
+    "web/admin/*",
     "web/gettext.ex",
     "web/views/layout_view.ex",
     "web/web.ex",
