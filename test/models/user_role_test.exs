@@ -3,7 +3,7 @@ defmodule ContactDemo.UserRoleTest do
 
   alias ContactDemo.UserRole
 
-  @valid_attrs %{}
+  @valid_attrs %{user_id: 1, role_id: 2}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

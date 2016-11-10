@@ -3,7 +3,7 @@ defmodule ContactDemo.ContactGroupTest do
 
   alias ContactDemo.ContactGroup
 
-  @valid_attrs %{}
+  @valid_attrs %{contact_id: 1, group_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

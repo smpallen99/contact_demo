@@ -3,7 +3,7 @@ defmodule ContactDemo.ContactTest do
 
   alias ContactDemo.Contact
 
-  @valid_attrs %{email: "some content", first_name: "some content", last_name: "some content"}
+  @valid_attrs %{email: "some content", first_name: "some content", last_name: "some content", category_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

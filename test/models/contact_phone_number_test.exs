@@ -3,7 +3,7 @@ defmodule ContactDemo.ContactPhoneNumberTest do
 
   alias ContactDemo.ContactPhoneNumber
 
-  @valid_attrs %{}
+  @valid_attrs %{contact_id: 1, phone_number_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
