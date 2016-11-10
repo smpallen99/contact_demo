@@ -4,8 +4,7 @@ This is a demo application, demonstrating some of the capabilities of `ExAdmin`.
 
 Visit [Live Demo](http://demo2.exadmin.info/admin) to try it out!
 
-Refer to [ExAdmin](https://github.com/smpallen99/ex_admin) for more details, or
-view the [Documentation](http://exadmin.info/doc).
+Refer to [ExAdmin](https://github.com/smpallen99/ex_admin) for more details, or view the [Documentation](http://exadmin.info/doc). After downloading this code, you will have to run the installation instructions from the ex_admin repo.
 
 ## Authentication
 
