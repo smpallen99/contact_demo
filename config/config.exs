@@ -45,10 +45,6 @@ config :ex_admin,
     ContactDemo.ExAdmin.Role
   ]
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
-
 config :contact_demo, ecto_repos: [ContactDemo.Repo]
 
 config :xain, :after_callback, {Phoenix.HTML, :raw}
@@ -68,3 +64,7 @@ config :coherence, ContactDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: System.get_env("API_KEY")
 # %% End Coherence Configuration %%
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env}.exs"

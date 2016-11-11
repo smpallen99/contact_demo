@@ -31,8 +31,8 @@ defmodule ContactDemo.User do
     |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
     |> validate_required([:name, :email, :username])
     |> unique_constraint(:username)
-    |> validate_format(:email, ~r/@/)
+    |> validate_format(:email, ~r/@/)   # TODO: This is an incorrect regex for email validation
+    |> unique_constraint(:email)    # TODO: Not sure if this is handled by the 'validate_coherence'
     |> validate_coherence(params)
   end
-
 end

@@ -1,5 +1,7 @@
 defmodule ContactDemo.ExAdmin.Contact do
   use ExAdmin.Register
+  alias ContactDemo.{PhoneNumber, Category, Group, AdminView}
+  alias Phoenix.View
 
   register_resource ContactDemo.Contact do
 
@@ -11,7 +13,7 @@ defmodule ContactDemo.ExAdmin.Contact do
       column :email
       column :category
       column :phone_numbers, fn(contact) ->
-        text ContactDemo.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+        text PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
       end
       actions
     end
@@ -21,18 +23,18 @@ defmodule ContactDemo.ExAdmin.Contact do
         input contact, :first_name
         input contact, :last_name
         input contact, :email
-        input contact, :category, collection: ContactDemo.Category.all
+        input contact, :category, collection: Category.all
       end
 
       inputs "Phone Numbers" do
         has_many contact, :phone_numbers, fn(p) ->
-          input p, :label, collection: ContactDemo.PhoneNumber.labels
+          input p, :label, collection: PhoneNumber.labels
           input p, :number
         end
       end
 
       inputs "Groups" do
-        inputs :groups, as: :check_boxes, collection: ContactDemo.Group.all
+        inputs :groups, as: :check_boxes, collection: Group.all
       end
     end
 
@@ -65,7 +67,7 @@ defmodule ContactDemo.ExAdmin.Contact do
     end
 
     sidebar "ExAdmin Demo", only: [:index, :show] do
-      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "contact"]
+      View.render AdminView, "sidebar_links.html", [model: "contact"]
     end
   end
 end

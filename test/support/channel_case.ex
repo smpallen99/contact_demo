@@ -25,15 +25,16 @@ defmodule ContactDemo.ChannelCase do
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
-
       # The default endpoint for testing
       @endpoint ContactDemo.Endpoint
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(ContactDemo.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
     end
 
     :ok

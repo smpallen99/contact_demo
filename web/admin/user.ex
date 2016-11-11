@@ -1,6 +1,9 @@
 defmodule ContactDemo.ExAdmin.User do
   use ExAdmin.Register
 
+  alias ContactDemo.{Role, AdminView}
+  alias Phoenix.View
+
   register_resource ContactDemo.User do
     filter except: [:encrypted_password]
     # filter only: [:name, :email]
@@ -48,7 +51,7 @@ defmodule ContactDemo.ExAdmin.User do
       end
 
       inputs "Roles" do
-        inputs :roles, as: :check_boxes, collection: ContactDemo.Role.all
+        inputs :roles, as: :check_boxes, collection: Role.all
       end
 
     end
@@ -62,7 +65,7 @@ defmodule ContactDemo.ExAdmin.User do
     end
 
     sidebar "ExAdmin Demo", only: [:index, :show] do
-      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "user"]
+      View.render AdminView, "sidebar_links.html", [model: "user"]
     end
   end
 end

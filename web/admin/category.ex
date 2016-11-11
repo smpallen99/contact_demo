@@ -1,15 +1,14 @@
 defmodule ContactDemo.ExAdmin.Category do
   use ExAdmin.Register
-  alias ContactDemo.Category
-  alias ContactDemo.Repo
+  alias ContactDemo.{Category, Repo, AdminView}
+  alias Phoenix.{Controller, HTML.Tag, View}
 
   register_resource ContactDemo.Category do
-
     index do
       selectable_column
 
       column :name, fn(c) ->
-        Phoenix.HTML.Tag.content_tag(:span, c.name, "data-id": c.id, class: "category")
+        Tag.content_tag(:span, c.name, "data-id": c.id, class: "category")
         |> elem(1)
         |> text
       end
@@ -41,12 +40,12 @@ defmodule ContactDemo.ExAdmin.Category do
       %{
         all: [preload: [:contacts]],
         index: [query: Category |> order_by([c], asc: c.position)]
-        }
+      }
     end
     collection_action :sort, &__MODULE__.sort_action/2
 
     sidebar "ExAdmin Demo", only: [:index, :show] do
-      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "category"]
+      View.render AdminView, "sidebar_links.html", [model: "category"]
     end
   end
 
@@ -59,6 +58,6 @@ defmodule ContactDemo.ExAdmin.Category do
         Repo.update struct(c, position: new_index)
       end
     end)
-    Phoenix.Controller.text conn, ""
+    Controller.text conn, ""
   end
 end

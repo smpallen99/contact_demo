@@ -1,0 +1,3 @@
+web/static/js/app.js
+web/static/js/socket.js
+web/static/vendor/**/*.js

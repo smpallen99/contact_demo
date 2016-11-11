@@ -35,7 +35,6 @@ defmodule Faker.Phone do
     do: :rand.uniform(999) |> Integer.to_string |> String.rjust(3, ?0)
   defp ext,
     do: :rand.uniform(9999) |> Integer.to_string |> String.rjust(4, ?0)
-
 end
 
 Faker.start
@@ -68,7 +67,6 @@ categories = Repo.all Category
 roles = Repo.all Role
 
 for [fname, lname, role] <- [~w(Demo User admin)] do
-
   user = User.changeset(%User{}, %{
     name: "#{fname} #{lname}",
     email: "#{fname}#{lname}@example.com" |> String.downcase,
@@ -87,9 +85,7 @@ for [fname, lname, role] <- [~w(Demo User admin)] do
     role_id: r.id
     })
   |> Repo.insert!
-
 end
-
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
@@ -154,5 +150,3 @@ for _i <- 1..100 do
     |> Repo.insert!
   end
 end
-
-

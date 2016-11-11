@@ -1,12 +1,13 @@
 defmodule ContactDemo.PhoneNumber do
   use ContactDemo.Web, :model
   alias __MODULE__
+  alias ContactDemo.{ContactPhoneNumber, Repo}
 
   schema "phone_numbers" do
     field :number, :string
     field :kind, :string
     field :label, :string
-    has_many :contacts_phone_numbers, ContactDemo.ContactPhoneNumber
+    has_many :contacts_phone_numbers, ContactPhoneNumber
     has_many :contacts, through: [:contacts_phone_numbers, :contact]
 
     timestamps
@@ -24,6 +25,8 @@ defmodule ContactDemo.PhoneNumber do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    # TODO: validate_required
+    # TODO: Validate phone number (across countries?)
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",
@@ -31,7 +34,7 @@ defmodule ContactDemo.PhoneNumber do
 
   def all_labels do
     (from p in PhoneNumber, group_by: p.label, select: p.label)
-    |> ContactDemo.Repo.all
+    |> Repo.all
   end
 
   def find_by_label(phone_numbers, label) do

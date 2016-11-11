@@ -16,18 +16,22 @@ defmodule ContactDemo.ModelCase do
 
   using do
     quote do
+      use ExSpec, async: true
       alias ContactDemo.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
       import ContactDemo.ModelCase
+      import ContactDemo.Factory
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(ContactDemo.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
     end
 
     :ok

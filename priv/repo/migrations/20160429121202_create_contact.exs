@@ -10,7 +10,7 @@ defmodule ContactDemo.Repo.Migrations.CreateContact do
 
       timestamps
     end
-    create index(:contacts, [:category_id])
 
+    create index(:contacts, [:category_id])
   end
 end

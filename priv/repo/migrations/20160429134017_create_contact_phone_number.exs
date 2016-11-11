@@ -8,8 +8,8 @@ defmodule ContactDemo.Repo.Migrations.CreateContactPhoneNumber do
 
       timestamps
     end
+
     create index(:contacts_phone_numbers, [:contact_id])
     create index(:contacts_phone_numbers, [:phone_number_id])
-
   end
 end

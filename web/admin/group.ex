@@ -1,8 +1,10 @@
 defmodule ContactDemo.ExAdmin.Group do
   use ExAdmin.Register
 
-  register_resource ContactDemo.Group do
+  alias ContactDemo.AdminView
+  alias Phoenix.View
 
+  register_resource ContactDemo.Group do
     index do
       selectable_column
       column :name
@@ -35,11 +37,11 @@ defmodule ContactDemo.ExAdmin.Group do
 
     query do
       # %{show: [preload: [:recordings, contacts: [:phone_numbers]]] }
-      %{show: [preload: [:contacts]] }
+      %{show: [preload: [:contacts]]}
     end
 
     sidebar "ExAdmin Demo", only: [:index, :show] do
-      Phoenix.View.render ContactDemo.AdminView, "sidebar_links.html", [model: "group"]
+      View.render AdminView, "sidebar_links.html", [model: "group"]
     end
   end
 end

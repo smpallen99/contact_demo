@@ -1,9 +1,12 @@
 defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
   use Ecto.Migration
+
   def change do
     alter table(:users) do
       # rememberable
       add :remember_created_at, :datetime
+      # authenticatable
+      # add :encrypted_password, :string
       # recoverable
       add :reset_password_token, :string
       add :reset_password_sent_at, :datetime
@@ -23,7 +26,5 @@ defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
       add :confirmed_at, :datetime
       add :confirmation_send_at, :datetime
     end
-
-
   end
 end
