@@ -22,7 +22,7 @@ defmodule ContactDemo.Role do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate_required
+    |> validate_required(:name)
     # TODO: Is there a regex to validate proper names?
   end
 end

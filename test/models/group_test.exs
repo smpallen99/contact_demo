@@ -4,10 +4,8 @@ defmodule ContactDemo.GroupTest do
   alias ContactDemo.Group
 
   describe "validations" do
-    @valid_attrs params_for(:group)
-
     test "changeset with valid attributes" do
-      changeset = Group.changeset(%Group{}, @valid_attrs)
+      changeset = Group.changeset(build(:group))
       assert changeset.valid?
     end
 

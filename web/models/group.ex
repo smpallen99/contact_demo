@@ -6,6 +6,7 @@ defmodule ContactDemo.Group do
 
     has_many :contacts_groups, ContactDemo.ContactGroup
     has_many :contacts, through: [:contacts_groups, :contact]
+
     timestamps
   end
 
