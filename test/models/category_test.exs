@@ -9,24 +9,22 @@ defmodule ContactDemo.CategoryTest do
       assert changeset.valid?
     end
 
-    context "for name" do
-      test "if changeset has nil name" do
-        changeset = Category.changeset(build(:category, name: nil))
-        refute changeset.valid?
-        assert {:name, {"can't be blank", []}} in changeset.errors
-      end
+    test "name: if changeset has nil name" do
+      changeset = Category.changeset(build(:category, name: nil))
+      refute changeset.valid?
+      assert {:name, {"can't be blank", []}} in changeset.errors
+    end
 
-      test "if changeset has zero-length name" do
-        changeset = Category.changeset(build(:category, name: ""))
-        refute changeset.valid?
-        assert {:name, {"can't be blank", []}} in changeset.errors
-      end
+    test "name: if changeset has zero-length name" do
+      changeset = Category.changeset(build(:category, name: ""))
+      refute changeset.valid?
+      assert {:name, {"can't be blank", []}} in changeset.errors
+    end
 
-      test "if changeset has blank name" do
-        changeset = Category.changeset(build(:category, name: " "))
-        refute changeset.valid?
-        assert {:name, {"can't be blank", []}} in changeset.errors
-      end
+    test "name: if changeset has blank name" do
+      changeset = Category.changeset(build(:category, name: " "))
+      refute changeset.valid?
+      assert {:name, {"can't be blank", []}} in changeset.errors
     end
   end
 

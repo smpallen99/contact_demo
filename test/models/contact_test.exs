@@ -9,24 +9,22 @@ defmodule ContactDemo.ContactTest do
       assert changeset.valid?
     end
 
-    context "for first_name" do
-      test "if changeset has nil first_name" do
-        changeset = Contact.changeset(build(:contact, first_name: nil))
-        refute changeset.valid?
-        assert {:first_name, {"can't be blank", []}} in changeset.errors
-      end
+    test "first_name: if changeset has nil first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: nil))
+      refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
+    end
 
-      test "if changeset has zero-length first_name" do
-        changeset = Contact.changeset(build(:contact, first_name: ""))
-        refute changeset.valid?
-        assert {:first_name, {"can't be blank", []}} in changeset.errors
-      end
+    test "first_name: if changeset has zero-length first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: ""))
+      refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
+    end
 
-      test "if changeset has blank first_name" do
-        changeset = Contact.changeset(build(:contact, first_name: " "))
-        refute changeset.valid?
-        assert {:first_name, {"can't be blank", []}} in changeset.errors
-      end
+    test "first_name: if changeset has blank first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: " "))
+      refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
     end
   end
 

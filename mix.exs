@@ -50,7 +50,6 @@ defmodule ContactDemo.Mixfile do
       {:ecto, "~> 2.0", override: true},           # the override is necessary
       {:ex_admin, github: "smpallen99/ex_admin"},
       {:ex_machina, "~> 1.0.2", only: :test},
-      {:ex_spec, "~> 2.0", only: :test},
       {:excoveralls, "~> 0.5.1", only: :test, app: false},
       {:faker, "~> 0.7.0"},
       {:gettext, "~> 0.9"},

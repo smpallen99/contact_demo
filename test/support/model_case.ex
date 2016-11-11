@@ -16,7 +16,6 @@ defmodule ContactDemo.ModelCase do
 
   using do
     quote do
-      use ExSpec, async: true
       alias ContactDemo.Repo
 
       import Ecto
