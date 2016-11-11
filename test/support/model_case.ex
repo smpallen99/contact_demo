@@ -59,7 +59,9 @@ defmodule ContactDemo.ModelCase do
       iex> {:password, "is unsafe"} in changeset.errors
       true
   """
-  def errors_on(model, data) do
-    model.__struct__.changeset(model, data).errors
+  def errors_on(struct, data) do
+    struct.__struct__.changeset(struct, data)
+    |> Ecto.Changeset.traverse_errors(&ContactDemo.ErrorHelpers.translate_error/1)
+    |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

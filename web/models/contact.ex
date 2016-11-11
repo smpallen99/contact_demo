@@ -23,10 +23,11 @@ defmodule ContactDemo.Contact do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate_required
+    |> validate_required([:first_name, :last_name, :email])
+    # TODO: Is there a regex to validate proper names and email?
     # TODO: validate existence of relationships
   end
 end

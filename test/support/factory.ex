@@ -1,12 +1,12 @@
 defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
-  alias ContactDemo.{User, Category}
+  alias ContactDemo.{User, Category, ContactGroup, Contact, Group}
 
   def user_factory do
     %User{
-      name: sequence(:first_name, &"First #{&1}"),
-      username: sequence(:last_name, &"Last #{&1}"),
+      name: sequence(:name, &"Name #{&1}"),
+      username: sequence(:username, &"username_#{&1}"),
       email: sequence(:email, &"email-#{&1}@foo.com"),
       encrypted_password: "changeme",
       password: "changeme",
@@ -18,6 +18,28 @@ defmodule ContactDemo.Factory do
     %Category{
       name: sequence(:name, &"Name #{&1}"),
       position: 42
+    }
+  end
+
+  def contact_group_factory do
+    %ContactGroup{
+      contact: build(:contact),
+      group: build(:group)
+    }
+  end
+
+  def contact_factory do
+    %Contact{
+      first_name: sequence(:first_name, &"First #{&1}"),
+      last_name: sequence(:last_name, &"Last #{&1}"),
+      email: sequence(:email, &"email-#{&1}@foo.com"),
+      category: build(:category)
+    }
+  end
+
+  def group_factory do
+    %Group{
+      name: sequence(:name, &"Name #{&1}")
     }
   end
 

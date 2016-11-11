@@ -4,10 +4,8 @@ defmodule ContactDemo.CategoryTest do
   alias ContactDemo.Category
 
   describe "validations" do
-    @valid_attrs params_for(:category)
-
     test "changeset with valid attributes" do
-      changeset = Category.changeset(%Category{}, @valid_attrs)
+      changeset = Category.changeset(build(:category))
       assert changeset.valid?
     end
 
