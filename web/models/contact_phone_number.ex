@@ -17,10 +17,10 @@ defmodule ContactDemo.ContactPhoneNumber do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate_required
-    # TODO: validate existence of relationships
+    |> foreign_key_constraint(:contact_id)
+    |> foreign_key_constraint(:phone_number_id)
   end
 end

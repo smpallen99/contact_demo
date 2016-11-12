@@ -22,11 +22,12 @@ defmodule ContactDemo.PhoneNumber do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate_required
+    |> validate_required([:number, :label])
     # TODO: Validate phone number (across countries?)
+    # TODO: Validate that 'label' is only one of the set list
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",

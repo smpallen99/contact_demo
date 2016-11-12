@@ -4,17 +4,41 @@ defmodule ContactDemo.ContactTest do
   alias ContactDemo.Contact
 
   describe "validations" do
-    @valid_attrs %{email: "some content", first_name: "some content", last_name: "some content", category_id: 1}
-    @invalid_attrs %{}
-
     test "changeset with valid attributes" do
-      changeset = Contact.changeset(%Contact{}, @valid_attrs)
+      # TODO: Need to figure out how to use the "Default" factory-generated related object (category)
+      changeset = Contact.changeset(build(:contact, category_id: 1))
       assert changeset.valid?
     end
 
-    test "changeset with invalid attributes" do
-      changeset = Contact.changeset(%Contact{}, @invalid_attrs)
+    test "first_name: if changeset has nil first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: nil))
       refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "first_name: if changeset has zero-length first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: ""))
+      refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "first_name: if changeset has blank first_name" do
+      changeset = Contact.changeset(build(:contact, first_name: " "))
+      refute changeset.valid?
+      assert {:first_name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "category_id: if changeset has nil category_id" do
+      changeset = Contact.changeset(build(:contact, category_id: nil, category: nil))
+      refute changeset.valid?
+      assert {:category_id, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "category_id: if changeset refers to a non-existent category_id" do
+      changeset = Contact.changeset(build(:contact, category_id: -123, category: nil))
+      {:error, changeset} = Repo.insert changeset
+      refute changeset.valid?
+      assert {:category_id, {"does not exist", []}} in changeset.errors
     end
   end
 
