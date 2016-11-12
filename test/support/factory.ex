@@ -1,7 +1,7 @@
 defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
-  alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role}
+  alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role, PhoneNumber, ContactPhoneNumber}
 
   def user_factory do
     %User{
@@ -46,6 +46,20 @@ defmodule ContactDemo.Factory do
   def role_factory do
     %Role{
       name: sequence(:name, &"Name #{&1}")
+    }
+  end
+
+  def phone_number_factory do
+    %PhoneNumber{
+      number: "some content",
+      label: "some content"
+    }
+  end
+
+  def contact_phone_number_factory do
+    %ContactPhoneNumber{
+      contact: build(:contact),
+      phone_number: build(:phone_number)
     }
   end
 

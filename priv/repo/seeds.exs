@@ -20,6 +20,7 @@ alias ContactDemo.PhoneNumber
 alias ContactDemo.ContactPhoneNumber
 alias ContactDemo.UserRole
 alias ContactDemo.Role
+alias Coherence.ControllerHelpers
 
 defmodule Faker.Phone do
   def phone_number do
@@ -77,7 +78,7 @@ for [fname, lname, role] <- [~w(Demo User admin)] do
     })
   |> Repo.insert!
 
-  User.confirm! user
+  ControllerHelpers.confirm! user
 
   r =  Enum.find(roles, &(&1.name == role))
   UserRole.changeset(%UserRole{}, %{

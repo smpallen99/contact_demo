@@ -28,6 +28,6 @@ defmodule ContactDemo.Contact do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required([:first_name, :last_name, :email])
     # TODO: Is there a regex to validate proper names and email?
-    # TODO: validate existence of relationships
+    |> foreign_key_constraint(:category_id)
   end
 end

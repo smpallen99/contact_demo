@@ -20,7 +20,7 @@ defmodule ContactDemo.ContactPhoneNumber do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate_required
-    # TODO: validate existence of relationships
+    |> foreign_key_constraint(:contact_id)
+    |> foreign_key_constraint(:phone_number_id)
   end
 end

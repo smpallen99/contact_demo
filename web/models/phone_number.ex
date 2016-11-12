@@ -27,6 +27,7 @@ defmodule ContactDemo.PhoneNumber do
     |> cast(params, @required_fields, @optional_fields)
     # TODO: validate_required
     # TODO: Validate phone number (across countries?)
+    # TODO: Validate that 'label' is only one of the set list
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",
