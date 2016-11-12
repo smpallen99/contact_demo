@@ -20,6 +20,7 @@ defmodule ContactDemo.UserRole do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # TODO: validate existence of relationships
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:role_id)
   end
 end

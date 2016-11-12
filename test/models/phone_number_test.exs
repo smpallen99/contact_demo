@@ -4,18 +4,49 @@ defmodule ContactDemo.PhoneNumberTest do
   alias ContactDemo.PhoneNumber
 
   describe "validations" do
-    @valid_attrs %{kind: "some content", label: "some content", number: "some content"}
-    @invalid_attrs %{}
-
     test "changeset with valid attributes" do
-      changeset = PhoneNumber.changeset(%PhoneNumber{}, @valid_attrs)
+      changeset = PhoneNumber.changeset(build(:phone_number))
       assert changeset.valid?
     end
 
-    test "changeset with invalid attributes" do
-      changeset = PhoneNumber.changeset(%PhoneNumber{}, @invalid_attrs)
+    test "number: if changeset has nil number" do
+      changeset = PhoneNumber.changeset(build(:phone_number, number: nil))
       refute changeset.valid?
+      assert {:number, {"can't be blank", []}} in changeset.errors
     end
+
+    test "number: if changeset has zero-length number" do
+      changeset = PhoneNumber.changeset(build(:phone_number, number: ""))
+      refute changeset.valid?
+      assert {:number, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "number: if changeset has blank number" do
+      changeset = PhoneNumber.changeset(build(:phone_number, number: " "))
+      refute changeset.valid?
+      assert {:number, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "label: if changeset has nil label" do
+      changeset = PhoneNumber.changeset(build(:phone_number, label: nil))
+      refute changeset.valid?
+      assert {:label, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "label: if changeset has zero-length label" do
+      changeset = PhoneNumber.changeset(build(:phone_number, label: ""))
+      refute changeset.valid?
+      assert {:label, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "label: if changeset has blank label" do
+      changeset = PhoneNumber.changeset(build(:phone_number, label: " "))
+      refute changeset.valid?
+      assert {:label, {"can't be blank", []}} in changeset.errors
+    end
+
+    @tag :skip
+    test "label: has to be only one among a specific set of values"
   end
 
   describe "relationships" do

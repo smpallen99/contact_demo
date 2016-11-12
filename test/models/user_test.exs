@@ -8,14 +8,62 @@ defmodule ContactDemo.UserTest do
     @invalid_attrs %{}
 
     test "changeset with valid attributes" do
-      changeset = User.changeset(%User{}, @valid_attrs)
+      changeset = User.changeset(build(:user))
       assert changeset.valid?
     end
 
-    test "changeset with invalid attributes" do
-      changeset = User.changeset(%User{}, @invalid_attrs)
+    test "name: if changeset has nil name" do
+      changeset = User.changeset(build(:user, name: nil))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "name: if changeset has zero-length name" do
+      changeset = User.changeset(build(:user, name: ""))
+      refute changeset.valid?
+      assert {:name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "name: if changeset has blank name" do
+      changeset = User.changeset(build(:user, name: " "))
+      refute changeset.valid?
+      assert {:name, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "email: if changeset has nil email" do
+      changeset = User.changeset(build(:user, email: nil))
+      refute changeset.valid?
+      assert {:email, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "email: if changeset has zero-length email" do
+      changeset = User.changeset(build(:user, email: ""))
+      refute changeset.valid?
+      assert {:email, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "email: if changeset has blank email" do
+      changeset = User.changeset(build(:user, email: " "))
+      refute changeset.valid?
+      assert {:email, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "username: if changeset has nil username" do
+      changeset = User.changeset(build(:user, username: nil))
+      refute changeset.valid?
+      assert {:username, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "username: if changeset has zero-length username" do
+      changeset = User.changeset(build(:user, username: ""))
+      refute changeset.valid?
+      assert {:username, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "username: if changeset has blank username" do
+      changeset = User.changeset(build(:user, username: " "))
+      refute changeset.valid?
+      assert {:username, {"can't be blank", []}} in changeset.errors
     end
 
     test "creates with password" do
@@ -26,16 +74,6 @@ defmodule ContactDemo.UserTest do
     end
 
     @tag :skip
-    test "populates the 'encrypted_password' field when validating"
-
-    test "validates password" do
-      attrs = Map.merge(@valid_attrs, %{username: "testuser3", password: "secret", password_confirmation: "secret"})
-      changeset = User.changeset(%User{}, attrs)
-      user = Repo.insert! changeset
-      assert User.checkpw("secret", user.encrypted_password)
-    end
-
-    @tag :skip
     test "validates format of 'email' field"
 
     @tag :skip
@@ -43,6 +81,13 @@ defmodule ContactDemo.UserTest do
 
     @tag :skip
     test "validates uniqueness of 'username' field"
+  end
+
+  test "populates the 'encrypted_password' field when inserting" do
+    attrs = Map.merge(@valid_attrs, %{username: "testuser2", password: "secret", password_confirmation: "secret"})
+    changeset = User.changeset(%User{}, attrs)
+    user = Repo.insert! changeset
+    assert User.checkpw("secret", user.encrypted_password)
   end
 
   describe "relationships" do

@@ -1,7 +1,7 @@
 defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
-  alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role, PhoneNumber, ContactPhoneNumber}
+  alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role, PhoneNumber, ContactPhoneNumber, UserRole}
 
   def user_factory do
     %User{
@@ -10,7 +10,8 @@ defmodule ContactDemo.Factory do
       email: sequence(:email, &"email-#{&1}@foo.com"),
       encrypted_password: "changeme",
       password: "changeme",
-      password_confirmation: "changeme"
+      password_confirmation: "changeme",
+      expire_on: "some date"
     }
   end
 
@@ -51,6 +52,7 @@ defmodule ContactDemo.Factory do
 
   def phone_number_factory do
     %PhoneNumber{
+      # TODO: Fix these values
       number: "some content",
       label: "some content"
     }
@@ -60,6 +62,13 @@ defmodule ContactDemo.Factory do
     %ContactPhoneNumber{
       contact: build(:contact),
       phone_number: build(:phone_number)
+    }
+  end
+
+  def user_role_factory do
+    %UserRole{
+      user: build(:user),
+      role: build(:role)
     }
   end
 
