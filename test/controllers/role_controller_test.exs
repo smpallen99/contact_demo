@@ -2,8 +2,6 @@ defmodule ContactDemo.RoleControllerTest do
   use ContactDemo.ConnCase
 
   alias ContactDemo.Role
-  @valid_attrs %{name: "some content"}
-  @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, role_path(conn, :index)
@@ -16,13 +14,14 @@ defmodule ContactDemo.RoleControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, role_path(conn, :create), role: @valid_attrs
+    valid_attrs = params_with_assocs(:role) |> Map.take([:name])
+    conn = post conn, role_path(conn, :create), role: valid_attrs
     assert redirected_to(conn) == role_path(conn, :index)
-    assert Repo.get_by(Role, @valid_attrs)
+    assert Repo.get_by(Role, valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, role_path(conn, :create), role: @invalid_attrs
+    conn = post conn, role_path(conn, :create), role: %{}
     assert html_response(conn, 200) =~ "New role"
   end
 
@@ -45,15 +44,16 @@ defmodule ContactDemo.RoleControllerTest do
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
+    valid_attrs = params_with_assocs(:role) |> Map.take([:name])
     role = Repo.insert! %Role{}
-    conn = put conn, role_path(conn, :update, role), role: @valid_attrs
+    conn = put conn, role_path(conn, :update, role), role: valid_attrs
     assert redirected_to(conn) == role_path(conn, :show, role)
-    assert Repo.get_by(Role, @valid_attrs)
+    assert Repo.get_by(Role, valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     role = Repo.insert! %Role{}
-    conn = put conn, role_path(conn, :update, role), role: @invalid_attrs
+    conn = put conn, role_path(conn, :update, role), role: %{}
     assert html_response(conn, 200) =~ "Edit role"
   end
 

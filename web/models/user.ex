@@ -2,12 +2,14 @@ defmodule ContactDemo.User do
   use ContactDemo.Web, :model
   use Coherence.Schema
 
+  alias Timex.Date
+
   schema "users" do
     field :name, :string
     field :username, :string
     field :email, :string
     field :active, :boolean, default: true
-    field :expire_on, Ecto.Date
+    field :expire_on, Timex.Ecto.Date
 
     # handled by coherence
     # field :encrypted_password, :string

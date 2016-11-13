@@ -31,7 +31,7 @@ defmodule ContactDemo.Mixfile do
   def application do
     [
       mod: {ContactDemo, []},
-      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :coherence]
+      applications: [:timex, :timex_ecto, :phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :coherence]
     ]
   end
 

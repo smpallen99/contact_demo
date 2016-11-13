@@ -11,7 +11,7 @@ defmodule ContactDemo.Factory do
       encrypted_password: "changeme",
       password: "changeme",
       password_confirmation: "changeme",
-      expire_on: "some date"
+      expire_on: Timex.Date.today
     }
   end
 

@@ -4,73 +4,63 @@ defmodule ContactDemo.UserTest do
   alias ContactDemo.User
 
   describe "validations" do
-    @valid_attrs %{email: "some@content", encrypted_password: "some content", password: "some content", password_confirmation: "some content", name: "some content", active: true, username: "testuser"}
-    @invalid_attrs %{}
-
     test "changeset with valid attributes" do
-      changeset = User.changeset(build(:user))
+      changeset = User.changeset(%User{}, params_with_assocs(:user))
       assert changeset.valid?
     end
 
     test "name: if changeset has nil name" do
-      changeset = User.changeset(build(:user, name: nil))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: nil}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
     test "name: if changeset has zero-length name" do
-      changeset = User.changeset(build(:user, name: ""))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: ""}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
     test "name: if changeset has blank name" do
-      changeset = User.changeset(build(:user, name: " "))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: " "}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
     test "email: if changeset has nil email" do
-      changeset = User.changeset(build(:user, email: nil))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: nil}))
       refute changeset.valid?
       assert {:email, {"can't be blank", []}} in changeset.errors
     end
 
     test "email: if changeset has zero-length email" do
-      changeset = User.changeset(build(:user, email: ""))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: ""}))
       refute changeset.valid?
       assert {:email, {"can't be blank", []}} in changeset.errors
     end
 
     test "email: if changeset has blank email" do
-      changeset = User.changeset(build(:user, email: " "))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: " "}))
       refute changeset.valid?
       assert {:email, {"can't be blank", []}} in changeset.errors
     end
 
     test "username: if changeset has nil username" do
-      changeset = User.changeset(build(:user, username: nil))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: nil}))
       refute changeset.valid?
       assert {:username, {"can't be blank", []}} in changeset.errors
     end
 
     test "username: if changeset has zero-length username" do
-      changeset = User.changeset(build(:user, username: ""))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: ""}))
       refute changeset.valid?
       assert {:username, {"can't be blank", []}} in changeset.errors
     end
 
     test "username: if changeset has blank username" do
-      changeset = User.changeset(build(:user, username: " "))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: " "}))
       refute changeset.valid?
       assert {:username, {"can't be blank", []}} in changeset.errors
-    end
-
-    test "creates with password" do
-      attrs = Map.merge(@valid_attrs, %{username: "testuser2", password: "secret", password_confirmation: "secret"})
-      changeset = User.changeset(%User{}, attrs)
-      assert changeset.valid?
-      #Repo.insert! changeset
     end
 
     @tag :skip
@@ -84,8 +74,7 @@ defmodule ContactDemo.UserTest do
   end
 
   test "populates the 'encrypted_password' field when inserting" do
-    attrs = Map.merge(@valid_attrs, %{username: "testuser2", password: "secret", password_confirmation: "secret"})
-    changeset = User.changeset(%User{}, attrs)
+    changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{password: "secret", password_confirmation: "secret"}))
     user = Repo.insert! changeset
     assert User.checkpw("secret", user.encrypted_password)
   end

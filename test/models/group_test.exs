@@ -5,24 +5,24 @@ defmodule ContactDemo.GroupTest do
 
   describe "validations" do
     test "changeset with valid attributes" do
-      changeset = Group.changeset(build(:group))
+      changeset = Group.changeset(%Group{}, params_with_assocs(:group))
       assert changeset.valid?
     end
 
     test "name: if changeset has nil name" do
-      changeset = Group.changeset(build(:group, name: nil))
+      changeset = Group.changeset(%Group{}, Map.merge(params_with_assocs(:group), %{name: nil}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
     test "name: if changeset has zero-length name" do
-      changeset = Group.changeset(build(:group, name: ""))
+      changeset = Group.changeset(%Group{}, Map.merge(params_with_assocs(:group), %{name: ""}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
     test "name: if changeset has blank name" do
-      changeset = Group.changeset(build(:group, name: " "))
+      changeset = Group.changeset(%Group{}, Map.merge(params_with_assocs(:group), %{name: " "}))
       refute changeset.valid?
       assert {:name, {"can't be blank", []}} in changeset.errors
     end

@@ -5,42 +5,42 @@ defmodule ContactDemo.PhoneNumberTest do
 
   describe "validations" do
     test "changeset with valid attributes" do
-      changeset = PhoneNumber.changeset(build(:phone_number))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, params_with_assocs(:phone_number))
       assert changeset.valid?
     end
 
     test "number: if changeset has nil number" do
-      changeset = PhoneNumber.changeset(build(:phone_number, number: nil))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: nil}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
     test "number: if changeset has zero-length number" do
-      changeset = PhoneNumber.changeset(build(:phone_number, number: ""))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: ""}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
     test "number: if changeset has blank number" do
-      changeset = PhoneNumber.changeset(build(:phone_number, number: " "))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: " "}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
     test "label: if changeset has nil label" do
-      changeset = PhoneNumber.changeset(build(:phone_number, label: nil))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: nil}))
       refute changeset.valid?
       assert {:label, {"can't be blank", []}} in changeset.errors
     end
 
     test "label: if changeset has zero-length label" do
-      changeset = PhoneNumber.changeset(build(:phone_number, label: ""))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: ""}))
       refute changeset.valid?
       assert {:label, {"can't be blank", []}} in changeset.errors
     end
 
     test "label: if changeset has blank label" do
-      changeset = PhoneNumber.changeset(build(:phone_number, label: " "))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: " "}))
       refute changeset.valid?
       assert {:label, {"can't be blank", []}} in changeset.errors
     end
