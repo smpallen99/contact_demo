@@ -24,5 +24,6 @@ defmodule ContactDemo.Group do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required(:name)
     # TODO: Is there a regex to validate proper names?
+    # TODO: Validate max-length of string fields
   end
 end

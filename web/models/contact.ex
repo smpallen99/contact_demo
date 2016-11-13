@@ -28,6 +28,7 @@ defmodule ContactDemo.Contact do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required([:first_name, :last_name, :email])
     # TODO: Is there a regex to validate proper names and email?
+    # TODO: Validate max-length of string fields
     |> assoc_constraint(:category)
   end
 end
