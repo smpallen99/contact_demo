@@ -1,13 +1,13 @@
 defmodule ContactDemo.PhoneNumber do
   use ContactDemo.Web, :model
   alias __MODULE__
-  alias ContactDemo.{ContactPhoneNumber, Repo}
+  alias ContactDemo.Repo
 
   schema "phone_numbers" do
     field :number, :string
     field :kind, :string
     field :label, :string
-    has_many :contacts_phone_numbers, ContactPhoneNumber
+    has_many :contacts_phone_numbers, ContactDemo.ContactPhoneNumber
     has_many :contacts, through: [:contacts_phone_numbers, :contact]
 
     timestamps

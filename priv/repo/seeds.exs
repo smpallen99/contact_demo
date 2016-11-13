@@ -21,24 +21,7 @@ alias ContactDemo.ContactPhoneNumber
 alias ContactDemo.UserRole
 alias ContactDemo.Role
 alias Coherence.ControllerHelpers
-
-defmodule Faker.Phone do
-  def phone_number do
-    area_code <> nxx <> ext
-  end
-  defp area_code do
-    last = :rand.uniform(99)
-    |> Integer.to_string
-    |> String.rjust(2, ?0)
-    Integer.to_string(:rand.uniform(8) + 1) <> last
-  end
-  defp nxx,
-    do: :rand.uniform(999) |> Integer.to_string |> String.rjust(3, ?0)
-  defp ext,
-    do: :rand.uniform(9999) |> Integer.to_string |> String.rjust(4, ?0)
-end
-
-Faker.start
+alias FakerElixir, as: Faker
 
 [
   ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, User, Category,
@@ -90,7 +73,7 @@ end
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
-    name: Faker.Name.En.name,
+    name: Faker.Name.name,
     email: Faker.Internet.email,
     username: Faker.Internet.user_name,
     password: "secret",
@@ -118,8 +101,8 @@ for _i <- 1..100 do
       end)
 
   contact = Contact.changeset(%Contact{}, %{
-    first_name: Faker.Name.En.first_name,
-    last_name: Faker.Name.En.last_name,
+    first_name: Faker.Name.first_name,
+    last_name: Faker.Name.last_name,
     email: Faker.Internet.email,
     category_id: category.id
     })
@@ -140,7 +123,7 @@ for _i <- 1..100 do
   end)
   for label <- labels do
     pn = PhoneNumber.changeset(%PhoneNumber{}, %{
-      number: Faker.Phone.phone_number,
+      number: Faker.Phone.cell,
       label: label
     })
     |> Repo.insert!

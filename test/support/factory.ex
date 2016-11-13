@@ -2,12 +2,13 @@ defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
   alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role, PhoneNumber, ContactPhoneNumber, UserRole}
+  alias FakerElixir, as: Faker
 
   def user_factory do
     %User{
-      name: sequence(:name, &"Name #{&1}"),
-      username: sequence(:username, &"username_#{&1}"),
-      email: sequence(:email, &"email-#{&1}@foo.com"),
+      name: Faker.Name.name,
+      username: Faker.Internet.user_name,
+      email: Faker.Internet.email,
       encrypted_password: "changeme",
       password: "changeme",
       password_confirmation: "changeme",
@@ -17,7 +18,7 @@ defmodule ContactDemo.Factory do
 
   def category_factory do
     %Category{
-      name: sequence(:name, &"Name #{&1}"),
+      name: Faker.App.name,
       position: 42
     }
   end
@@ -31,16 +32,16 @@ defmodule ContactDemo.Factory do
 
   def contact_factory do
     %Contact{
-      first_name: sequence(:first_name, &"First #{&1}"),
-      last_name: sequence(:last_name, &"Last #{&1}"),
-      email: sequence(:email, &"email-#{&1}@foo.com"),
+      first_name: Faker.Name.first_name,
+      last_name: Faker.Name.last_name,
+      email: Faker.Internet.email,
       category: build(:category)
     }
   end
 
   def group_factory do
     %Group{
-      name: sequence(:name, &"Name #{&1}")
+      name: Faker.Color.name
     }
   end
 
@@ -52,9 +53,8 @@ defmodule ContactDemo.Factory do
 
   def phone_number_factory do
     %PhoneNumber{
-      # TODO: Fix these values
-      number: "some content",
-      label: "some content"
+      number: Faker.Phone.cell,
+      label: "Mobile Phone"
     }
   end
 
@@ -71,40 +71,4 @@ defmodule ContactDemo.Factory do
       role: build(:role)
     }
   end
-
-  # def board_with_lists_factory do
-  #   %Board{
-  #     name: sequence(:name, &"Name #{&1}"),
-  #     user: build(:user),
-  #     lists: build_list(3, :list)
-  #   }
-  # end
-  #
-  # def list_factory do
-  #   %List{
-  #     name: sequence(:name, &"Name #{&1}")
-  #   }
-  # end
-  #
-  # def card_factory do
-  #   %Card{
-  #     name: sequence(:name, &"Name #{&1}")
-  #   }
-  # end
-  #
-  # def list_with_cards_factory do
-  #   %List{
-  #     name: sequence(:name, &"Name #{&1}"),
-  #     board: build(:board),
-  #     cards: build_list(5, :card)
-  #   }
-  # end
-  #
-  # def comment_factory do
-  #   %Comment{
-  #     user: build(:user),
-  #     card: build(:card),
-  #     text: sequence(:name, &"Some Text #{&1}")
-  #   }
-  # end
 end

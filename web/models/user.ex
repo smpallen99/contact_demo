@@ -2,8 +2,6 @@ defmodule ContactDemo.User do
   use ContactDemo.Web, :model
   use Coherence.Schema
 
-  alias Timex.Date
-
   schema "users" do
     field :name, :string
     field :username, :string

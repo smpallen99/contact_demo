@@ -31,7 +31,7 @@ defmodule ContactDemo.Mixfile do
   def application do
     [
       mod: {ContactDemo, []},
-      applications: [:timex, :timex_ecto, :phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :coherence]
+      applications: [:timex, :timex_ecto, :phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :coherence, :faker_elixir_octopus]
     ]
   end
 
@@ -51,7 +51,7 @@ defmodule ContactDemo.Mixfile do
       {:ex_admin, github: "smpallen99/ex_admin"},
       {:ex_machina, "~> 1.0.2", only: :test},
       {:excoveralls, "~> 0.5.1", only: :test, app: false},
-      {:faker, "~> 0.7.0"},
+      {:faker_elixir_octopus, "~> 0.12.0", only: [:dev, :test]},
       {:gettext, "~> 0.9"},
       {:phoenix, "~> 1.2", override: true},
       {:phoenix_ecto, "~> 3.0.0"},
