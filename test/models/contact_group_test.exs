@@ -23,7 +23,7 @@ defmodule ContactDemo.ContactGroupTest do
     end
 
     test "group_id: if changeset has nil group_id" do
-      changeset = ContactGroup.changeset(%ContactGroup{}, Map.merge(params_with_assocs(:contact_group), %{group_id: nil, group: nil}))
+      changeset = ContactGroup.changeset(%ContactGroup{}, Map.merge(params_with_assocs(:contact_group), %{group_id: nil}))
       refute changeset.valid?
       assert {:group_id, {"can't be blank", []}} in changeset.errors
     end
