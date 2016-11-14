@@ -1,8 +1,10 @@
 defmodule ContactDemo.Group do
   use ContactDemo.Web, :model
 
+  alias ContactDemo.AppConstants
+
   schema "groups" do
-    field :name, :string
+    field :name, :string, null: false
 
     has_many :contacts_groups, ContactDemo.ContactGroup
     has_many :contacts, through: [:contacts_groups, :contact]
@@ -23,7 +25,8 @@ defmodule ContactDemo.Group do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required(:name)
-    # TODO: Is there a regex to validate proper names?
-    |> validate_length(:name, max: 255)
+    |> validate_format(:name, AppConstants.name_format)
+    |> validate_length(:name, min: 1, max: 255)
+    |> unique_constraint(:name, name: :groups_name_index)
   end
 end

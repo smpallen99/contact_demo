@@ -26,7 +26,7 @@ defmodule ContactDemo.GroupControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    group = Repo.insert! %Group{}
+    group = insert(:group)
     conn = get conn, group_path(conn, :show, group)
     assert html_response(conn, 200) =~ "Show group"
   end
@@ -38,27 +38,27 @@ defmodule ContactDemo.GroupControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    group = Repo.insert! %Group{}
+    group = insert(:group)
     conn = get conn, group_path(conn, :edit, group)
     assert html_response(conn, 200) =~ "Edit group"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     valid_attrs = params_with_assocs(:group) |> Map.take([:name])
-    group = Repo.insert! %Group{}
+    group = insert(:group)
     conn = put conn, group_path(conn, :update, group), group: valid_attrs
     assert redirected_to(conn) == group_path(conn, :show, group)
     assert Repo.get_by(Group, valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    group = Repo.insert! %Group{}
-    conn = put conn, group_path(conn, :update, group), group: %{}
+    group = insert(:group)
+    conn = put conn, group_path(conn, :update, group), group: %{name: nil}
     assert html_response(conn, 200) =~ "Edit group"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    group = Repo.insert! %Group{}
+    group = insert(:group)
     conn = delete conn, group_path(conn, :delete, group)
     assert redirected_to(conn) == group_path(conn, :index)
     refute Repo.get(Group, group.id)

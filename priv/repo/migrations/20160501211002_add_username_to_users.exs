@@ -3,9 +3,9 @@ defmodule ContactDemo.Repo.Migrations.AddUsernameToUsers do
 
   def change do
     alter table(:users) do
-      add :username, :string
+      add :username, :string, null: false
     end
 
-    create unique_index(:users, [:username])
+    create index(:users, ["LOWER(username)"], unique: true, name: :users_username_index)
   end
 end

@@ -33,6 +33,18 @@ defmodule ContactDemo.ContactTest do
       assert {:first_name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
+    test "first_name: should be invalid when first_name is only numbers" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{first_name: "678"}))
+      refute changeset.valid?
+      assert {:first_name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "first_name: should be invalid when first_name starts with space" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{first_name: " space"}))
+      refute changeset.valid?
+      assert {:first_name, {"has invalid format", []}} in changeset.errors
+    end
+
     test "last_name: if changeset has nil last_name" do
       changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{last_name: nil}))
       refute changeset.valid?
@@ -57,6 +69,18 @@ defmodule ContactDemo.ContactTest do
       assert {:last_name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
+    test "last_name: should be invalid when last_name is only numbers" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{last_name: "678"}))
+      refute changeset.valid?
+      assert {:last_name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "last_name: should be invalid when last_name starts with space" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{last_name: " space"}))
+      refute changeset.valid?
+      assert {:last_name, {"has invalid format", []}} in changeset.errors
+    end
+
     test "email: if changeset has nil email" do
       changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{email: nil}))
       refute changeset.valid?
@@ -79,6 +103,23 @@ defmodule ContactDemo.ContactTest do
       changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{email: Faker.Lorem.words(256)}))
       refute changeset.valid?
       assert {:email, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
+    end
+
+    test "email: should be invalid when email is only numbers" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{email: "678"}))
+      refute changeset.valid?
+      assert {:email, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "email: should be invalid when email starts with space" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{email: " space"}))
+      refute changeset.valid?
+      assert {:email, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "email: should be valid when in correct format" do
+      changeset = Contact.changeset(%Contact{}, Map.merge(params_with_assocs(:contact), %{email: "a@b.com"}))
+      assert changeset.valid?
     end
 
     test "category_id: if changeset has nil category_id" do

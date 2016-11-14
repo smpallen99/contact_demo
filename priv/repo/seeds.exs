@@ -28,10 +28,12 @@ alias FakerElixir, as: Faker
   PhoneNumber, Role
 ] |> Enum.each(&Repo.delete_all/1)
 
+index = 0
 ~w(Employees Maintenance Marketing Sales Management)
 |> Enum.each(fn(name) ->
-  Category.changeset(%Category{}, %{name: name})
+  Category.changeset(%Category{}, %{name: name, position: index + 1})
   |> Repo.insert!
+  index = index + 1
 end)
 
 ~w(one two three four)

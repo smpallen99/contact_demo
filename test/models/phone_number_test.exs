@@ -57,8 +57,11 @@ defmodule ContactDemo.PhoneNumberTest do
       assert {:label, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
-    @tag :skip
-    test "label: has to be only one among a specific set of values"
+    test "label: has to be only one among a specific set of values" do
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Faker.Lorem.word}))
+      refute changeset.valid?
+      assert {:label, {"is invalid", []}} in changeset.errors
+    end
   end
 
   describe "relationships" do

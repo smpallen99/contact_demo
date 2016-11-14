@@ -32,6 +32,25 @@ defmodule ContactDemo.RoleTest do
       refute changeset.valid?
       assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
+
+    test "name: should be invalid when name is only numbers" do
+      changeset = Role.changeset(%Role{}, Map.merge(params_with_assocs(:role), %{name: "678"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "name: should be invalid when name starts with space" do
+      changeset = Role.changeset(%Role{}, Map.merge(params_with_assocs(:role), %{name: " space"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "validates uniqueness of 'name' field" do
+      original_role = insert(:role)
+      duplicate_role = Role.changeset(%Role{}, params_with_assocs(:role, name: original_role.name))
+      {:error, changeset} = Repo.insert duplicate_role
+      assert {:name, {"has already been taken", []}} in changeset.errors
+    end
   end
 
   describe "relationships" do

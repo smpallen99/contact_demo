@@ -3,14 +3,14 @@ defmodule ContactDemo.Repo.Migrations.CreateCoherenceInvitable do
 
   def change do
     create table(:invitations) do
-      add :name, :string
-      add :email, :string
-      add :token, :string
+      add :name, :string, null: false
+      add :email, :string, null: false
+      add :token, :string, null: false
 
       timestamps
     end
 
-    create unique_index(:invitations, [:email])
+    create index(:invitations, ["LOWER(email)"], unique: true, name: :invitations_email_index)
     create index(:invitations, [:token])
   end
 end

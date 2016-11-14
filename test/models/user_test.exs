@@ -33,6 +33,18 @@ defmodule ContactDemo.UserTest do
       assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
+    test "name: should be invalid when name is only numbers" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: "678"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "name: should be invalid when name starts with space" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: " space"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
     test "email: if changeset has nil email" do
       changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: nil}))
       refute changeset.valid?
@@ -55,6 +67,23 @@ defmodule ContactDemo.UserTest do
       changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Faker.Lorem.words(256)}))
       refute changeset.valid?
       assert {:email, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
+    end
+
+    test "email: should be invalid when email is only numbers" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: "678"}))
+      refute changeset.valid?
+      assert {:email, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "email: should be invalid when email starts with space" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: " space"}))
+      refute changeset.valid?
+      assert {:email, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "email: should be valid when in correct format" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: "a@b.com"}))
+      assert changeset.valid?
     end
 
     test "username: if changeset has nil username" do
@@ -81,14 +110,31 @@ defmodule ContactDemo.UserTest do
       assert {:username, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
-    @tag :skip
-    test "validates format of 'email' field"
+    test "username: should be invalid when username is only numbers" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: "678"}))
+      refute changeset.valid?
+      assert {:username, {"has invalid format", []}} in changeset.errors
+    end
 
-    @tag :skip
-    test "validates uniqueness of 'email' field"
+    test "username: should be invalid when username starts with space" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: " space"}))
+      refute changeset.valid?
+      assert {:username, {"has invalid format", []}} in changeset.errors
+    end
 
-    @tag :skip
-    test "validates uniqueness of 'username' field"
+    test "validates uniqueness of 'email' field" do
+      original_user = insert(:user)
+      duplicate_user = User.changeset(%User{}, params_with_assocs(:user, email: original_user.email))
+      {:error, changeset} = Repo.insert duplicate_user
+      assert {:email, {"has already been taken", []}} in changeset.errors
+    end
+
+    test "validates uniqueness of 'username' field" do
+      original_user = insert(:user)
+      duplicate_user = User.changeset(%User{}, params_with_assocs(:user, username: original_user.username))
+      {:error, changeset} = Repo.insert duplicate_user
+      assert {:username, {"has already been taken", []}} in changeset.errors
+    end
   end
 
   test "populates the 'encrypted_password' field when inserting" do

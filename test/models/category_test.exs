@@ -27,6 +27,18 @@ defmodule ContactDemo.CategoryTest do
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
+    test "name: should be invalid when name is only numbers" do
+      changeset = Category.changeset(%Category{}, Map.merge(params_with_assocs(:category), %{name: "678"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
+    test "name: should be invalid when name starts with space" do
+      changeset = Category.changeset(%Category{}, Map.merge(params_with_assocs(:category), %{name: " space"}))
+      refute changeset.valid?
+      assert {:name, {"has invalid format", []}} in changeset.errors
+    end
+
     test "name: raises a validation error if the length of the text is > 255 characters" do
       changeset = Category.changeset(%Category{}, Map.merge(params_with_assocs(:category), %{name: Faker.Lorem.words(256)}))
       refute changeset.valid?

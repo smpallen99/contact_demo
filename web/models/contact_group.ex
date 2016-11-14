@@ -4,6 +4,8 @@ defmodule ContactDemo.ContactGroup do
   schema "contacts_groups" do
     belongs_to :contact, ContactDemo.Contact
     belongs_to :group, ContactDemo.Group
+
+    timestamps
   end
 
   @required_fields ~w(contact_id group_id)

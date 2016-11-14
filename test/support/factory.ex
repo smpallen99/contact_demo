@@ -47,7 +47,7 @@ defmodule ContactDemo.Factory do
 
   def role_factory do
     %Role{
-      name: sequence(:name, &"Name #{&1}")
+      name: Faker.Name.name
     }
   end
 

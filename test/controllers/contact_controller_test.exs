@@ -26,7 +26,7 @@ defmodule ContactDemo.ContactControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    contact = Repo.insert! %Contact{}
+    contact = insert(:contact)
     conn = get conn, contact_path(conn, :show, contact)
     assert html_response(conn, 200) =~ "Show contact"
   end
@@ -38,27 +38,27 @@ defmodule ContactDemo.ContactControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    contact = Repo.insert! %Contact{}
+    contact = insert(:contact)
     conn = get conn, contact_path(conn, :edit, contact)
     assert html_response(conn, 200) =~ "Edit contact"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     valid_attrs = params_with_assocs(:contact) |> Map.take([:email, :first_name, :last_name, :category_id])
-    contact = Repo.insert! %Contact{}
+    contact = insert(:contact)
     conn = put conn, contact_path(conn, :update, contact), contact: valid_attrs
     assert redirected_to(conn) == contact_path(conn, :show, contact)
     assert Repo.get_by(Contact, valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    contact = Repo.insert! %Contact{}
-    conn = put conn, contact_path(conn, :update, contact), contact: %{}
+    contact = insert(:contact)
+    conn = put conn, contact_path(conn, :update, contact), contact: %{first_name: nil}
     assert html_response(conn, 200) =~ "Edit contact"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    contact = Repo.insert! %Contact{}
+    contact = insert(:contact)
     conn = delete conn, contact_path(conn, :delete, contact)
     assert redirected_to(conn) == contact_path(conn, :index)
     refute Repo.get(Contact, contact.id)
