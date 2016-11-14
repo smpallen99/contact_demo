@@ -31,7 +31,9 @@ defmodule ContactDemo.User do
     |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
     |> validate_required([:name, :email, :username, :active]) # TODO: Add 'expire_on'
     # TODO: Is there a regex to validate proper names?
-    # TODO: Validate max-length of string fields
+    |> validate_length(:name, max: 255)
+    |> validate_length(:username, max: 255)
+    |> validate_length(:email, max: 255)
     |> unique_constraint(:username)
     |> validate_format(:email, ~r/@/)   # TODO: This is an incorrect regex for email validation
     |> unique_constraint(:email)    # TODO: Not sure if this is handled by the 'validate_coherence'

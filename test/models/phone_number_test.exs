@@ -27,6 +27,12 @@ defmodule ContactDemo.PhoneNumberTest do
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
+    test "number: raises a validation error if the length of the text is > 255 characters" do
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: Faker.Lorem.words(256)}))
+      refute changeset.valid?
+      assert {:number, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
+    end
+
     test "label: if changeset has nil label" do
       changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: nil}))
       refute changeset.valid?
@@ -43,6 +49,12 @@ defmodule ContactDemo.PhoneNumberTest do
       changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: " "}))
       refute changeset.valid?
       assert {:label, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "label: raises a validation error if the length of the text is > 255 characters" do
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Faker.Lorem.words(256)}))
+      refute changeset.valid?
+      assert {:label, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
     @tag :skip

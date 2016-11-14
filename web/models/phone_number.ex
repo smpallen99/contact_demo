@@ -28,7 +28,9 @@ defmodule ContactDemo.PhoneNumber do
     |> validate_required([:number, :label])
     # TODO: Validate phone number (across countries?)
     # TODO: Validate that 'label' is only one of the set list
-    # TODO: Validate max-length of string fields
+    |> validate_length(:number, max: 255)
+    # |> validate_length(:kind, max: 255)
+    |> validate_length(:label, max: 255)
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",

@@ -17,6 +17,7 @@ defmodule ContactDemo.ModelCase do
   using do
     quote do
       alias ContactDemo.Repo
+      alias FakerElixir, as: Faker
 
       import Ecto
       import Ecto.Changeset

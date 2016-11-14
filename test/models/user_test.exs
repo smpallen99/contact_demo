@@ -27,6 +27,12 @@ defmodule ContactDemo.UserTest do
       assert {:name, {"can't be blank", []}} in changeset.errors
     end
 
+    test "name: raises a validation error if the length of the text is > 255 characters" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: Faker.Lorem.words(256)}))
+      refute changeset.valid?
+      assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
+    end
+
     test "email: if changeset has nil email" do
       changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: nil}))
       refute changeset.valid?
@@ -45,6 +51,12 @@ defmodule ContactDemo.UserTest do
       assert {:email, {"can't be blank", []}} in changeset.errors
     end
 
+    test "email: raises a validation error if the length of the text is > 255 characters" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Faker.Lorem.words(256)}))
+      refute changeset.valid?
+      assert {:email, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
+    end
+
     test "username: if changeset has nil username" do
       changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: nil}))
       refute changeset.valid?
@@ -61,6 +73,12 @@ defmodule ContactDemo.UserTest do
       changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: " "}))
       refute changeset.valid?
       assert {:username, {"can't be blank", []}} in changeset.errors
+    end
+
+    test "username: raises a validation error if the length of the text is > 255 characters" do
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: Faker.Lorem.words(256)}))
+      refute changeset.valid?
+      assert {:username, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
     @tag :skip

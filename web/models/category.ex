@@ -25,6 +25,6 @@ defmodule ContactDemo.Category do
     # TODO: Is there a regex to validate proper names?
     # TODO: Should position always be positive?
     # TODO: Should position be unique?
-    # TODO: Validate max-length of string fields
+    |> validate_length(:name, max: 255)
   end
 end
