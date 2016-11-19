@@ -4,7 +4,7 @@ defmodule ContactDemo.Repo.Migrations.AddExpireToUsers do
   def change do
     alter table(:users) do
       add :expire_on, :date
-      add :active, :boolean
+      add :active, :boolean, null: false, default: true
     end
   end
 end

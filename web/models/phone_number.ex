@@ -1,13 +1,15 @@
 defmodule ContactDemo.PhoneNumber do
   use ContactDemo.Web, :model
+
   alias __MODULE__
-  alias ContactDemo.{ContactPhoneNumber, Repo}
+  alias ContactDemo.Repo
 
   schema "phone_numbers" do
-    field :number, :string
-    field :kind, :string
-    field :label, :string
-    has_many :contacts_phone_numbers, ContactPhoneNumber
+    field :number, :string, null: false
+    field :kind, :string    # TODO: Should this be deleted?
+    field :label, :string, null: false
+
+    has_many :contacts_phone_numbers, ContactDemo.ContactPhoneNumber
     has_many :contacts, through: [:contacts_phone_numbers, :contact]
 
     timestamps
@@ -27,7 +29,10 @@ defmodule ContactDemo.PhoneNumber do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required([:number, :label])
     # TODO: Validate phone number (across countries?)
-    # TODO: Validate that 'label' is only one of the set list
+    |> validate_length(:number, min: 1, max: 255)
+    # |> validate_length(:kind, min: 1, max: 255)
+    |> validate_length(:label, min: 1, max: 255)
+    |> validate_inclusion(:label, labels)
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",

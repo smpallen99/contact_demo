@@ -11,14 +11,19 @@
 
   "coverage_options": {
     "treat_no_relevant_lines_as_covered": true,
-    "minimum_coverage": 50
+    "minimum_coverage": 73
   },
 
   "skip_files": [
-    "lib/himachal/endpoint.ex",
+    "lib/contact_demo.ex",
+    "lib/contact_demo/endpoint.ex",
+    "lib/contact_demo/repo.ex",
     "test/*",
     "web/admin/*",
+    "web/emails/coherence/coherence_mailer.ex",
     "web/gettext.ex",
+    "web/router.ex",
+    "web/views/*",
     "web/views/layout_view.ex",
     "web/web.ex",
   ]

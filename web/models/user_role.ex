@@ -20,7 +20,7 @@ defmodule ContactDemo.UserRole do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> foreign_key_constraint(:user_id)
-    |> foreign_key_constraint(:role_id)
+    |> assoc_constraint(:user)
+    |> assoc_constraint(:role)
   end
 end

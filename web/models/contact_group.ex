@@ -4,6 +4,8 @@ defmodule ContactDemo.ContactGroup do
   schema "contacts_groups" do
     belongs_to :contact, ContactDemo.Contact
     belongs_to :group, ContactDemo.Group
+
+    timestamps
   end
 
   @required_fields ~w(contact_id group_id)
@@ -18,7 +20,7 @@ defmodule ContactDemo.ContactGroup do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> foreign_key_constraint(:contact_id)
-    |> foreign_key_constraint(:group_id)
+    |> assoc_constraint(:contact)
+    |> assoc_constraint(:group)
   end
 end

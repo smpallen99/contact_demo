@@ -5,35 +5,34 @@ defmodule ContactDemo.UserRoleTest do
 
   describe "validations" do
     test "changeset with valid attributes" do
-      # TODO: Need to figure out how to use the "Default" factory-generated related object (user, role)
-      changeset = UserRole.changeset(build(:user_role, user_id: 1, role_id: 1))
+      changeset = UserRole.changeset(%UserRole{}, params_with_assocs(:user_role))
       assert changeset.valid?
     end
 
     test "user_id: if changeset has nil user_id" do
-      changeset = UserRole.changeset(build(:user_role, user_id: nil, user: nil, role_id: 1, role: nil))
+      changeset = UserRole.changeset(%UserRole{}, Map.merge(params_with_assocs(:user_role), %{user_id: nil}))
       refute changeset.valid?
       assert {:user_id, {"can't be blank", []}} in changeset.errors
     end
 
     test "user_id: if changeset refers to a non-existent user_id" do
-      changeset = UserRole.changeset(build(:user_role, user_id: -123, user: nil, role_id: 1, role: nil))
+      changeset = UserRole.changeset(%UserRole{}, Map.merge(params_with_assocs(:user_role), %{user_id: -123}))
       {:error, changeset} = Repo.insert changeset
       refute changeset.valid?
-      assert {:user_id, {"does not exist", []}} in changeset.errors
+      assert {:user, {"does not exist", []}} in changeset.errors
     end
 
     test "role_id: if changeset has nil role_id" do
-      changeset = UserRole.changeset(build(:user_role, role_id: nil, role: nil, user_id: 1, user: nil))
+      changeset = UserRole.changeset(%UserRole{}, Map.merge(params_with_assocs(:user_role), %{role_id: nil}))
       refute changeset.valid?
       assert {:role_id, {"can't be blank", []}} in changeset.errors
     end
 
     test "role_id: if changeset refers to a non-existent role_id" do
-      changeset = UserRole.changeset(build(:user_role, role_id: -123, role: nil, user_id: 1, user: nil))
+      changeset = UserRole.changeset(%UserRole{}, Map.merge(params_with_assocs(:user_role), %{role_id: -123}))
       {:error, changeset} = Repo.insert changeset
       refute changeset.valid?
-      assert {:role_id, {"does not exist", []}} in changeset.errors
+      assert {:role, {"does not exist", []}} in changeset.errors
     end
   end
 

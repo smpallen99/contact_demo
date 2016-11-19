@@ -2,8 +2,6 @@ defmodule ContactDemo.CategoryControllerTest do
   use ContactDemo.ConnCase
 
   alias ContactDemo.Category
-  @valid_attrs %{name: "some content", position: 42}
-  @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, category_path(conn, :index)
@@ -16,18 +14,19 @@ defmodule ContactDemo.CategoryControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, category_path(conn, :create), category: @valid_attrs
+    valid_attrs = params_with_assocs(:category) |> Map.take([:name, :position])
+    conn = post conn, category_path(conn, :create), category: valid_attrs
     assert redirected_to(conn) == category_path(conn, :index)
-    assert Repo.get_by(Category, @valid_attrs)
+    assert Repo.get_by(Category, valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, category_path(conn, :create), category: @invalid_attrs
+    conn = post conn, category_path(conn, :create), category: %{}
     assert html_response(conn, 200) =~ "New category"
   end
 
   test "shows chosen resource", %{conn: conn} do
-    category = Repo.insert! %Category{}
+    category = insert(:category)
     conn = get conn, category_path(conn, :show, category)
     assert html_response(conn, 200) =~ "Show category"
   end
@@ -39,26 +38,27 @@ defmodule ContactDemo.CategoryControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    category = Repo.insert! %Category{}
+    category = insert(:category)
     conn = get conn, category_path(conn, :edit, category)
     assert html_response(conn, 200) =~ "Edit category"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    category = Repo.insert! %Category{}
-    conn = put conn, category_path(conn, :update, category), category: @valid_attrs
+    valid_attrs = params_with_assocs(:category) |> Map.take([:name, :position])
+    category = insert(:category)
+    conn = put conn, category_path(conn, :update, category), category: valid_attrs
     assert redirected_to(conn) == category_path(conn, :show, category)
-    assert Repo.get_by(Category, @valid_attrs)
+    assert Repo.get_by(Category, valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    category = Repo.insert! %Category{}
-    conn = put conn, category_path(conn, :update, category), category: @invalid_attrs
+    category = insert(:category)
+    conn = put conn, category_path(conn, :update, category), category: %{name: nil}
     assert html_response(conn, 200) =~ "Edit category"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    category = Repo.insert! %Category{}
+    category = insert(:category)
     conn = delete conn, category_path(conn, :delete, category)
     assert redirected_to(conn) == category_path(conn, :index)
     refute Repo.get(Category, category.id)

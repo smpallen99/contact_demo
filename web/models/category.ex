@@ -1,9 +1,12 @@
 defmodule ContactDemo.Category do
   use ContactDemo.Web, :model
 
+  alias ContactDemo.AppConstants
+
   schema "categories" do
-    field :name, :string
+    field :name, :string, null: false
     field :position, :integer
+
     has_many :contacts, ContactDemo.Contact
 
     timestamps
@@ -22,8 +25,9 @@ defmodule ContactDemo.Category do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required(:name)
-    # TODO: Is there a regex to validate proper names?
+    |> validate_format(:name, AppConstants.name_format)
     # TODO: Should position always be positive?
     # TODO: Should position be unique?
+    |> validate_length(:name, min: 1, max: 255)
   end
 end

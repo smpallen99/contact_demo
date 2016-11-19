@@ -3,9 +3,9 @@ defmodule ContactDemo.Repo.Migrations.CreateContact do
 
   def change do
     create table(:contacts) do
-      add :first_name, :string
-      add :last_name, :string
-      add :email, :string
+      add :first_name, :string, null: false
+      add :last_name, :string, null: false
+      add :email, :string, null: false
       add :category_id, references(:categories, on_delete: :nothing)
 
       timestamps
