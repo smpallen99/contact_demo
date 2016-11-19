@@ -60,14 +60,30 @@ defmodule ContactDemo.ExAdmin.Contact do
         end
       end
     end
+
     query do
       %{
         all: [preload: [:category, :phone_numbers, :groups]],
       }
     end
 
+    csv [
+      {"Surname", &(&1.last_name)},
+      {:category, &(&1.category.name)},
+      {"Groups", &(Enum.map(&1.groups, fn g -> g.name end) |> Enum.join("; "))},
+    ] ++
+      (for label <- PhoneNumber.all_labels do
+        fun = fn c ->
+          c.phone_numbers
+          |> PhoneNumber.find_by_label(label)
+          |> Map.get(:number, "")
+        end
+        {label, fun}
+      end)
+
     sidebar "ExAdmin Demo", only: [:index, :show] do
       View.render AdminView, "sidebar_links.html", [model: "contact"]
     end
   end
+
 end
