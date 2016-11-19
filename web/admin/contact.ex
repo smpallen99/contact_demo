@@ -4,7 +4,7 @@ defmodule ContactDemo.ExAdmin.Contact do
   alias Phoenix.View
 
   register_resource ContactDemo.Contact do
-
+    # TODO: Look at https://github.com/smpallen99/ex_admin/issues/232 for info about how to combine the index and csv blocks
     index do
       selectable_column
 
@@ -15,8 +15,25 @@ defmodule ContactDemo.ExAdmin.Contact do
       column :phone_numbers, fn(contact) ->
         text PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
       end
+
       actions
     end
+
+    csv [
+      :first_name,
+      {"Surname", &(&1.last_name)},
+      :email,
+      {:category, &(&1.category.name)},
+      {"Groups", &(Enum.map(&1.groups, fn g -> g.name end) |> Enum.join("; "))},
+    ] ++
+      (for label <- PhoneNumber.all_labels do
+        fun = fn c ->
+          c.phone_numbers
+          |> PhoneNumber.find_by_label(label)
+          |> Map.get(:number, "")
+        end
+        {label, fun}
+      end)
 
     form contact do
       inputs do
@@ -66,20 +83,6 @@ defmodule ContactDemo.ExAdmin.Contact do
         all: [preload: [:category, :phone_numbers, :groups]],
       }
     end
-
-    csv [
-      {"Surname", &(&1.last_name)},
-      {:category, &(&1.category.name)},
-      {"Groups", &(Enum.map(&1.groups, fn g -> g.name end) |> Enum.join("; "))},
-    ] ++
-      (for label <- PhoneNumber.all_labels do
-        fun = fn c ->
-          c.phone_numbers
-          |> PhoneNumber.find_by_label(label)
-          |> Map.get(:number, "")
-        end
-        {label, fun}
-      end)
 
     sidebar "ExAdmin Demo", only: [:index, :show] do
       View.render AdminView, "sidebar_links.html", [model: "contact"]
