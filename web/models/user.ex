@@ -1,6 +1,7 @@
 defmodule ContactDemo.User do
   use ContactDemo.Web, :model
   use Coherence.Schema
+  use Whatwasit
 
   alias ContactDemo.AppConstants
 
@@ -29,7 +30,7 @@ defmodule ContactDemo.User do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
     |> validate_required([:name, :email, :username, :active]) # TODO: Add 'expire_on'
@@ -42,5 +43,6 @@ defmodule ContactDemo.User do
     |> validate_format(:email, AppConstants.email_format)
     |> unique_constraint(:email, name: :users_email_index)
     |> validate_coherence(params)
+    |> prepare_version(opts)
   end
 end

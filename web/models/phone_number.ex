@@ -1,5 +1,6 @@
 defmodule ContactDemo.PhoneNumber do
   use ContactDemo.Web, :model
+  use Whatwasit
 
   alias __MODULE__
   alias ContactDemo.Repo
@@ -24,7 +25,7 @@ defmodule ContactDemo.PhoneNumber do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required([:number, :label])
@@ -33,6 +34,7 @@ defmodule ContactDemo.PhoneNumber do
     # |> validate_length(:kind, min: 1, max: 255)
     |> validate_length(:label, min: 1, max: 255)
     |> validate_inclusion(:label, labels)
+    |> prepare_version(opts)
   end
 
   def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",

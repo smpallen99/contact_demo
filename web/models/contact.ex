@@ -1,5 +1,6 @@
 defmodule ContactDemo.Contact do
   use ContactDemo.Web, :model
+  use Whatwasit
 
   alias ContactDemo.AppConstants
 
@@ -26,7 +27,7 @@ defmodule ContactDemo.Contact do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required([:first_name, :last_name, :email])
@@ -37,5 +38,6 @@ defmodule ContactDemo.Contact do
     |> validate_format(:email, AppConstants.email_format)
     |> validate_length(:email, min: 1, max: 255)
     |> assoc_constraint(:category)
+    |> prepare_version(opts)
   end
 end

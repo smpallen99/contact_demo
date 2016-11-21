@@ -16,7 +16,7 @@ defmodule ContactDemo.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.changeset(%User{}, user_params, whodoneit(conn))
 
     case Repo.insert(changeset) do
       {:ok, _user} ->
@@ -41,7 +41,7 @@ defmodule ContactDemo.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
+    changeset = User.changeset(user, user_params, whodoneit(conn))
 
     case Repo.update(changeset) do
       {:ok, user} ->
@@ -54,11 +54,11 @@ defmodule ContactDemo.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+    changeset = Repo.get!(User, id) |> User.changeset(%{}, whodoneit(conn))
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
+    Repo.delete!(changeset)
 
     conn
     |> put_flash(:info, "User deleted successfully.")

@@ -45,6 +45,7 @@ defmodule ContactDemo.Mixfile do
   defp deps do
     [
       {:coherence, github: "smpallen99/coherence"},
+      {:whatwasit, "~> 0.2.1"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.5.2", only: :test, app: false},
       {:ecto, "~> 2.0", override: true},           # the override is necessary

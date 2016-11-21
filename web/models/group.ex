@@ -1,5 +1,6 @@
 defmodule ContactDemo.Group do
   use ContactDemo.Web, :model
+  use Whatwasit
 
   alias ContactDemo.AppConstants
 
@@ -21,12 +22,13 @@ defmodule ContactDemo.Group do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_required(:name)
     |> validate_format(:name, AppConstants.name_format)
     |> validate_length(:name, min: 1, max: 255)
     |> unique_constraint(:name, name: :groups_name_index)
+    |> prepare_version(opts)
   end
 end

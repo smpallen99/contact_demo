@@ -31,6 +31,11 @@ defmodule ContactDemo.ConnCase do
 
       # The default endpoint for testing
       @endpoint ContactDemo.Endpoint
+
+      setup do
+        conn = build_conn |> assign(:current_user, %ContactDemo.User{name: "System User for tests"})
+        %{conn: conn}
+      end
     end
   end
 

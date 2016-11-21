@@ -40,6 +40,11 @@ defmodule ContactDemo.Web do
 
       import ContactDemo.Router.Helpers
       import ContactDemo.Gettext
+
+      defp whodoneit(conn) do
+        user = Coherence.current_user(conn)
+        [whodoneit: user, whodoneit_name: user.name]
+      end
     end
   end
 
