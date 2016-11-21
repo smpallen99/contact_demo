@@ -36,6 +36,9 @@ config :ex_admin,
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
   ],
+  title: "Contact-Demo",
+  logo_mini: "c-<b>Demo</b>",
+  logo_full: "Contact-<b>Demo</b>",
   modules: [
     ContactDemo.ExAdmin.Dashboard,
     ContactDemo.ExAdmin.Contact,

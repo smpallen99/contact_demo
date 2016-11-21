@@ -5,6 +5,8 @@ defmodule ContactDemo.ExAdmin.Role do
   alias Phoenix.View
 
   register_resource ContactDemo.Role do
+    # TODO: Need to customize the csv block
+
     sidebar "ExAdmin Demo", only: [:index, :show] do
       View.render AdminView, "sidebar_links.html", [model: "role"]
     end

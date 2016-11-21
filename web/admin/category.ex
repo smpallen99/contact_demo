@@ -12,8 +12,14 @@ defmodule ContactDemo.ExAdmin.Category do
         |> elem(1)
         |> text
       end
+
       actions
     end
+
+    csv [
+      :name,
+      :position
+    ]
 
     form category do
       inputs do

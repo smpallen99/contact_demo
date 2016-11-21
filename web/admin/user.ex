@@ -19,6 +19,8 @@ defmodule ContactDemo.ExAdmin.User do
       actions
     end
 
+    # TODO: Need to customize the csv block
+
     show user do
       attributes_table do
         row :name
@@ -31,6 +33,7 @@ defmodule ContactDemo.ExAdmin.User do
         #   unless u.authentication_token,  do: "No Token", else: u.authentication_token
         # end
       end
+
       panel "Roles" do
         table_for user.roles do
           column :name
@@ -53,7 +56,6 @@ defmodule ContactDemo.ExAdmin.User do
       inputs "Roles" do
         inputs :roles, as: :check_boxes, collection: Role.all
       end
-
     end
 
     action_item :index, fn ->

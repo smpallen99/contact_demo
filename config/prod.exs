@@ -14,7 +14,8 @@ use Mix.Config
 config :contact_demo, ContactDemo.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "demo2.exadmin.info", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info

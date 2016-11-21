@@ -23,9 +23,10 @@ defmodule ContactDemo.Web do
       alias ContactDemo.Repo
       import Ecto
       import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query, only: [from: 1, from: 2, where: 2, where: 3, preload: 3]
 
       def all, do: Repo.all(__MODULE__)
+      def count, do: (from m in __MODULE__, select: count(m.id)) |> Repo.one # If we need more such aggregate functions, consider using ectoo
     end
   end
 
