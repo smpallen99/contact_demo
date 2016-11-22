@@ -44,7 +44,7 @@ defmodule ContactDemo.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:coherence, "~> 0.2.0"},
+      {:coherence, github: "smpallen99/coherence"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.5.2", only: :test, app: false},
       {:ecto, "~> 2.0", override: true},           # the override is necessary

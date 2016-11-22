@@ -45,7 +45,7 @@ defmodule ContactDemo.Coherence.UserEmail do
   end
 
   defp add_reply_to(mail) do
-    case Config.email_reply_to do
+    case Coherence.Config.email_reply_to do
       nil     -> mail
       true    -> reply_to mail, from_email
       address -> reply_to mail, address
@@ -64,7 +64,7 @@ defmodule ContactDemo.Coherence.UserEmail do
   end
 
   defp from_email do
-    case Config.email_from do
+    case Coherence.Config.email_from do
       nil ->
         Logger.error ~s|Need to configure :coherence, :email_from, {"Name", "me@example.com"}|
         ""

@@ -11,7 +11,7 @@ defmodule ContactDemo.Router do
     plug :put_secure_browser_headers
     # TODO: Not sure if this is the correct way to bypass authentication during testing
     unless Mix.env == :test do
-      plug Coherence.Authentication.Session, login: true
+      plug Coherence.Authentication.Session
     end
   end
 
@@ -19,7 +19,7 @@ defmodule ContactDemo.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :public do
+  pipeline :protected do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
@@ -27,30 +27,30 @@ defmodule ContactDemo.Router do
     plug :put_secure_browser_headers
     # TODO: Not sure if this is the correct way to bypass authentication during testing
     unless Mix.env == :test do
-      plug Coherence.Authentication.Session
+      plug Coherence.Authentication.Session, login: true
     end
   end
   # your app's routes
 
   # Add this block
   scope "/" do
-    pipe_through :public
+    pipe_through :browser
     coherence_routes :public
   end
 
   scope "/" do
-    pipe_through :browser
-    coherence_routes :private
+    pipe_through :protected
+    coherence_routes :protected
   end
 
   scope "/admin", ExAdmin do
-    pipe_through :browser
+    pipe_through :protected
     admin_routes
     post "/:resource/sort", AdminController, :sort
   end
 
   scope "/", ContactDemo do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :protected # Use the default browser stack
 
     resources "/categories", CategoryController
     resources "/users", UserController
@@ -60,7 +60,7 @@ defmodule ContactDemo.Router do
   end
 
   scope "/", ContactDemo do
-    pipe_through :public
+    pipe_through :browser
     get "/", PageController, :index
   end
 
