@@ -12,6 +12,7 @@ defmodule ContactDemo.ExAdmin.Category do
         |> elem(1)
         |> text
       end
+      column :position
 
       actions
     end

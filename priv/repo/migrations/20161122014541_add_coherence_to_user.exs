@@ -1,5 +1,6 @@
 defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
   use Ecto.Migration
+
   def change do
     alter table(:users) do
       # confirmable
@@ -8,6 +9,8 @@ defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
       add :confirmation_sent_at, :datetime
       # unlockable_with_token
       add :unlock_token, :string
+      # authenticatable
+      # add :encrypted_password, :string
       # trackable
       add :sign_in_count, :integer, default: 0
       add :current_sign_in_at, :datetime
@@ -23,7 +26,5 @@ defmodule ContactDemo.Repo.Migrations.AddCoherenceToUser do
       # rememberable
       add :remember_created_at, :datetime
     end
-
-
   end
 end

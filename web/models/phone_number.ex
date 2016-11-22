@@ -7,7 +7,6 @@ defmodule ContactDemo.PhoneNumber do
 
   schema "phone_numbers" do
     field :number, :string, null: false
-    field :kind, :string    # TODO: Should this be deleted?
     field :label, :string, null: false
 
     has_many :contacts_phone_numbers, ContactDemo.ContactPhoneNumber
@@ -17,7 +16,7 @@ defmodule ContactDemo.PhoneNumber do
   end
 
   @required_fields ~w(number label)
-  @optional_fields ~w(kind)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -31,7 +30,6 @@ defmodule ContactDemo.PhoneNumber do
     |> validate_required([:number, :label])
     # TODO: Validate phone number (across countries?)
     |> validate_length(:number, min: 1, max: 255)
-    # |> validate_length(:kind, min: 1, max: 255)
     |> validate_length(:label, min: 1, max: 255)
     |> validate_inclusion(:label, labels)
     |> prepare_version(opts)

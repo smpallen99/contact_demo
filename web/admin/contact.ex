@@ -88,5 +88,4 @@ defmodule ContactDemo.ExAdmin.Contact do
       View.render AdminView, "sidebar_links.html", [model: "contact"]
     end
   end
-
 end
