@@ -3,8 +3,8 @@ defmodule ContactDemo.Repo.Migrations.CreateUserRole do
 
   def change do
     create table(:users_roles) do
-      add :user_id, references(:users, on_delete: :delete_all)
-      add :role_id, references(:roles, on_delete: :delete_all)
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+      add :role_id, references(:roles, on_delete: :delete_all), null: false
 
       timestamps
     end
