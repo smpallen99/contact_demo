@@ -46,7 +46,8 @@ config :ex_admin,
     ContactDemo.ExAdmin.Group,
     ContactDemo.ExAdmin.Role,
     ContactDemo.ExAdmin.User
-  ]
+  ],
+  head_template: {ContactDemo.AdminView, "contact_demo_admin_layout.html"}
 
 config :contact_demo, ecto_repos: [ContactDemo.Repo]
 
