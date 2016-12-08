@@ -31,7 +31,7 @@ defmodule ContactDemo.ExAdmin.Group do
             text "#{contact.first_name} #{contact.last_name}"
           end
           # column :phone_numbers, fn(contact) ->
-          #   UcxNotifier.PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+          #   UcxNotifier.PhoneNumber.format_phone_numbers_abbreviated(contact.phone_numbers)
           # end
         end
       end

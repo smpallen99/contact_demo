@@ -29,13 +29,8 @@ defmodule ContactDemo.PhoneNumber do
     |> prepare_version(opts)
   end
 
-  def labels, do: ["Primary Phone", "Secondary Phone", "Home Phone",
-                   "Work Phone", "Mobile Phone", "Other Phone"]
-
-  def all_labels do
-    (from p in PhoneNumber, group_by: p.label, select: p.label)
-    |> Repo.all
-  end
+  @labels ["Primary Phone", "Secondary Phone", "Mobile Phone", "Home Phone", "Work Phone", "Other Phone"]
+  def labels, do: @labels
 
   def find_by_label(phone_numbers, label) do
     Enum.find phone_numbers, %{}, &(&1.label == label)
@@ -45,10 +40,10 @@ defmodule ContactDemo.PhoneNumber do
     label |> String.first |> String.upcase
   end
 
-  def format_phone_numbers_abbriviated(numbers) do
+  def format_phone_numbers_abbreviated(numbers) do
     Enum.reduce numbers, "", fn(pn, acc) ->
       prefix = if acc == "", do: "", else: ", "
-      acc <> prefix <> "(#{PhoneNumber.label_abbr(pn)}) #{pn.number}"
+      acc <> prefix <> "(#{__MODULE__.label_abbr(pn)}) #{pn.number}"
     end
   end
 end

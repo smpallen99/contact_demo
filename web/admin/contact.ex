@@ -15,7 +15,7 @@ defmodule ContactDemo.ExAdmin.Contact do
       column :email
       column :category
       column :phone_numbers, fn(contact) ->
-        text PhoneNumber.format_phone_numbers_abbriviated(contact.phone_numbers)
+        text PhoneNumber.format_phone_numbers_abbreviated(contact.phone_numbers)
       end
 
       actions
@@ -28,7 +28,7 @@ defmodule ContactDemo.ExAdmin.Contact do
       {:category, &(&1.category.name)},
       {"Groups", &(Enum.map(&1.groups, fn g -> g.name end) |> Enum.join("; "))},
     ] ++
-      (for label <- PhoneNumber.all_labels do
+      (for label <- PhoneNumber.labels do
         fun = fn c ->
           c.phone_numbers
           |> PhoneNumber.find_by_label(label)

@@ -72,23 +72,40 @@ defmodule ContactDemo.PhoneNumberTest do
     test "has many contacts through contacts_phone_numbers"
   end
 
-  describe "all_labels" do
-    @tag :skip
-    test "to be implemented"
-  end
-
   describe "find_by_label" do
-    @tag :skip
-    test "to be implemented"
+    test "returns an empty struct if input phone numbers is empty" do
+      result = PhoneNumber.find_by_label([], "Home Phone")
+      assert(result == %{})
+    end
+
+    test "returns the matching struct if input phone numbers is not empty" do
+      phone_numbers = [build(:phone_number, label: "Work Phone", number: "1"), build(:phone_number, label: "Home Phone", number: "2"), build(:phone_number, label: "Home Phone", number: "3")]
+      result = PhoneNumber.find_by_label(phone_numbers, "Home Phone")
+      assert(result == %PhoneNumber{label: "Home Phone", number: "2"})
+    end
+
+    test "returns the first struct if input phone numbers is not empty and more than 1 match is found" do
+      phone_numbers = [build(:phone_number, label: "Work Phone", number: "1"), build(:phone_number, label: "Home Phone", number: "2"), build(:phone_number, label: "Home Phone", number: "3")]
+      result = PhoneNumber.find_by_label(phone_numbers, "Work Phone")
+      assert(result == %PhoneNumber{label: "Work Phone", number: "1"})
+    end
   end
 
   describe "label_abbr" do
-    @tag :skip
-    test "to be implemented"
+    test "returns the first character in upper case" do
+      assert("W" == PhoneNumber.label_abbr(%PhoneNumber{label: "work"}))
+    end
   end
 
-  describe "format_phone_numbers_abbriviated" do
-    @tag :skip
-    test "to be implemented"
+  describe "format_phone_numbers_abbreviated" do
+    test "returns the formatted phone number if a single one exists" do
+      phone_numbers = [build(:phone_number, label: "Work Phone", number: "1")]
+      assert("(W) 1" == PhoneNumber.format_phone_numbers_abbreviated(phone_numbers))
+    end
+
+    test "returns the formatted phone numbers joined by comma if a more than one exist" do
+      phone_numbers = [build(:phone_number, label: "Work Phone", number: "1"), build(:phone_number, label: "Home Phone", number: "2"), build(:phone_number, label: "Home Phone", number: "3")]
+      assert("(W) 1, (H) 2, (H) 3" == PhoneNumber.format_phone_numbers_abbreviated(phone_numbers))
+    end
   end
 end
