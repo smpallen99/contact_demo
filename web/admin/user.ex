@@ -7,7 +7,9 @@ defmodule ContactDemo.ExAdmin.User do
 
   register_resource ContactDemo.User do
     filter except: [:encrypted_password]
-    # filter only: [:name, :email]
+
+    scope :all, default: true
+    scope :unconfirmed, &(where(&1, [p], is_nil(p.confirmed_at)))
 
     index do
       selectable_column

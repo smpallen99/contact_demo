@@ -48,8 +48,10 @@ defmodule ContactDemo.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.5.2", only: :test, app: false},
       {:ecto, "~> 2.0", override: true},           # the override is necessary
-      {:ex_admin, "~> 0.8.0"},
-      {:ex_machina, "~> 1.0.2", only: :test},
+      {:ex_admin, github: "smpallen99/ex_admin"},
+      # {:ex_admin, github: "vraravam/ex_admin"},
+      # {:ex_admin, path: "../ex_admin"},
+      {:ex_machina, "~> 1.0.2", only: :test, app: false},
       {:excoveralls, "~> 0.5.1", only: :test, app: false},
       {:faker_elixir_octopus, "~> 0.12.0", only: [:dev, :test]},
       {:gettext, "~> 0.9"},
