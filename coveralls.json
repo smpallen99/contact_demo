@@ -11,19 +11,25 @@
 
   "coverage_options": {
     "treat_no_relevant_lines_as_covered": true,
-    "minimum_coverage": 72
+    "minimum_coverage": 66
   },
 
   "skip_files": [
     "lib/contact_demo.ex",
+    "lib/contact_demo/auditable.ex",
     "lib/contact_demo/authentication.ex",
     "lib/contact_demo/authorization.ex",
     "lib/contact_demo/endpoint.ex",
     "lib/contact_demo/repo.ex",
     "test/*",
     "web/admin/*",
+    "web/channels/*.ex",
+    "web/coherence_web.ex",
+    "web/controllers/page_controller.ex",
     "web/emails/coherence/coherence_mailer.ex",
+    "web/emails/coherence/user_email.ex",
     "web/gettext.ex",
+    "web/models/whatwasit/version.ex",
     "web/router.ex",
     "web/views/*",
     "web/views/layout_view.ex",

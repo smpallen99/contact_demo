@@ -19,12 +19,11 @@ defmodule ContactDemo.Contact do
   end
 
   @required_fields ~w(first_name last_name email category_id)
-  @optional_fields ~w()
 
   def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> validate_required([:first_name, :last_name, :email])
+    |> cast(params, @required_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> validate_format(:first_name, AppConstants.name_format)
     |> validate_length(:first_name, min: 1, max: 255)
     |> validate_format(:last_name, AppConstants.name_format)

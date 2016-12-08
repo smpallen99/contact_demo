@@ -11,11 +11,11 @@ defmodule ContactDemo.ContactPhoneNumber do
   end
 
   @required_fields ~w(contact_id phone_number_id)
-  @optional_fields ~w()
 
   def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> assoc_constraint(:contact)
     |> assoc_constraint(:phone_number)
     |> prepare_version(opts)

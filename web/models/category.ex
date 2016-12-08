@@ -19,7 +19,7 @@ defmodule ContactDemo.Category do
   def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_required(:name)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> validate_format(:name, AppConstants.name_format)
     # TODO: Should position always be positive?
     # TODO: Should position be unique?

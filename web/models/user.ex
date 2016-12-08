@@ -26,11 +26,13 @@ defmodule ContactDemo.User do
     timestamps
   end
 
+  @required_fields ~w(name email username active)
+  @optional_fields ~w(expire_on)
 
   def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
-    |> validate_required([:name, :email, :username, :active]) # TODO: Add 'expire_on'
+    |> cast(params, @required_fields, @optional_fields ++ coherence_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> validate_format(:name, AppConstants.name_format)
     |> validate_length(:name, min: 1, max: 255)
     |> validate_format(:username, AppConstants.username_format)

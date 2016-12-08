@@ -2,7 +2,6 @@ defmodule ContactDemo.PhoneNumber do
   use ContactDemo.Web, :model
   use Whatwasit
 
-  alias __MODULE__
   alias ContactDemo.Repo
 
   schema "phone_numbers" do
@@ -16,12 +15,11 @@ defmodule ContactDemo.PhoneNumber do
   end
 
   @required_fields ~w(number label)
-  @optional_fields ~w()
 
   def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> validate_required([:number, :label])
+    |> cast(params, @required_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     # TODO: Validate phone number (across countries?)
     |> validate_length(:number, min: 1, max: 255)
     |> validate_length(:label, min: 1, max: 255)
