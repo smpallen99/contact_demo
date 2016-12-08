@@ -10,22 +10,14 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias ContactDemo.Contact
-alias ContactDemo.Group
-alias ContactDemo.Category
-alias ContactDemo.User
-alias ContactDemo.ContactGroup
-alias ContactDemo.Repo
-alias ContactDemo.PhoneNumber
-alias ContactDemo.ContactPhoneNumber
-alias ContactDemo.UserRole
-alias ContactDemo.Role
+alias ContactDemo.{Category, Contact, ContactGroup, ContactPhoneNumber, Group, PhoneNumber, Repo, Role, User, UserRole}
+alias FakerElixir.{Internet, Name, Phone}
 alias Coherence.ControllerHelpers
 alias FakerElixir, as: Faker
 
 [
-  ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, User, Category,
-  PhoneNumber, Role
+  ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, Category,
+  PhoneNumber
 ] |> Enum.each(&Repo.delete_all/1)
 
 ~w(Employees Maintenance Marketing Sales Management)
@@ -40,36 +32,18 @@ end)
   |> Repo.insert!
 end)
 
-~w(admin manager user)
-|> Enum.each(fn(name) ->
-  Role.changeset(%Role{}, %{name: name})
-  |> Repo.insert!
-end)
-
 groups = Repo.all Group
 categories = Repo.all Category
 roles = Repo.all Role
 
-for [fname, lname, role] <- [~w(Demo User admin)] do
-  user = User.changeset(%User{}, %{
-    name: "#{fname} #{lname}",
-    email: "#{fname}#{lname}@example.com" |> String.downcase,
-    username: "#{fname}#{lname}" |> String.downcase,
-    password: "secret",
-    password_confirmation: "secret",
-    active: true,
-    })
-  |> Repo.insert!
-
-  ControllerHelpers.confirm! user
-
-  r =  Enum.find(roles, &(&1.name == role))
-  UserRole.changeset(%UserRole{}, %{
-    user_id: user.id,
-    role_id: r.id
-    })
-  |> Repo.insert!
-end
+# TODO: Move into migration
+user_id = Repo.aggregate(User, :min, :id)
+r =  Enum.find(roles, &(String.downcase(&1.name) == String.downcase(Role.admin)))
+UserRole.changeset(%UserRole{}, %{
+  user_id: user_id,
+  role_id: r.id
+})
+|> Repo.insert!
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
@@ -82,7 +56,9 @@ for _i <- 1..25 do
     })
   |> Repo.insert!
 
-  r = Enum.random roles
+  if Enum.random([true, false]) == true, do: ControllerHelpers.confirm! user
+
+  r = Enum.random(roles)
   UserRole.changeset(%UserRole{}, %{
     user_id: user.id,
     role_id: r.id
@@ -91,7 +67,7 @@ for _i <- 1..25 do
 end
 
 for _i <- 1..100 do
-  category = Enum.random categories
+  category = Enum.random(categories)
   num_groups = 1..:rand.uniform(4)
   group_list = Enum.reduce(
     num_groups,
@@ -119,7 +95,7 @@ for _i <- 1..100 do
 
   # add phone_numbers
   labels = Enum.reduce(1..:rand.uniform(2), MapSet.new, fn(_, acc) ->
-    MapSet.put acc, Enum.random PhoneNumber.labels
+    MapSet.put acc, Enum.random(PhoneNumber.labels)
   end)
   for label <- labels do
     pn = PhoneNumber.changeset(%PhoneNumber{}, %{

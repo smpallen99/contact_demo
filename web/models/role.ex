@@ -31,4 +31,9 @@ defmodule ContactDemo.Role do
     |> unique_constraint(:name, name: :roles_name_index)
     |> prepare_version(opts)
   end
+
+  def admin, do: "Admin"
+  # def technician, do: "Technician"
+  # def front_office, do: "Front-office"
+  # def dealer, do: "Dealer"
 end
