@@ -44,7 +44,7 @@ defmodule ContactDemo.Web do
 
       defp whodoneit(conn) do
         user = Auth.current_user(conn)
-        [whodoneit: user, whodoneit_name: user.name]
+        [whodoneit_id: user.id, whodoneit_name: user.name]
       end
     end
   end

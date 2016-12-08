@@ -69,6 +69,9 @@ defmodule ContactDemo.Whatwasit.Version do
   def prepare_version(changeset, opts \\ []) do
     changeset
     |> prepare_changes(fn
+      # TODO: Tracking of create action is not working - bug logged here: https://github.com/smpallen99/whatwasit/issues/7
+      %{action: nil} = changeset ->
+        insert_version(changeset, "create", opts)
       %{action: :update} = changeset ->
         insert_version(changeset, "update", opts)
       %{action: :delete} = changeset ->
@@ -133,12 +136,10 @@ defmodule ContactDemo.Whatwasit.Version do
 
   @doc false
   def get_whodoneit_name_and_id(opts) do
-    case Keyword.get(opts, :whodoneit) do
+    case Keyword.get(opts, :whodoneit_id) do
       nil ->
         {nil, nil}
-      %{} = user ->
-        id = Map.get(user, user.__struct__.__schema__(:primary_key) |> hd)
-
+      _ = id ->
         {id, opts[:whodoneit_name]}
     end
   end
