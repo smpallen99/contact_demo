@@ -1,6 +1,7 @@
 defmodule ContactDemo.ExAdmin.Contact do
   use ExAdmin.Register
-  alias ContactDemo.{PhoneNumber, Category, Group, AdminView}
+
+  alias ContactDemo.{AdminView, Category, Group, PhoneNumber}
   alias Phoenix.View
 
   register_resource ContactDemo.Contact do

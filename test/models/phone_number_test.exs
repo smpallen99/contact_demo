@@ -9,26 +9,26 @@ defmodule ContactDemo.PhoneNumberTest do
       assert changeset.valid?
     end
 
-    test "number: if changeset has nil number" do
+    test "number: if changeset is nil" do
       changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: nil}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
-    test "number: if changeset has zero-length number" do
+    test "number: if changeset is zero-length" do
       changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: ""}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
-    test "number: if changeset has blank number" do
+    test "number: if changeset is blank" do
       changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: " "}))
       refute changeset.valid?
       assert {:number, {"can't be blank", []}} in changeset.errors
     end
 
     test "number: raises a validation error if the length of the text is > 255 characters" do
-      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: Faker.Lorem.words(256)}))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{number: Lorem.words(256)}))
       refute changeset.valid?
       assert {:number, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -52,13 +52,13 @@ defmodule ContactDemo.PhoneNumberTest do
     end
 
     test "label: raises a validation error if the length of the text is > 255 characters" do
-      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Faker.Lorem.words(256)}))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Lorem.words(256)}))
       refute changeset.valid?
       assert {:label, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
 
     test "label: has to be only one among a specific set of values" do
-      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Faker.Lorem.word}))
+      changeset = PhoneNumber.changeset(%PhoneNumber{}, Map.merge(params_with_assocs(:phone_number), %{label: Lorem.word}))
       refute changeset.valid?
       assert {:label, {"is invalid", []}} in changeset.errors
     end

@@ -18,12 +18,6 @@ defmodule ContactDemo.PhoneNumber do
   @required_fields ~w(number label)
   @optional_fields ~w()
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
   def changeset(model, params \\ %{}, opts \\ []) do
     model
     |> cast(params, @required_fields, @optional_fields)
@@ -47,10 +41,8 @@ defmodule ContactDemo.PhoneNumber do
     Enum.find phone_numbers, %{}, &(&1.label == label)
   end
 
-  def label_abbr(%PhoneNumber{label: label}) do
-    label
-    |> String.first
-    |> String.upcase
+  def label_abbr(%__MODULE__{label: label}) do
+    label |> String.first |> String.upcase
   end
 
   def format_phone_numbers_abbriviated(numbers) do

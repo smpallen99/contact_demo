@@ -4,9 +4,10 @@ defmodule ContactDemo.Whatwasit.Version do
 
   """
   use Ecto.Schema
-  import Ecto
   import Ecto.Changeset
   require Ecto.Query
+  alias Ecto.{Query, Schema.Metadata}
+  alias Whatwasit.Utils
 
   @base Mix.Project.get |> Module.split |> Enum.reverse |> Enum.at(1)
   @version_module Module.concat([@base, Whatwasit, Version])
@@ -25,7 +26,7 @@ defmodule ContactDemo.Whatwasit.Version do
   @doc """
   Create a changeset for the version record
   """
-  def changeset(model, params \\ %{}, opts \\ []) do
+  def changeset(model, params \\ %{}, _opts \\ []) do
     params = update_in params, [:object], &(remove_fields(&1))
     model
     |> cast(params, ~w(item_type item_id object action whodoneit_id whodoneit_name)a)
@@ -48,7 +49,7 @@ defmodule ContactDemo.Whatwasit.Version do
 
   """
   def remove_fields(model, opts \\ [])
-  def remove_fields(%{__meta__: %Ecto.Schema.Metadata{}} = model, opts) do
+  def remove_fields(%{__meta__: %Metadata{}} = model, opts) do
     (model.__struct__.__schema__(:associations) ++ opts)
     |> Enum.reduce(model, &(Map.delete(&2, &1)))
     |> Map.delete(:__meta__)
@@ -67,7 +68,7 @@ defmodule ContactDemo.Whatwasit.Version do
   """
   def prepare_version(changeset, opts \\ []) do
     changeset
-    |> Ecto.Changeset.prepare_changes(fn
+    |> prepare_changes(fn
       %{action: :update} = changeset ->
         insert_version(changeset, "update", opts)
       %{action: :delete} = changeset ->
@@ -93,12 +94,12 @@ defmodule ContactDemo.Whatwasit.Version do
   def versions(schema, opts \\ []) do
     repo = opts[:repo] || Application.get_env(:whatwasit, :repo)
     id = schema.id
-    type = Whatwasit.Utils.item_type schema
-    Ecto.Query.where(@version_module, [a], a.item_id == ^id and a.item_type == ^type)
-    |> Ecto.Query.order_by(desc: :id)
+    type = Utils.item_type schema
+    Query.where(@version_module, [a], a.item_id == ^id and a.item_type == ^type)
+    |> Query.order_by(desc: :id)
     |> repo.all
     |> Enum.map(fn item ->
-      Whatwasit.Utils.cast(schema, item.object)
+      Utils.cast(schema, item.object)
     end)
   end
 

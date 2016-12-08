@@ -40,12 +40,12 @@ config :ex_admin,
   logo_mini: "c-<b>Demo</b>",
   logo_full: "Contact-<b>Demo</b>",
   modules: [
-    ContactDemo.ExAdmin.Dashboard,
-    ContactDemo.ExAdmin.Contact,
-    ContactDemo.ExAdmin.Group,
     ContactDemo.ExAdmin.Category,
-    ContactDemo.ExAdmin.User,
-    ContactDemo.ExAdmin.Role
+    ContactDemo.ExAdmin.Contact,
+    ContactDemo.ExAdmin.Dashboard,
+    ContactDemo.ExAdmin.Group,
+    ContactDemo.ExAdmin.Role,
+    ContactDemo.ExAdmin.User
   ]
 
 config :contact_demo, ecto_repos: [ContactDemo.Repo]

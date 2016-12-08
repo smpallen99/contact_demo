@@ -1,14 +1,15 @@
 defmodule ContactDemo.Factory do
   use ExMachina.Ecto, repo: ContactDemo.Repo
 
-  alias ContactDemo.{User, Category, ContactGroup, Contact, Group, Role, PhoneNumber, ContactPhoneNumber, UserRole}
-  alias FakerElixir, as: Faker
+  alias ContactDemo.{Category, Contact, ContactGroup, ContactPhoneNumber, Group, PhoneNumber, Role, User, UserRole}
+  alias FakerElixir.{App, Color, Internet, Lorem, Name, Number, Phone}
+  alias Timex.Date
 
   def user_factory do
     %User{
-      name: Faker.Name.name,
-      username: Faker.Internet.user_name,
-      email: Faker.Internet.email,
+      name: Name.name,
+      username: Internet.user_name,
+      email: Internet.email,
       encrypted_password: "changeme",
       password: "changeme",
       password_confirmation: "changeme",
@@ -18,7 +19,7 @@ defmodule ContactDemo.Factory do
 
   def category_factory do
     %Category{
-      name: Faker.App.name,
+      name: App.name,
       position: 42
     }
   end
@@ -32,29 +33,29 @@ defmodule ContactDemo.Factory do
 
   def contact_factory do
     %Contact{
-      first_name: Faker.Name.first_name,
-      last_name: Faker.Name.last_name,
-      email: Faker.Internet.email,
+      first_name: Name.first_name,
+      last_name: Name.last_name,
+      email: Internet.email,
       category: build(:category)
     }
   end
 
   def group_factory do
     %Group{
-      name: Faker.Color.name
+      name: Color.name
     }
   end
 
   def role_factory do
     %Role{
-      name: Faker.Name.name
+      name: Name.name
     }
   end
 
   def phone_number_factory do
     %PhoneNumber{
-      number: Faker.Phone.cell,
-      label: "Mobile Phone"
+      number: Phone.cell,
+      label: Enum.random(PhoneNumber.labels)
     }
   end
 

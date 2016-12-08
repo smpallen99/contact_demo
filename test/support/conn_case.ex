@@ -14,13 +14,16 @@ defmodule ContactDemo.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapters.SQL.Sandbox
+  alias ContactDemo.Repo
+  alias Phoenix.ConnTest
 
   using do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias ContactDemo.Repo
+      alias ContactDemo.{Endpoint, Repo, User}
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
@@ -30,22 +33,20 @@ defmodule ContactDemo.ConnCase do
       import ContactDemo.Factory
 
       # The default endpoint for testing
-      @endpoint ContactDemo.Endpoint
+      @endpoint Endpoint
 
       setup do
-        conn = build_conn |> assign(:current_user, %ContactDemo.User{name: "System User for tests"})
+        conn = build_conn |> assign(:current_user, %User{name: "System User for tests"})
         %{conn: conn}
       end
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+    :ok = Sandbox.checkout(Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
-    end
+    unless tags[:async], do: Sandbox.mode(Repo, {:shared, self()})
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: ConnTest.build_conn()}
   end
 end

@@ -1,6 +1,7 @@
 defmodule ContactDemo.ExAdmin.Category do
   use ExAdmin.Register
-  alias ContactDemo.{Category, Repo, AdminView}
+
+  alias ContactDemo.{AdminView, Category, Repo}
   alias Phoenix.{Controller, HTML.Tag, View}
 
   register_resource ContactDemo.Category do

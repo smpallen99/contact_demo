@@ -45,7 +45,6 @@ defmodule ContactDemo.Mixfile do
   defp deps do
     [
       {:coherence, github: "smpallen99/coherence"},
-      {:whatwasit, "~> 0.2.1"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.5.2", only: :test, app: false},
       {:ecto, "~> 2.0", override: true},           # the override is necessary
@@ -57,9 +56,10 @@ defmodule ContactDemo.Mixfile do
       {:phoenix, "~> 1.2", override: true},
       {:phoenix_ecto, "~> 3.0.0"},
       {:phoenix_haml, "~> 0.2"},
-      {:phoenix_html, "~> 2.3"},
+      {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:whatwasit, "~> 0.2.1"}
     ]
   end
 

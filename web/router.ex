@@ -32,12 +32,13 @@ defmodule ContactDemo.Router do
   end
   # your app's routes
 
-  # Add this block
+  # TODO: Not sure whether this block can be removed or not
   scope "/" do
     pipe_through :browser
     coherence_routes :public
   end
 
+  # TODO: Not sure whether this block can be removed or not
   scope "/" do
     pipe_through :protected
     coherence_routes :protected

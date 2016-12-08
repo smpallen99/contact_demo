@@ -28,7 +28,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "name: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: Lorem.words(256)}))
       refute changeset.valid?
       assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -64,7 +64,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "email: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Lorem.words(256)}))
       refute changeset.valid?
       assert {:email, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -105,7 +105,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "username: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: Lorem.words(256)}))
       refute changeset.valid?
       assert {:username, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end

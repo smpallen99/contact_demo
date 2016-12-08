@@ -1,7 +1,7 @@
 defmodule ContactDemo.ExAdmin.User do
   use ExAdmin.Register
 
-  alias ContactDemo.{Role, AdminView}
+  alias ContactDemo.{AdminView, Role}
   alias Phoenix.View
 
   register_resource ContactDemo.User do

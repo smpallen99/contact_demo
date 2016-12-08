@@ -13,11 +13,13 @@ defmodule ContactDemo.ModelCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.{Adapters.SQL.Sandbox, Changeset}
+  alias ContactDemo.{ErrorHelpers, Repo}
 
   using do
     quote do
       alias ContactDemo.Repo
-      alias FakerElixir, as: Faker
+      alias FakerElixir.Lorem
 
       import Ecto
       import Ecto.Changeset
@@ -28,11 +30,9 @@ defmodule ContactDemo.ModelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+    :ok = Sandbox.checkout(Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
-    end
+    unless tags[:async], do: Sandbox.mode(Repo, {:shared, self()})
 
     :ok
   end
@@ -61,7 +61,7 @@ defmodule ContactDemo.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&ContactDemo.ErrorHelpers.translate_error/1)
+    |> Changeset.traverse_errors(&ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

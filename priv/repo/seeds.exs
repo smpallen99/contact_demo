@@ -13,7 +13,6 @@
 alias ContactDemo.{Category, Contact, ContactGroup, ContactPhoneNumber, Group, PhoneNumber, Repo, Role, User, UserRole}
 alias FakerElixir.{Internet, Name, Phone}
 alias Coherence.ControllerHelpers
-alias FakerElixir, as: Faker
 
 [
   ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, Category,
@@ -32,9 +31,9 @@ end)
   |> Repo.insert!
 end)
 
-groups = Repo.all Group
-categories = Repo.all Category
-roles = Repo.all Role
+groups = Group.all
+categories = Category.all
+roles = Role.all
 
 # TODO: Move into migration
 user_id = Repo.aggregate(User, :min, :id)
@@ -47,13 +46,13 @@ UserRole.changeset(%UserRole{}, %{
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
-    name: Faker.Name.name,
-    email: Faker.Internet.email,
-    username: Faker.Internet.user_name,
+    name: Name.name,
+    email: Internet.email,
+    username: Internet.user_name,
     password: "secret",
     password_confirmation: "secret",
     active: true,
-    })
+  })
   |> Repo.insert!
 
   if Enum.random([true, false]) == true, do: ControllerHelpers.confirm! user
@@ -62,7 +61,7 @@ for _i <- 1..25 do
   UserRole.changeset(%UserRole{}, %{
     user_id: user.id,
     role_id: r.id
-    })
+  })
   |> Repo.insert!
 end
 
@@ -77,11 +76,11 @@ for _i <- 1..100 do
       end)
 
   contact = Contact.changeset(%Contact{}, %{
-    first_name: Faker.Name.first_name,
-    last_name: Faker.Name.last_name,
-    email: Faker.Internet.email,
+    first_name: Name.first_name,
+    last_name: Name.last_name,
+    email: Internet.email,
     category_id: category.id
-    })
+  })
   |> Repo.insert!
 
   # add groups
@@ -89,7 +88,7 @@ for _i <- 1..100 do
     ContactGroup.changeset(%ContactGroup{}, %{
       contact_id: contact.id,
       group_id: group.id
-      })
+    })
     |> Repo.insert!
   end)
 
@@ -99,7 +98,7 @@ for _i <- 1..100 do
   end)
   for label <- labels do
     pn = PhoneNumber.changeset(%PhoneNumber{}, %{
-      number: Faker.Phone.cell,
+      number: Phone.cell,
       label: label
     })
     |> Repo.insert!

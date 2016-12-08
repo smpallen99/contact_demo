@@ -35,6 +35,7 @@ defmodule ContactDemo.Web do
       use Phoenix.Controller
 
       alias ContactDemo.Repo
+      alias ContactDemo.Authentication, as: Auth
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
@@ -42,7 +43,7 @@ defmodule ContactDemo.Web do
       import ContactDemo.Gettext
 
       defp whodoneit(conn) do
-        user = Coherence.current_user(conn)
+        user = Auth.current_user(conn)
         [whodoneit: user, whodoneit_name: user.name]
       end
     end
