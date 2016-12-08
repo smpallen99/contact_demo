@@ -32,7 +32,7 @@ defmodule ContactDemo.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_nested_key",
+    key: "_contact_demo_key",
     signing_salt: "6O5KOjjj"
 
   plug ContactDemo.Router
