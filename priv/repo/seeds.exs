@@ -15,7 +15,7 @@ alias FakerElixir.{Internet, Name, Phone}
 alias Coherence.ControllerHelpers
 
 [
-  ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, Category,
+  ContactPhoneNumber, ContactGroup, Contact, Group, Category,
   PhoneNumber
 ] |> Enum.each(&Repo.delete_all/1)
 
@@ -34,15 +34,6 @@ end)
 groups = Group.all
 categories = Category.all
 roles = Role.all
-
-# TODO: Move into migration
-user_id = Repo.aggregate(User, :min, :id)
-r =  Enum.find(roles, &(String.downcase(&1.name) == String.downcase(Role.admin)))
-UserRole.changeset(%UserRole{}, %{
-  user_id: user_id,
-  role_id: r.id
-})
-|> Repo.insert!
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{

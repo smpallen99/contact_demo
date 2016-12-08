@@ -26,7 +26,6 @@ defmodule ContactDemo.Role do
   end
 
   def admin, do: "Admin"
-  # def technician, do: "Technician"
-  # def front_office, do: "Front-office"
-  # def dealer, do: "Dealer"
+  def manager, do: "Manager"
+  def user, do: "User"
 end

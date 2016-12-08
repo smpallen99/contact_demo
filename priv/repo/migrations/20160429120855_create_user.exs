@@ -1,5 +1,6 @@
 defmodule ContactDemo.Repo.Migrations.CreateUser do
   use Ecto.Migration
+
   alias ContactDemo.User
 
   def change do
@@ -42,10 +43,13 @@ defmodule ContactDemo.Repo.Migrations.CreateUser do
 
     flush
 
-    name = "Demo User"
-    email = "demouser@example.com"
-    username = "demouser"
     encrypted_password = User.encrypt_password("secret")
-    execute "INSERT INTO users (name, email, encrypted_password, active, username, confirmed_at, inserted_at, updated_at) VALUES ('#{name}', '#{email}', '#{encrypted_password}', #{true}, '#{username}', now(), now(), now());"
+    ~w(Admin Manager User)
+    |> Enum.each(fn(suffix) ->
+      name = "Demo #{Inflex.camelize(suffix)}"
+      email = "demo-#{String.downcase(suffix)}@example.com"
+      username = "demo-#{String.downcase(suffix)}"
+      execute "INSERT INTO users (name, email, encrypted_password, active, username, confirmed_at, inserted_at, updated_at) VALUES ('#{name}', '#{email}', '#{encrypted_password}', #{true}, '#{username}', now(), now(), now());"
+    end)
   end
 end
