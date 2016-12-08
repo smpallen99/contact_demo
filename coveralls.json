@@ -16,6 +16,8 @@
 
   "skip_files": [
     "lib/contact_demo.ex",
+    "lib/contact_demo/authentication.ex",
+    "lib/contact_demo/authorization.ex",
     "lib/contact_demo/endpoint.ex",
     "lib/contact_demo/repo.ex",
     "test/*",

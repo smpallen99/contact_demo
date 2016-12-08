@@ -3,8 +3,11 @@ defmodule ContactDemo.ExAdmin.Category do
 
   alias ContactDemo.{AdminView, Category, Repo}
   alias Phoenix.{Controller, HTML.Tag, View}
+  alias ContactDemo.Authorization, as: Authz
 
   register_resource ContactDemo.Category do
+    menu priority: 1, if: &Authz.is_admin?/1
+
     index do
       selectable_column
 

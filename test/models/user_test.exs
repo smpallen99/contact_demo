@@ -1,7 +1,7 @@
 defmodule ContactDemo.UserTest do
   use ContactDemo.ModelCase
 
-  alias ContactDemo.User
+  alias ContactDemo.{User, UserRole}
 
   describe "validations" do
     test "changeset with valid attributes" do
@@ -149,5 +149,52 @@ defmodule ContactDemo.UserTest do
 
     @tag :skip
     test "has many roles through users_roles"
+  end
+
+  describe "has_role?" do
+    test "returns true when role_name is an atom and matches" do
+      role = insert(:role, name: "some")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == true)
+    end
+
+    test "returns true when role_name is a string and matches" do
+      role = insert(:role, name: "some")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, "some") == true)
+    end
+
+    test "when db-role is in a different case than parameter-role name" do
+      role = insert(:role, name: "SOME")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == true)
+    end
+
+    test "when db-role contains but does not match the parameter-role name" do
+      role = insert(:role, name: "AWESOMELY")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == false)
+    end
+
+    test "when db-role has leading/trailing spaces when compared to the parameter-role name" do
+      role = insert(:role, name: "  SOME  ")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == false)
+    end
   end
 end

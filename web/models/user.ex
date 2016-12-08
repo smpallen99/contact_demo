@@ -3,6 +3,8 @@ defmodule ContactDemo.User do
   use Coherence.Schema
   use Whatwasit
 
+  import Ecto.Query
+
   alias ContactDemo.{AppConstants, Role, UserRole}
 
   schema "users" do
@@ -39,5 +41,18 @@ defmodule ContactDemo.User do
     |> unique_constraint(:email, name: :users_email_index)
     |> validate_coherence(params)
     |> prepare_version(opts)
+  end
+
+  def has_role?(model, role_name) do
+    role_name = case is_atom(role_name) do
+      true -> Atom.to_string(role_name)
+      _ -> role_name
+    end
+
+    (from r in Role,
+    join: ur in UserRole, on: ur.role_id == r.id,
+    where: ur.user_id == ^model.id and fragment("LOWER(?)", r.name) == fragment("LOWER(?)", ^role_name),
+    select: count(r.id))
+    |> Repo.one > 0
   end
 end

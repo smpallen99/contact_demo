@@ -3,13 +3,14 @@ defmodule ContactDemo.ExAdmin.Contact do
 
   alias ContactDemo.{AdminView, Category, Group, PhoneNumber}
   alias Phoenix.View
+  alias ContactDemo.Authorization, as: Authz
 
   register_resource ContactDemo.Contact do
     # TODO: Look at https://github.com/smpallen99/ex_admin/issues/232 for info about how to combine the index and csv blocks
     index do
       selectable_column
 
-      column :first_name
+      if Authz.is_admin?(conn), do: column :first_name
       column :last_name
       column :email
       column :category
