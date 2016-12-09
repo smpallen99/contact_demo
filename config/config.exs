@@ -36,14 +36,18 @@ config :ex_admin,
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
   ],
+  title: "Contact-Demo",
+  logo_mini: "c-<b>Demo</b>",
+  logo_full: "Contact-<b>Demo</b>",
   modules: [
-    ContactDemo.ExAdmin.Dashboard,
-    ContactDemo.ExAdmin.Contact,
-    ContactDemo.ExAdmin.Group,
     ContactDemo.ExAdmin.Category,
-    ContactDemo.ExAdmin.User,
-    ContactDemo.ExAdmin.Role
-  ]
+    ContactDemo.ExAdmin.Contact,
+    ContactDemo.ExAdmin.Dashboard,
+    ContactDemo.ExAdmin.Group,
+    ContactDemo.ExAdmin.Role,
+    ContactDemo.ExAdmin.User
+  ],
+  head_template: {ContactDemo.AdminView, "contact_demo_admin_layout.html"}
 
 config :contact_demo, ecto_repos: [ContactDemo.Repo]
 
@@ -64,6 +68,9 @@ config :coherence, ContactDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: System.get_env("API_KEY")
 # %% End Coherence Configuration %%
+
+config :whatwasit,
+  repo: ContactDemo.Repo
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

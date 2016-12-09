@@ -1,5 +1,6 @@
 defmodule ContactDemo.Group do
   use ContactDemo.Web, :model
+  use Whatwasit
 
   alias ContactDemo.AppConstants
 
@@ -13,20 +14,14 @@ defmodule ContactDemo.Group do
   end
 
   @required_fields ~w(name)
-  @optional_fields ~w()
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> validate_required(:name)
+    |> cast(params, @required_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> validate_format(:name, AppConstants.name_format)
     |> validate_length(:name, min: 1, max: 255)
     |> unique_constraint(:name, name: :groups_name_index)
+    |> prepare_version(opts)
   end
 end

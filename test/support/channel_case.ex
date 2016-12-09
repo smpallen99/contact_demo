@@ -14,28 +14,28 @@ defmodule ContactDemo.ChannelCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapters.SQL.Sandbox
+  alias ContactDemo.Repo
 
   using do
     quote do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias ContactDemo.Repo
+      alias ContactDemo.{Endpoint, Repo}
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
       # The default endpoint for testing
-      @endpoint ContactDemo.Endpoint
+      @endpoint Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ContactDemo.Repo)
+    :ok = Sandbox.checkout(Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ContactDemo.Repo, {:shared, self()})
-    end
+    unless tags[:async], do: Sandbox.mode(Repo, {:shared, self()})
 
     :ok
   end

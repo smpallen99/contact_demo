@@ -12,6 +12,9 @@ defmodule ContactDemo.Repo.Migrations.CreateRole do
 
     flush
 
-    execute "INSERT INTO roles (name, inserted_at, updated_at) VALUES ('admin', now(), now());"
+    ~w(Admin Manager User)
+    |> Enum.each(fn(name) ->
+      execute "INSERT INTO roles (name, inserted_at, updated_at) VALUES ('#{name}', now(), now());"
+    end)
   end
 end

@@ -1,0 +1,7 @@
+<link rel='stylesheet' href='<%= static_path(@conn, "/css/app.css") %>'>
+
+<!--
+  since this is rendered into the head area, make sure to defer the loading
+  of your scripts with `async` to not block rendering.
+-->
+<script async src='<%= static_path(@conn, "/js/app.js") %>'></script>

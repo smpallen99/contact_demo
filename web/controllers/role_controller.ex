@@ -16,7 +16,7 @@ defmodule ContactDemo.RoleController do
   end
 
   def create(conn, %{"role" => role_params}) do
-    changeset = Role.changeset(%Role{}, role_params)
+    changeset = Role.changeset(%Role{}, role_params, whodoneit(conn))
 
     case Repo.insert(changeset) do
       {:ok, _role} ->
@@ -41,7 +41,7 @@ defmodule ContactDemo.RoleController do
 
   def update(conn, %{"id" => id, "role" => role_params}) do
     role = Repo.get!(Role, id)
-    changeset = Role.changeset(role, role_params)
+    changeset = Role.changeset(role, role_params, whodoneit(conn))
 
     case Repo.update(changeset) do
       {:ok, role} ->
@@ -54,11 +54,11 @@ defmodule ContactDemo.RoleController do
   end
 
   def delete(conn, %{"id" => id}) do
-    role = Repo.get!(Role, id)
+    changeset = Repo.get!(Role, id) |> Role.changeset(%{}, whodoneit(conn))
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(role)
+    Repo.delete!(changeset)
 
     conn
     |> put_flash(:info, "Role deleted successfully.")

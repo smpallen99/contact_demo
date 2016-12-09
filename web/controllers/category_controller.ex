@@ -16,7 +16,7 @@ defmodule ContactDemo.CategoryController do
   end
 
   def create(conn, %{"category" => category_params}) do
-    changeset = Category.changeset(%Category{}, category_params)
+    changeset = Category.changeset(%Category{}, category_params, whodoneit(conn))
 
     case Repo.insert(changeset) do
       {:ok, _category} ->
@@ -41,7 +41,7 @@ defmodule ContactDemo.CategoryController do
 
   def update(conn, %{"id" => id, "category" => category_params}) do
     category = Repo.get!(Category, id)
-    changeset = Category.changeset(category, category_params)
+    changeset = Category.changeset(category, category_params, whodoneit(conn))
 
     case Repo.update(changeset) do
       {:ok, category} ->
@@ -54,11 +54,11 @@ defmodule ContactDemo.CategoryController do
   end
 
   def delete(conn, %{"id" => id}) do
-    category = Repo.get!(Category, id)
+    changeset = Repo.get!(Category, id) |> Category.changeset(%{}, whodoneit(conn))
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(category)
+    Repo.delete!(changeset)
 
     conn
     |> put_flash(:info, "Category deleted successfully.")

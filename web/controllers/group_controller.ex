@@ -16,7 +16,7 @@ defmodule ContactDemo.GroupController do
   end
 
   def create(conn, %{"group" => group_params}) do
-    changeset = Group.changeset(%Group{}, group_params)
+    changeset = Group.changeset(%Group{}, group_params, whodoneit(conn))
 
     case Repo.insert(changeset) do
       {:ok, _group} ->
@@ -41,7 +41,7 @@ defmodule ContactDemo.GroupController do
 
   def update(conn, %{"id" => id, "group" => group_params}) do
     group = Repo.get!(Group, id)
-    changeset = Group.changeset(group, group_params)
+    changeset = Group.changeset(group, group_params, whodoneit(conn))
 
     case Repo.update(changeset) do
       {:ok, group} ->
@@ -54,11 +54,11 @@ defmodule ContactDemo.GroupController do
   end
 
   def delete(conn, %{"id" => id}) do
-    group = Repo.get!(Group, id)
+    changeset = Repo.get!(Group, id) |> Group.changeset(%{}, whodoneit(conn))
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(group)
+    Repo.delete!(changeset)
 
     conn
     |> put_flash(:info, "Group deleted successfully.")

@@ -16,7 +16,7 @@
       <header class="header">
         <nav role="navigation">
         </nav>
-        <span class="logo"></span>
+        <span class="logo logo-image"></span>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

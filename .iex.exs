@@ -1,7 +1,3 @@
 alias ContactDemo, as: C
-alias C.Repo
-alias C.Contact
-alias C.User
-alias C.PhoneNumber, as: Pn
+alias C.{AppConstants, Category, Contact, ContactGroup, ContactPhoneNumber, Group, PhoneNumber, Repo, Role, User, UserRole, Whatwasit.Version}
 import Ecto.Query
-

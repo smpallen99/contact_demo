@@ -10,30 +10,19 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias ContactDemo.Contact
-alias ContactDemo.Group
-alias ContactDemo.Category
-alias ContactDemo.User
-alias ContactDemo.ContactGroup
-alias ContactDemo.Repo
-alias ContactDemo.PhoneNumber
-alias ContactDemo.ContactPhoneNumber
-alias ContactDemo.UserRole
-alias ContactDemo.Role
+alias ContactDemo.{Category, Contact, ContactGroup, ContactPhoneNumber, Group, PhoneNumber, Repo, Role, User, UserRole}
+alias FakerElixir.{Internet, Name, Phone}
 alias Coherence.ControllerHelpers
-alias FakerElixir, as: Faker
 
 [
-  ContactPhoneNumber, ContactGroup, UserRole, Contact, Group, User, Category,
-  PhoneNumber, Role
+  ContactPhoneNumber, ContactGroup, Contact, Group, Category,
+  PhoneNumber
 ] |> Enum.each(&Repo.delete_all/1)
 
-index = 0
 ~w(Employees Maintenance Marketing Sales Management)
-|> Enum.each(fn(name) ->
-  Category.changeset(%Category{}, %{name: name, position: index + 1})
+|> Enum.with_index |> Enum.each(fn({name, index}) ->
+  Category.changeset(%Category{}, %{name: name, position: index})
   |> Repo.insert!
-  index = index + 1
 end)
 
 ~w(one two three four)
@@ -42,58 +31,33 @@ end)
   |> Repo.insert!
 end)
 
-~w(admin manager user)
-|> Enum.each(fn(name) ->
-  Role.changeset(%Role{}, %{name: name})
-  |> Repo.insert!
-end)
-
-groups = Repo.all Group
-categories = Repo.all Category
-roles = Repo.all Role
-
-for [fname, lname, role] <- [~w(Demo User admin)] do
-  user = User.changeset(%User{}, %{
-    name: "#{fname} #{lname}",
-    email: "#{fname}#{lname}@example.com" |> String.downcase,
-    username: "#{fname}#{lname}" |> String.downcase,
-    password: "secret",
-    password_confirmation: "secret",
-    active: true,
-    })
-  |> Repo.insert!
-
-  ControllerHelpers.confirm! user
-
-  r =  Enum.find(roles, &(&1.name == role))
-  UserRole.changeset(%UserRole{}, %{
-    user_id: user.id,
-    role_id: r.id
-    })
-  |> Repo.insert!
-end
+groups = Group.all
+categories = Category.all
+roles = Role.all
 
 for _i <- 1..25 do
   user = User.changeset(%User{}, %{
-    name: Faker.Name.name,
-    email: Faker.Internet.email,
-    username: Faker.Internet.user_name,
+    name: Name.name,
+    email: Internet.email,
+    username: Internet.user_name,
     password: "secret",
     password_confirmation: "secret",
     active: true,
-    })
+  })
   |> Repo.insert!
 
-  r = Enum.random roles
+  if Enum.random([true, false]) == true, do: ControllerHelpers.confirm! user
+
+  r = Enum.random(roles)
   UserRole.changeset(%UserRole{}, %{
     user_id: user.id,
     role_id: r.id
-    })
+  })
   |> Repo.insert!
 end
 
 for _i <- 1..100 do
-  category = Enum.random categories
+  category = Enum.random(categories)
   num_groups = 1..:rand.uniform(4)
   group_list = Enum.reduce(
     num_groups,
@@ -103,11 +67,11 @@ for _i <- 1..100 do
       end)
 
   contact = Contact.changeset(%Contact{}, %{
-    first_name: Faker.Name.first_name,
-    last_name: Faker.Name.last_name,
-    email: Faker.Internet.email,
+    first_name: Name.first_name,
+    last_name: Name.last_name,
+    email: Internet.email,
     category_id: category.id
-    })
+  })
   |> Repo.insert!
 
   # add groups
@@ -115,17 +79,17 @@ for _i <- 1..100 do
     ContactGroup.changeset(%ContactGroup{}, %{
       contact_id: contact.id,
       group_id: group.id
-      })
+    })
     |> Repo.insert!
   end)
 
   # add phone_numbers
   labels = Enum.reduce(1..:rand.uniform(2), MapSet.new, fn(_, acc) ->
-    MapSet.put acc, Enum.random PhoneNumber.labels
+    MapSet.put acc, Enum.random(PhoneNumber.labels)
   end)
   for label <- labels do
     pn = PhoneNumber.changeset(%PhoneNumber{}, %{
-      number: Faker.Phone.cell,
+      number: Phone.cell,
       label: label
     })
     |> Repo.insert!

@@ -1,9 +1,12 @@
 defmodule ContactDemo.ExAdmin.Category do
   use ExAdmin.Register
-  alias ContactDemo.{Category, Repo, AdminView}
+
+  alias ContactDemo.{AdminView, Category, Repo}
   alias Phoenix.{Controller, HTML.Tag, View}
 
   register_resource ContactDemo.Category do
+    menu priority: 1
+
     index do
       selectable_column
 
@@ -12,8 +15,15 @@ defmodule ContactDemo.ExAdmin.Category do
         |> elem(1)
         |> text
       end
+      column :position
+
       actions
     end
+
+    csv [
+      :name,
+      :position
+    ]
 
     form category do
       inputs do

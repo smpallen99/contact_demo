@@ -1,8 +1,11 @@
 defmodule ContactDemo.User do
   use ContactDemo.Web, :model
   use Coherence.Schema
+  use Whatwasit
 
-  alias ContactDemo.AppConstants
+  import Ecto.Query
+
+  alias ContactDemo.{AppConstants, Role, UserRole}
 
   schema "users" do
     field :name, :string, null: false
@@ -16,23 +19,20 @@ defmodule ContactDemo.User do
     # field :password, :string, virtual: true
     # field :password_confirmation, :string, virtual: true
 
-    has_many :users_roles, ContactDemo.UserRole
+    has_many :users_roles, UserRole
     has_many :roles, through: [:users_roles, :role]
     coherence_schema
 
     timestamps
   end
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
+  @required_fields ~w(name email username active)
+  @optional_fields ~w(expire_on)
 
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params \\ %{}, opts \\ []) do
     model
-    |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
-    |> validate_required([:name, :email, :username, :active]) # TODO: Add 'expire_on'
+    |> cast(params, @required_fields, @optional_fields ++ coherence_fields)
+    |> validate_required(Enum.map(@required_fields, &String.to_atom(&1)))
     |> validate_format(:name, AppConstants.name_format)
     |> validate_length(:name, min: 1, max: 255)
     |> validate_format(:username, AppConstants.username_format)
@@ -42,5 +42,19 @@ defmodule ContactDemo.User do
     |> validate_format(:email, AppConstants.email_format)
     |> unique_constraint(:email, name: :users_email_index)
     |> validate_coherence(params)
+    |> prepare_version(opts)
+  end
+
+  def has_role?(model, role_name) do
+    role_name = case is_atom(role_name) do
+      true -> Atom.to_string(role_name)
+      _ -> role_name
+    end
+
+    (from r in Role,
+    join: ur in UserRole, on: ur.role_id == r.id,
+    where: ur.user_id == ^model.id and fragment("LOWER(?)", r.name) == fragment("LOWER(?)", ^role_name),
+    select: count(r.id))
+    |> Repo.one > 0
   end
 end

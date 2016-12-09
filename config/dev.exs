@@ -42,6 +42,6 @@ config :contact_demo, ContactDemo.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "nested_dev",
+  database: "contact_demo_dev",
   hostname: "localhost",
   pool_size: 10

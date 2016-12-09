@@ -6,7 +6,7 @@ defmodule ContactDemo.Repo.Migrations.CreateContact do
       add :first_name, :string, null: false
       add :last_name, :string, null: false
       add :email, :string, null: false
-      add :category_id, references(:categories, on_delete: :nothing)
+      add :category_id, references(:categories, on_delete: :nilify_all)
 
       timestamps
     end

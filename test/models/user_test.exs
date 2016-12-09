@@ -1,7 +1,7 @@
 defmodule ContactDemo.UserTest do
   use ContactDemo.ModelCase
 
-  alias ContactDemo.User
+  alias ContactDemo.{User, UserRole}
 
   describe "validations" do
     test "changeset with valid attributes" do
@@ -28,7 +28,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "name: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{name: Lorem.words(256)}))
       refute changeset.valid?
       assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -64,7 +64,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "email: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{email: Lorem.words(256)}))
       refute changeset.valid?
       assert {:email, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -105,7 +105,7 @@ defmodule ContactDemo.UserTest do
     end
 
     test "username: raises a validation error if the length of the text is > 255 characters" do
-      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: Faker.Lorem.words(256)}))
+      changeset = User.changeset(%User{}, Map.merge(params_with_assocs(:user), %{username: Lorem.words(256)}))
       refute changeset.valid?
       assert {:username, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end
@@ -149,5 +149,52 @@ defmodule ContactDemo.UserTest do
 
     @tag :skip
     test "has many roles through users_roles"
+  end
+
+  describe "has_role?" do
+    test "returns true when role_name is an atom and matches" do
+      role = insert(:role, name: "some")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == true)
+    end
+
+    test "returns true when role_name is a string and matches" do
+      role = insert(:role, name: "some")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, "some") == true)
+    end
+
+    test "when db-role is in a different case than parameter-role name" do
+      role = insert(:role, name: "SOME")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == true)
+    end
+
+    test "when db-role contains but does not match the parameter-role name" do
+      role = insert(:role, name: "AWESOMELY")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == false)
+    end
+
+    test "when db-role has leading/trailing spaces when compared to the parameter-role name" do
+      role = insert(:role, name: "  SOME  ")
+
+      user = insert(:user)
+      %UserRole{user: user, role: role} |> Repo.insert!
+
+      assert(User.has_role?(user, :some) == false)
+    end
   end
 end

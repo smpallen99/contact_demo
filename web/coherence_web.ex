@@ -1,5 +1,4 @@
 defmodule ContactDemo.Coherence.Web do
-
   def view do
     quote do
       use Phoenix.View, root: "web/templates/coherence"
@@ -13,7 +12,6 @@ defmodule ContactDemo.Coherence.Web do
       import ContactDemo.ErrorHelpers
       import ContactDemo.Gettext
       import ContactDemo.Coherence.ViewHelpers
-
     end
   end
 

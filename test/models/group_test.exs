@@ -40,7 +40,7 @@ defmodule ContactDemo.GroupTest do
     end
 
     test "name: raises a validation error if the length of the text is > 255 characters" do
-      changeset = Group.changeset(%Group{}, Map.merge(params_with_assocs(:group), %{name: Faker.Lorem.words(256)}))
+      changeset = Group.changeset(%Group{}, Map.merge(params_with_assocs(:group), %{name: Lorem.words(256)}))
       refute changeset.valid?
       assert {:name, {"should be at most %{count} character(s)", [count: 255]}} in changeset.errors
     end

@@ -43,7 +43,7 @@ defmodule ContactDemo.Coherence.ViewHelpers do
     register_link = Keyword.get opts, :register, @register_link
     confirm_link  = Keyword.get opts, :confirm, @confirm_link
 
-    user_schema = Coherence.Config.user_schema
+    user_schema = Config.user_schema
     [
       recover_link(conn, user_schema, recover_link),
       unlock_link(conn, user_schema, unlock_link),
@@ -65,8 +65,7 @@ defmodule ContactDemo.Coherence.ViewHelpers do
       current_user = Coherence.current_user(conn)
       [
         content_tag(list_tag, profile_link(current_user, conn)),
-        content_tag(list_tag,
-          link(signout, to: coherence_path(@helpers, :session_path, conn, :delete), method: :delete, class: signout_class))
+        content_tag(list_tag, signout_link(conn, signout, signout_class))
       ]
     else
       signin_link = content_tag(list_tag, link(signin, to: coherence_path(@helpers, :session_path, conn, :new)))
@@ -115,6 +114,10 @@ defmodule ContactDemo.Coherence.ViewHelpers do
 
   def invitation_link(conn, text \\ @invite_link) do
     link text, to: coherence_path(@helpers, :invitation_path, conn, :new)
+  end
+
+  def signout_link(conn, text \\ @signout_link, signout_class \\ "") do
+    link(text, to: coherence_path(@helpers, :session_path, conn, :delete), method: :delete, class: signout_class)
   end
 
   def confirmation_link(_conn, _user_schema, false), do: []
