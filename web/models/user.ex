@@ -3,6 +3,8 @@ defmodule ContactDemo.User do
   use Coherence.Schema
 
   alias ContactDemo.AppConstants
+  alias ContactDemo.Repo
+  alias ContactDemo.Role
 
   schema "users" do
     field :name, :string, null: false
@@ -16,8 +18,11 @@ defmodule ContactDemo.User do
     # field :password, :string, virtual: true
     # field :password_confirmation, :string, virtual: true
 
-    has_many :users_roles, ContactDemo.UserRole
-    has_many :roles, through: [:users_roles, :role]
+    #has_many :users_roles, ContactDemo.UserRole
+    #has_many :roles, through: [:users_roles, :role]
+    #
+    many_to_many :roles, ContactDemo.Role, join_through: ContactDemo.UserRole
+
     coherence_schema
 
     timestamps
@@ -32,6 +37,7 @@ defmodule ContactDemo.User do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, ~w(name email username active expire_on) ++ coherence_fields)
+    |> get_roles(params)
     |> validate_required([:name, :email, :username, :active]) # TODO: Add 'expire_on'
     |> validate_format(:name, AppConstants.name_format)
     |> validate_length(:name, min: 1, max: 255)
@@ -42,5 +48,14 @@ defmodule ContactDemo.User do
     |> validate_format(:email, AppConstants.email_format)
     |> unique_constraint(:email, name: :users_email_index)
     |> validate_coherence(params)
+  end
+
+  def get_roles(changeset, params) do
+    if Enum.count(Map.get(params, :roles, [])) > 0 do
+      roles = Repo.all(from r in Role, where: r.id in ^params[:roles])
+      put_assoc(changeset, :roles, roles)
+    else
+      changeset
+    end
   end
 end
