@@ -6,9 +6,10 @@ defmodule ContactDemo.Role do
   schema "roles" do
     field :name, :string, null: false
 
-    has_many :users_roles, ContactDemo.UserRole
-    has_many :users, through: [:users_roles, :user]
+    #has_many :users_roles, ContactDemo.UserRole
+    #has_many :users, through: [:users_roles, :user]
 
+    many_to_many :users, ContactDemo.User, join_through: ContactDemo.UserRole
     timestamps
   end
 

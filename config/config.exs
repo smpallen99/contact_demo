@@ -32,10 +32,12 @@ config :ex_admin,
   repo: ContactDemo.Repo,
   module: ContactDemo,
   skin_color: :purple,
+  logger: true,
   theme_selector: [
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
   ],
+  logo_full: "<h1>Logo</h1>",
   modules: [
     ContactDemo.ExAdmin.Dashboard,
     ContactDemo.ExAdmin.Contact,

@@ -5,6 +5,7 @@ defmodule ContactDemo.PhoneNumber do
   alias ContactDemo.Repo
 
   schema "phone_numbers" do
+    field :_destroy, :boolean, virtual: true
     field :number, :string, null: false
     field :kind, :string    # TODO: Should this be deleted?
     field :label, :string, null: false
@@ -16,7 +17,7 @@ defmodule ContactDemo.PhoneNumber do
   end
 
   @required_fields ~w(number label)
-  @optional_fields ~w(kind)
+  @optional_fields ~w(kind _destroy)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
